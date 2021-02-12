@@ -1,0 +1,24 @@
+{
+  "name": "react-native-help-create",
+  "version": "1.0.0",
+  "description": "This command line helps you create components, screens and even redux implementaion for your react native project.",
+  "main": "index.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/Omar-Belghaouti/react-native-help-create.git"
+  },
+  "keywords": [
+    "react-native",
+    "react-native-help-create",
+    "rnhc"
+  ],
+  "author": "Omar Belghaouti",
+  "license": "MIT",
+  "bugs": {
+    "url": "https://github.com/Omar-Belghaouti/react-native-help-create/issues"
+  },
+  "homepage": "https://github.com/Omar-Belghaouti/react-native-help-create#readme"
+}
