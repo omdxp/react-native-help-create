@@ -208,11 +208,18 @@ yargs
       if (argv.component) {
         fs.unlink(`app/components/${argv.component}.js`, function (err) {
           if (err) {
-            console.log("component does not exists");
+            console.log(`component ${argv.component} does not exist`);
           } else {
             console.log(`app/components/${argv.component}.js deleted`);
           }
         });
+      } else if (argv.screen) {
+        try {
+          fs.rmdirSync(`app/screens/${argv.screen}/`);
+          console.log(`screen ${argv.screen} got deleted`);
+        } catch (err) {
+          console.log(`screen ${argv.screen} does not exist`);
+        }
       } else {
         console.log("Check usage: rnhc delete --help");
       }
