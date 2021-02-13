@@ -94,92 +94,96 @@ yargs
         });
     },
     function (argv) {
-      if (argv.component) {
-        fs.writeFile(
-          `app/components/${argv.component}.js`,
-          componentTemplate(argv.component),
-          function (err) {
-            if (err) {
-              console.log(`Unable to create ${argv.component} component`);
-            } else {
-              console.log(`app/components/${argv.component}.js created`);
+      if (fs.existsSync("index.js")) {
+        if (argv.component) {
+          fs.writeFile(
+            `app/components/${argv.component}.js`,
+            componentTemplate(argv.component),
+            function (err) {
+              if (err) {
+                console.log(`Unable to create ${argv.component} component`);
+              } else {
+                console.log(`app/components/${argv.component}.js created`);
+              }
             }
-          }
-        );
-      } else if (argv.screen) {
-        fs.writeFile(
-          `app/screens/${argv.screen}/ui/${argv.screen}UI.js`,
-          screenUITemplate(argv.screen),
-          function (err) {
-            if (err) {
-              console.log(`Unable to create ${argv.screen} screen UI`);
-            } else {
-              console.log(
-                `app/screens/${argv.screen}/ui/${argv.screen}UI.js created`
-              );
+          );
+        } else if (argv.screen) {
+          fs.writeFile(
+            `app/screens/${argv.screen}/ui/${argv.screen}UI.js`,
+            screenUITemplate(argv.screen),
+            function (err) {
+              if (err) {
+                console.log(`Unable to create ${argv.screen} screen UI`);
+              } else {
+                console.log(
+                  `app/screens/${argv.screen}/ui/${argv.screen}UI.js created`
+                );
+              }
             }
-          }
-        );
-        fs.writeFile(
-          `app/screens/${argv.screen}/functions/index.js`,
-          screenFunctionsTemplate(argv.screen),
-          function (err) {
-            if (err) {
-              console.log(`Unable to create ${argv.screen} screen functions`);
-            } else {
-              console.log(
-                `app/screens/${argv.screen}/functions/index.js created`
-              );
+          );
+          fs.writeFile(
+            `app/screens/${argv.screen}/functions/index.js`,
+            screenFunctionsTemplate(argv.screen),
+            function (err) {
+              if (err) {
+                console.log(`Unable to create ${argv.screen} screen functions`);
+              } else {
+                console.log(
+                  `app/screens/${argv.screen}/functions/index.js created`
+                );
+              }
             }
-          }
-        );
-      } else if (argv.redux) {
-        fs.writeFile(
-          `app/${argv.redux}/actions/index.js`,
-          actionsTemplate(argv.redux),
-          function (err) {
-            if (err) {
-              console.log(`Unable to create ${argv.redux} redux actions`);
-            } else {
-              console.log(`app/${argv.redux}/actions/index.js created`);
+          );
+        } else if (argv.redux) {
+          fs.writeFile(
+            `app/${argv.redux}/actions/index.js`,
+            actionsTemplate(argv.redux),
+            function (err) {
+              if (err) {
+                console.log(`Unable to create ${argv.redux} redux actions`);
+              } else {
+                console.log(`app/${argv.redux}/actions/index.js created`);
+              }
             }
-          }
-        );
-        fs.writeFile(
-          `app/${argv.redux}/constants/index.js`,
-          constantsTemplate(argv.redux),
-          function (err) {
-            if (err) {
-              console.log(`Unable to create ${argv.redux} redux constants`);
-            } else {
-              console.log(`app/${argv.redux}/constants/index.js created`);
+          );
+          fs.writeFile(
+            `app/${argv.redux}/constants/index.js`,
+            constantsTemplate(argv.redux),
+            function (err) {
+              if (err) {
+                console.log(`Unable to create ${argv.redux} redux constants`);
+              } else {
+                console.log(`app/${argv.redux}/constants/index.js created`);
+              }
             }
-          }
-        );
-        fs.writeFile(
-          `app/${argv.redux}/reducers/index.js`,
-          reducersTemplate(argv.redux),
-          function (err) {
-            if (err) {
-              console.log(`Unable to create ${argv.redux} redux reducers`);
-            } else {
-              console.log(`app/${argv.redux}/reducers/index.js created`);
+          );
+          fs.writeFile(
+            `app/${argv.redux}/reducers/index.js`,
+            reducersTemplate(argv.redux),
+            function (err) {
+              if (err) {
+                console.log(`Unable to create ${argv.redux} redux reducers`);
+              } else {
+                console.log(`app/${argv.redux}/reducers/index.js created`);
+              }
             }
-          }
-        );
-        fs.writeFile(
-          `app/${argv.redux}/store/index.js`,
-          storeTemplate(argv.redux),
-          function (err) {
-            if (err) {
-              console.log(`Unable to create ${argv.redux} redux store`);
-            } else {
-              console.log(`app/${argv.redux}/store/index.js created`);
+          );
+          fs.writeFile(
+            `app/${argv.redux}/store/index.js`,
+            storeTemplate(argv.redux),
+            function (err) {
+              if (err) {
+                console.log(`Unable to create ${argv.redux} redux store`);
+              } else {
+                console.log(`app/${argv.redux}/store/index.js created`);
+              }
             }
-          }
-        );
+          );
+        } else {
+          console.log("Check usage: rnhc create --help");
+        }
       } else {
-        console.log("Check usage: rnhc create --help");
+        console.log("You may not be in the root of a react native project");
       }
     }
   )
@@ -205,30 +209,34 @@ yargs
         });
     },
     function (argv) {
-      if (argv.component) {
-        fs.unlink(`app/components/${argv.component}.js`, function (err) {
-          if (err) {
-            console.log(`component ${argv.component} does not exist`);
-          } else {
-            console.log(`app/components/${argv.component}.js deleted`);
+      if (fs.existsSync("index.js")) {
+        if (argv.component) {
+          fs.unlink(`app/components/${argv.component}.js`, function (err) {
+            if (err) {
+              console.log(`component ${argv.component} does not exist`);
+            } else {
+              console.log(`app/components/${argv.component}.js deleted`);
+            }
+          });
+        } else if (argv.screen) {
+          try {
+            fs.rmdirSync(`app/screens/${argv.screen}/`);
+            console.log(`screen ${argv.screen} got deleted`);
+          } catch (err) {
+            console.log(`screen ${argv.screen} does not exist`);
           }
-        });
-      } else if (argv.screen) {
-        try {
-          fs.rmdirSync(`app/screens/${argv.screen}/`);
-          console.log(`screen ${argv.screen} got deleted`);
-        } catch (err) {
-          console.log(`screen ${argv.screen} does not exist`);
-        }
-      } else if (argv.redux) {
-        try {
-          fs.rmdirSync(`app/${argv.redux}/`);
-          console.log(`redux ${argv.redux} got deleted`);
-        } catch (err) {
-          console.log(`redux ${argv.redux} does not exist`);
+        } else if (argv.redux) {
+          try {
+            fs.rmdirSync(`app/${argv.redux}/`);
+            console.log(`redux ${argv.redux} got deleted`);
+          } catch (err) {
+            console.log(`redux ${argv.redux} does not exist`);
+          }
+        } else {
+          console.log("Check usage: rnhc delete --help");
         }
       } else {
-        console.log("Check usage: rnhc delete --help");
+        console.log("You may not be in the root of a react native project");
       }
     }
   )
