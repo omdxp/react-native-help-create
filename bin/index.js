@@ -4,9 +4,11 @@ const yargs = require("yargs");
 const fs = require("file-system");
 
 const componentTemplate = (component) => `
+// import react native
 import React from 'react';
 import {Text, View} from 'react-native';
 
+// export ${component} component
 export default function ${component}() {
   return (
     <View>
@@ -15,6 +17,28 @@ export default function ${component}() {
   );
 }
 
+`;
+
+const screenUITemplate = (screen) => `
+// import react native
+import React from 'react';
+import {Text, View} from 'react-native';
+
+// import ${screen} functions
+import {} from '../functions';
+
+// export ${screen} UI
+export default function ${screen}UI() {
+  return (
+    <View>
+      <Text>${screen} UI created!</Text>
+    </View>
+  );
+}
+`;
+
+const screenFunctionsTemplate = (screen) => `
+// write your ${screen} functions here
 `;
 
 yargs
@@ -53,7 +77,26 @@ yargs
           }
         );
       } else if (argv.screen) {
-        console.log(argv.screen, "not implemented yet 2");
+        fs.writeFile(
+          `app/screens/${argv.screen}/ui/${argv.screen}UI.js`,
+          screenUITemplate(argv.screen),
+          function (err) {
+            if (err) throw err;
+            console.log(
+              `app/screens/${argv.screen}/ui/${argv.screen}UI.js created`
+            );
+          }
+        );
+        fs.writeFile(
+          `app/screens/${argv.screen}/functions/index.js`,
+          screenFunctionsTemplate(argv.screen),
+          function (err) {
+            if (err) throw err;
+            console.log(
+              `app/screens/${argv.screen}/functions/index.js created`
+            );
+          }
+        );
       } else if (argv.redux) {
         console.log(argv.redux, "not implemented yet 3");
       } else {
