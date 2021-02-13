@@ -220,6 +220,13 @@ yargs
         } catch (err) {
           console.log(`screen ${argv.screen} does not exist`);
         }
+      } else if (argv.redux) {
+        try {
+          fs.rmdirSync(`app/${argv.redux}/`);
+          console.log(`redux ${argv.redux} got deleted`);
+        } catch (err) {
+          console.log(`redux ${argv.redux} does not exist`);
+        }
       } else {
         console.log("Check usage: rnhc delete --help");
       }
