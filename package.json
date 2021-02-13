@@ -1,10 +1,10 @@
 {
   "name": "react-native-help-create",
-  "version": "1.0.0",
+  "version": "1.0.1",
   "description": "This command line helps you create components, screens and even redux implementaion for your react native project.",
   "main": "bin/index.js",
   "bin": {
-    "rnhc": "./bin/index.js"
+    "rnhc": "bin/index.js"
   },
   "scripts": {
     "test": "echo \"Error: no test specified\" && exit 1"
