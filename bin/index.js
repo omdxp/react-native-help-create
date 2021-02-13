@@ -41,6 +41,34 @@ const screenFunctionsTemplate = (screen) => `
 // write your ${screen} functions here
 `;
 
+const actionsTemplate = (redux) => `
+// write your ${redux} action creators here
+`;
+
+const constantsTemplate = (redux) => `
+// write your ${redux} action types here
+`;
+
+const reducersTemplate = (redux) => `
+// write your ${redux} reducers here
+`;
+
+const storeTemplate = (redux) => `
+// import redux
+import {createStore, combineReducers} from 'redux';
+
+// import ${redux} reducers
+import {} from '../reducers';
+
+// define app reducers
+const appReducers = combineReducers({
+  // you need to add your reducers here
+});
+
+// export store
+export const store = createStore(appReducers);
+`;
+
 yargs
   .scriptName("rnhc")
   .usage("$0 <cmd> [args]")
@@ -98,7 +126,38 @@ yargs
           }
         );
       } else if (argv.redux) {
-        console.log(argv.redux, "not implemented yet 3");
+        fs.writeFile(
+          `app/${argv.redux}/actions/index.js`,
+          actionsTemplate(argv.redux),
+          function (err) {
+            if (err) throw err;
+            console.log(`app/${argv.redux}/actions/index.js created`);
+          }
+        );
+        fs.writeFile(
+          `app/${argv.redux}/constants/index.js`,
+          constantsTemplate(argv.redux),
+          function (err) {
+            if (err) throw err;
+            console.log(`app/${argv.redux}/constants/index.js created`);
+          }
+        );
+        fs.writeFile(
+          `app/${argv.redux}/reducers/index.js`,
+          reducersTemplate(argv.redux),
+          function (err) {
+            if (err) throw err;
+            console.log(`app/${argv.redux}/reducers/index.js created`);
+          }
+        );
+        fs.writeFile(
+          `app/${argv.redux}/store/index.js`,
+          storeTemplate(argv.redux),
+          function (err) {
+            if (err) throw err;
+            console.log(`app/${argv.redux}/store/index.js created`);
+          }
+        );
       } else {
         console.log("Check usage: rnhc create --help");
       }
