@@ -25,6 +25,7 @@
   },
   "homepage": "https://github.com/Omar-Belghaouti/react-native-help-create#readme",
   "dependencies": {
-    "file-system": "^2.2.2"
+    "file-system": "^2.2.2",
+    "yargs": "^16.2.0"
   }
 }
