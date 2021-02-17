@@ -94,7 +94,7 @@ yargs
         });
     },
     function (argv) {
-      if (fs.existsSync("index.js")) {
+      if (fs.existsSync("index.js") && fs.existsSync("app.json")) {
         if (argv.component) {
           fs.writeFile(
             `app/components/${argv.component}.js`,
@@ -209,7 +209,7 @@ yargs
         });
     },
     function (argv) {
-      if (fs.existsSync("index.js")) {
+      if (fs.existsSync("index.js") && fs.existsSync("app.json")) {
         if (argv.component) {
           fs.unlink(`app/components/${argv.component}.js`, function (err) {
             if (err) {
