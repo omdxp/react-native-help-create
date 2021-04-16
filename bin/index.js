@@ -87,16 +87,47 @@ const screenFunctionsTemplate = (screen) => `
 // write your ${screen} functions here
 `;
 
+const actionsTemplateTS = (redux) => `
+// write your ${redux} action creators here
+export {};
+`;
+
 const actionsTemplate = (redux) => `
 // write your ${redux} action creators here
+`;
+
+const constantsTemplateTS = (redux) => `
+// write your ${redux} action types here
+export {};
 `;
 
 const constantsTemplate = (redux) => `
 // write your ${redux} action types here
 `;
 
+const reducersTemplateTS = (redux) => `
+// write your ${redux} reducers here
+export {};
+`;
+
 const reducersTemplate = (redux) => `
 // write your ${redux} reducers here
+`;
+
+const storeTemplateTS = (redux) => `
+// import redux
+import {createStore, combineReducers} from 'redux';
+
+// import ${redux} reducers
+import {} from '../reducers';
+
+// define app reducers
+const appReducers = combineReducers({
+  // you need to add your reducers here
+});
+
+// export store
+export const store = createStore(appReducers);
 `;
 
 const storeTemplate = (redux) => `
