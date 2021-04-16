@@ -11,13 +11,15 @@ import {Text, View} from 'react-native';
 // define ${component} props interface
 interface ${component}Props {}
 
-// export ${component}: FC<${component}Props> = ({}): JSX.Element => {
+// export ${component} component
+const ${component}: FC<${component}Props> = ({}): JSX.Element => {
   return (
     <View>
       <Text>${component} component created!</Text>
     </View>
-  )
-}
+  );
+};
+export default ${component};
 `;
 
 const componentTemplate = (component) => `
@@ -36,6 +38,28 @@ export default function ${component}() {
 
 `;
 
+const screenUITemplateTS = (screen) => `
+// import react native
+import React, {FC} from 'react';
+import {Text, View} from 'react-native';
+
+// import ${screen} functions
+import {} from '../functions';
+
+// define ${screen}UI props interface
+interface ${screen}UIProps {}
+
+// export ${screen} UI
+const ${screen}UI: FC<${screen}UIProps> = ({}): JSX.Element => {
+  return (
+    <View>
+      <Text>${screen} UI created!</Text>
+    </View>
+  );
+};
+export default ${screen}UI;
+`;
+
 const screenUITemplate = (screen) => `
 // import react native
 import React from 'react';
@@ -52,6 +76,11 @@ export default function ${screen}UI() {
     </View>
   );
 }
+`;
+
+const screenFunctionsTemplateTS = (screen) => `
+// write your ${screen} functions here
+export {};
 `;
 
 const screenFunctionsTemplate = (screen) => `
