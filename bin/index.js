@@ -250,11 +250,6 @@ yargs
         });
     },
     function (argv) {
-      // check for typescript option
-      if (argv.ts) {
-        argv.js = false;
-        argv.javascript = false;
-      }
       if (fs.existsSync("index.js") && fs.existsSync("app.json")) {
         if (argv.component) {
           if (argv.ts) {
@@ -283,32 +278,65 @@ yargs
             );
           }
         } else if (argv.screen) {
-          fs.writeFile(
-            `app/screens/${argv.screen}/ui/${argv.screen}UI.js`,
-            screenUITemplate(argv.screen),
-            function (err) {
-              if (err) {
-                console.log(`Unable to create ${argv.screen} screen UI`);
-              } else {
-                console.log(
-                  `app/screens/${argv.screen}/ui/${argv.screen}UI.js created`
-                );
+          if (argv.ts) {
+            fs.writeFile(
+              `app/screens/${argv.screen}/ui/${argv.screen}UI.tsx`,
+              screenUITemplateTS(argv.screen),
+              function (err) {
+                if (err) {
+                  console.log(`Unable to create ${argv.screen} screen UI`);
+                } else {
+                  console.log(
+                    `app/screens/${argv.screen}/ui/${argv.screen}UI.tsx created`
+                  );
+                }
               }
-            }
-          );
-          fs.writeFile(
-            `app/screens/${argv.screen}/functions/index.js`,
-            screenFunctionsTemplate(argv.screen),
-            function (err) {
-              if (err) {
-                console.log(`Unable to create ${argv.screen} screen functions`);
-              } else {
-                console.log(
-                  `app/screens/${argv.screen}/functions/index.js created`
-                );
+            );
+            fs.writeFile(
+              `app/screens/${argv.screen}/functions/index.ts`,
+              screenFunctionsTemplateTS(argv.screen),
+              function (err) {
+                if (err) {
+                  console.log(
+                    `Unable to create ${argv.screen} screen functions`
+                  );
+                } else {
+                  console.log(
+                    `app/screens/${argv.screen}/functions/index.ts created`
+                  );
+                }
               }
-            }
-          );
+            );
+          } else {
+            fs.writeFile(
+              `app/screens/${argv.screen}/ui/${argv.screen}UI.js`,
+              screenUITemplate(argv.screen),
+              function (err) {
+                if (err) {
+                  console.log(`Unable to create ${argv.screen} screen UI`);
+                } else {
+                  console.log(
+                    `app/screens/${argv.screen}/ui/${argv.screen}UI.js created`
+                  );
+                }
+              }
+            );
+            fs.writeFile(
+              `app/screens/${argv.screen}/functions/index.js`,
+              screenFunctionsTemplate(argv.screen),
+              function (err) {
+                if (err) {
+                  console.log(
+                    `Unable to create ${argv.screen} screen functions`
+                  );
+                } else {
+                  console.log(
+                    `app/screens/${argv.screen}/functions/index.js created`
+                  );
+                }
+              }
+            );
+          }
         } else if (argv.redux) {
           fs.writeFile(
             `app/${argv.redux}/actions/index.js`,
