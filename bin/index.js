@@ -238,22 +238,50 @@ yargs
           alias: "--redux",
           type: "string",
           describe: "to create basic redux implementation structure",
+        })
+        .option("js", {
+          alias: "javascript",
+          default: true,
+          describe: "to implement the code in javascript",
+        })
+        .option("ts", {
+          alias: "typescript",
+          describe: "to implement the code in typescript",
         });
     },
     function (argv) {
+      // check for typescript option
+      if (argv.ts) {
+        argv.js = false;
+        argv.javascript = false;
+      }
       if (fs.existsSync("index.js") && fs.existsSync("app.json")) {
         if (argv.component) {
-          fs.writeFile(
-            `app/components/${argv.component}.js`,
-            componentTemplate(argv.component),
-            function (err) {
-              if (err) {
-                console.log(`Unable to create ${argv.component} component`);
-              } else {
-                console.log(`app/components/${argv.component}.js created`);
+          if (argv.ts) {
+            fs.writeFile(
+              `app/components/${argv.component}.tsx`,
+              componentTemplateTS(argv.component),
+              function (err) {
+                if (err) {
+                  console.log(`Unable to create ${argv.component} component`);
+                } else {
+                  console.log(`app/components/${argv.component}.tsx created`);
+                }
               }
-            }
-          );
+            );
+          } else {
+            fs.writeFile(
+              `app/components/${argv.component}.js`,
+              componentTemplate(argv.component),
+              function (err) {
+                if (err) {
+                  console.log(`Unable to create ${argv.component} component`);
+                } else {
+                  console.log(`app/components/${argv.component}.js created`);
+                }
+              }
+            );
+          }
         } else if (argv.screen) {
           fs.writeFile(
             `app/screens/${argv.screen}/ui/${argv.screen}UI.js`,
