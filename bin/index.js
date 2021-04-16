@@ -3,6 +3,23 @@
 const yargs = require("yargs");
 const fs = require("file-system");
 
+const componentTemplateTS = (component) => `
+// import react native
+import React, {FC} from 'react';
+import {Text, View} from 'react-native';
+
+// define ${component} props interface
+interface ${component}Props {}
+
+// export ${component}: FC<${component}Props> = ({}): JSX.Element => {
+  return (
+    <View>
+      <Text>${component} component created!</Text>
+    </View>
+  )
+}
+`;
+
 const componentTemplate = (component) => `
 // import react native
 import React from 'react';
