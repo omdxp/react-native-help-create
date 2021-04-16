@@ -350,96 +350,108 @@ yargs
             }
           }
         } else if (argv.redux) {
-          if (argv.ts) {
-            fs.writeFile(
-              `app/${argv.redux}/actions/index.ts`,
-              actionsTemplateTS(argv.ts),
-              function (err) {
-                if (err) {
-                  console.log(`Unable to create ${argv.redux} redux actions`);
-                } else {
-                  console.log(`app/${argv.redux}/actions/index.ts created`);
-                }
-              }
-            );
-            fs.writeFile(
-              `app/${argv.redux}/constants/index.ts`,
-              constantsTemplateTS(argv.redux),
-              function (err) {
-                if (err) {
-                  console.log(`Unable to create ${argv.redux} redux constants`);
-                } else {
-                  console.log(`app/${argv.redux}/constants/index.ts created`);
-                }
-              }
-            );
-            fs.writeFile(
-              `app/${argv.redux}/reducers/index.ts`,
-              reducersTemplateTS(argv.redux),
-              function (err) {
-                if (err) {
-                  console.log(`Unable to create ${argv.redux} redux reducers`);
-                } else {
-                  console.log(`app/${argv.redux}/reducers/index.ts created`);
-                }
-              }
-            );
-            fs.writeFile(
-              `app/${argv.redux}/store/index.ts`,
-              storeTemplateTS(argv.redux),
-              function (err) {
-                if (err) {
-                  console.log(`Unable to create ${argv.redux} redux store`);
-                } else {
-                  console.log(`app/${argv.redux}/store/index.ts created`);
-                }
-              }
-            );
+          if (fs.existsSync(`app/${argv.redux}/`)) {
+            console.log(`${argv.redux} redux implementation already exists`);
           } else {
-            fs.writeFile(
-              `app/${argv.redux}/actions/index.js`,
-              actionsTemplate(argv.redux),
-              function (err) {
-                if (err) {
-                  console.log(`Unable to create ${argv.redux} redux actions`);
-                } else {
-                  console.log(`app/${argv.redux}/actions/index.js created`);
+            if (argv.ts) {
+              fs.writeFile(
+                `app/${argv.redux}/actions/index.ts`,
+                actionsTemplateTS(argv.ts),
+                function (err) {
+                  if (err) {
+                    console.log(`Unable to create ${argv.redux} redux actions`);
+                  } else {
+                    console.log(`app/${argv.redux}/actions/index.ts created`);
+                  }
                 }
-              }
-            );
-            fs.writeFile(
-              `app/${argv.redux}/constants/index.js`,
-              constantsTemplate(argv.redux),
-              function (err) {
-                if (err) {
-                  console.log(`Unable to create ${argv.redux} redux constants`);
-                } else {
-                  console.log(`app/${argv.redux}/constants/index.js created`);
+              );
+              fs.writeFile(
+                `app/${argv.redux}/constants/index.ts`,
+                constantsTemplateTS(argv.redux),
+                function (err) {
+                  if (err) {
+                    console.log(
+                      `Unable to create ${argv.redux} redux constants`
+                    );
+                  } else {
+                    console.log(`app/${argv.redux}/constants/index.ts created`);
+                  }
                 }
-              }
-            );
-            fs.writeFile(
-              `app/${argv.redux}/reducers/index.js`,
-              reducersTemplate(argv.redux),
-              function (err) {
-                if (err) {
-                  console.log(`Unable to create ${argv.redux} redux reducers`);
-                } else {
-                  console.log(`app/${argv.redux}/reducers/index.js created`);
+              );
+              fs.writeFile(
+                `app/${argv.redux}/reducers/index.ts`,
+                reducersTemplateTS(argv.redux),
+                function (err) {
+                  if (err) {
+                    console.log(
+                      `Unable to create ${argv.redux} redux reducers`
+                    );
+                  } else {
+                    console.log(`app/${argv.redux}/reducers/index.ts created`);
+                  }
                 }
-              }
-            );
-            fs.writeFile(
-              `app/${argv.redux}/store/index.js`,
-              storeTemplate(argv.redux),
-              function (err) {
-                if (err) {
-                  console.log(`Unable to create ${argv.redux} redux store`);
-                } else {
-                  console.log(`app/${argv.redux}/store/index.js created`);
+              );
+              fs.writeFile(
+                `app/${argv.redux}/store/index.ts`,
+                storeTemplateTS(argv.redux),
+                function (err) {
+                  if (err) {
+                    console.log(`Unable to create ${argv.redux} redux store`);
+                  } else {
+                    console.log(`app/${argv.redux}/store/index.ts created`);
+                  }
                 }
-              }
-            );
+              );
+            } else {
+              fs.writeFile(
+                `app/${argv.redux}/actions/index.js`,
+                actionsTemplate(argv.redux),
+                function (err) {
+                  if (err) {
+                    console.log(`Unable to create ${argv.redux} redux actions`);
+                  } else {
+                    console.log(`app/${argv.redux}/actions/index.js created`);
+                  }
+                }
+              );
+              fs.writeFile(
+                `app/${argv.redux}/constants/index.js`,
+                constantsTemplate(argv.redux),
+                function (err) {
+                  if (err) {
+                    console.log(
+                      `Unable to create ${argv.redux} redux constants`
+                    );
+                  } else {
+                    console.log(`app/${argv.redux}/constants/index.js created`);
+                  }
+                }
+              );
+              fs.writeFile(
+                `app/${argv.redux}/reducers/index.js`,
+                reducersTemplate(argv.redux),
+                function (err) {
+                  if (err) {
+                    console.log(
+                      `Unable to create ${argv.redux} redux reducers`
+                    );
+                  } else {
+                    console.log(`app/${argv.redux}/reducers/index.js created`);
+                  }
+                }
+              );
+              fs.writeFile(
+                `app/${argv.redux}/store/index.js`,
+                storeTemplate(argv.redux),
+                function (err) {
+                  if (err) {
+                    console.log(`Unable to create ${argv.redux} redux store`);
+                  } else {
+                    console.log(`app/${argv.redux}/store/index.js created`);
+                  }
+                }
+              );
+            }
           }
         } else {
           console.log("Check usage: rnhc create --help");
