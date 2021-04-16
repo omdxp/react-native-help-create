@@ -461,13 +461,25 @@ yargs
     function (argv) {
       if (fs.existsSync("index.js") && fs.existsSync("app.json")) {
         if (argv.component) {
-          fs.unlink(`app/components/${argv.component}.js`, function (err) {
-            if (err) {
-              console.log(`component ${argv.component} does not exist`);
-            } else {
-              console.log(`app/components/${argv.component}.js deleted`);
-            }
-          });
+          if (fs.existsSync(`app/components/${argv.component}.tsx`)) {
+            fs.unlink(`app/components/${argv.component}.tsx`, function (err) {
+              if (err) {
+                console.log(`Unable to delete ${argv.component} component`);
+              } else {
+                console.log(`app/components/${argv.component}.tsx deleted`);
+              }
+            });
+          } else if (fs.existsSync(`app/components/${argv.component}.js`)) {
+            fs.unlink(`app/components/${argv.component}.js`, function (err) {
+              if (err) {
+                console.log(`Unable to delete ${argv.component} component`);
+              } else {
+                console.log(`app/components/${argv.component}.js deleted`);
+              }
+            });
+          } else {
+            console.log(`component ${argv.component} does not exist`);
+          }
         } else if (argv.screen) {
           try {
             fs.rmdirSync(`app/screens/${argv.screen}/`);
