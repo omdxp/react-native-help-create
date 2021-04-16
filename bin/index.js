@@ -3,6 +3,11 @@
 const yargs = require("yargs");
 const fs = require("file-system");
 
+/**
+ * componentTemplateTS
+ * @param {string} component component to be created in typescript.
+ * @returns typescript implementation for the component.
+ */
 const componentTemplateTS = (component) => `
 // import react native
 import React, {FC} from 'react';
@@ -22,6 +27,11 @@ const ${component}: FC<${component}Props> = ({}): JSX.Element => {
 export default ${component};
 `;
 
+/**
+ * componentTemplate
+ * @param {string} component component to be created in javascript.
+ * @returns javascript implementation for the component.
+ */
 const componentTemplate = (component) => `
 // import react native
 import React from 'react';
@@ -38,6 +48,11 @@ export default function ${component}() {
 
 `;
 
+/**
+ * screenUITemplateTS
+ * @param {string} screen screen to be created in typescript.
+ * @returns typescript implementation for the screen ui.
+ */
 const screenUITemplateTS = (screen) => `
 // import react native
 import React, {FC} from 'react';
@@ -60,6 +75,11 @@ const ${screen}UI: FC<${screen}UIProps> = ({}): JSX.Element => {
 export default ${screen}UI;
 `;
 
+/**
+ * screenUITemplate
+ * @param {string} screen screen to be created in javascript.
+ * @returns javascript implementation for the screen ui.
+ */
 const screenUITemplate = (screen) => `
 // import react native
 import React from 'react';
@@ -78,42 +98,87 @@ export default function ${screen}UI() {
 }
 `;
 
+/**
+ * screenFunctionsTemplateTS
+ * @param {string} screen screen to be created in typescript.
+ * @returns typescript implementation for the screen functions.
+ */
 const screenFunctionsTemplateTS = (screen) => `
 // write your ${screen} functions here
 export {};
 `;
 
+/**
+ * screenFunctionsTemplate
+ * @param {string} screen screen to be created javascript.
+ * @returns javascript implementation for the screen functions.
+ */
 const screenFunctionsTemplate = (screen) => `
 // write your ${screen} functions here
 `;
 
+/**
+ * actionsTemplateTS
+ * @param {string} redux redux to be created in typescript.
+ * @returns typescript implementation for redux actions.
+ */
 const actionsTemplateTS = (redux) => `
 // write your ${redux} action creators here
 export {};
 `;
 
+/**
+ * actionsTemplate
+ * @param {string} redux redux to be created in javascript
+ * @returns javascript implementation for redux actions.
+ */
 const actionsTemplate = (redux) => `
 // write your ${redux} action creators here
 `;
 
+/**
+ * constantsTemplateTS
+ * @param {string} redux redux to be created in typescript.
+ * @returns typescript implementation for redux constants.
+ */
 const constantsTemplateTS = (redux) => `
 // write your ${redux} action types here
 export {};
 `;
 
+/**
+ * constantsTemplate
+ * @param {string} redux redux to be created in javascript.
+ * @returns javascript implementation for redux constants.
+ */
 const constantsTemplate = (redux) => `
 // write your ${redux} action types here
 `;
 
+/**
+ * reducersTemplateTS
+ * @param {string} redux redux to be created in typescript.
+ * @returns tpyescript implementation for redux reducers.
+ */
 const reducersTemplateTS = (redux) => `
 // write your ${redux} reducers here
 export {};
 `;
 
+/**
+ * reducersTemplate
+ * @param {string} redux redux to be created in javascript.
+ * @returns javascript implementation for redux reducers.
+ */
 const reducersTemplate = (redux) => `
 // write your ${redux} reducers here
 `;
 
+/**
+ * storeTemplateTS
+ * @param {string} redux redux to be created in typescript.
+ * @returns typescript implementation for redux store.
+ */
 const storeTemplateTS = (redux) => `
 // import redux
 import {createStore, combineReducers} from 'redux';
@@ -130,6 +195,11 @@ const appReducers = combineReducers({
 export const store = createStore(appReducers);
 `;
 
+/**
+ * storeTemplate
+ * @param {string} redux redux to be created in javascript.
+ * @returns javascript implementation for redux store.
+ */
 const storeTemplate = (redux) => `
 // import redux
 import {createStore, combineReducers} from 'redux';
