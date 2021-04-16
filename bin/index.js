@@ -253,29 +253,37 @@ yargs
       if (fs.existsSync("index.js") && fs.existsSync("app.json")) {
         if (argv.component) {
           if (argv.ts) {
-            fs.writeFile(
-              `app/components/${argv.component}.tsx`,
-              componentTemplateTS(argv.component),
-              function (err) {
-                if (err) {
-                  console.log(`Unable to create ${argv.component} component`);
-                } else {
-                  console.log(`app/components/${argv.component}.tsx created`);
+            if (fs.existsSync(`app/components/${argv.component}.tsx`)) {
+              console.log(`component ${argv.component} already exists`);
+            } else {
+              fs.writeFile(
+                `app/components/${argv.component}.tsx`,
+                componentTemplateTS(argv.component),
+                function (err) {
+                  if (err) {
+                    console.log(`Unable to create ${argv.component} component`);
+                  } else {
+                    console.log(`app/components/${argv.component}.tsx created`);
+                  }
                 }
-              }
-            );
+              );
+            }
           } else {
-            fs.writeFile(
-              `app/components/${argv.component}.js`,
-              componentTemplate(argv.component),
-              function (err) {
-                if (err) {
-                  console.log(`Unable to create ${argv.component} component`);
-                } else {
-                  console.log(`app/components/${argv.component}.js created`);
+            if (fs.existsSync(`app/components/${argv.component}.js`)) {
+              console.log(`component ${argv.component} already exists`);
+            } else {
+              fs.writeFile(
+                `app/components/${argv.component}.js`,
+                componentTemplate(argv.component),
+                function (err) {
+                  if (err) {
+                    console.log(`Unable to create ${argv.component} component`);
+                  } else {
+                    console.log(`app/components/${argv.component}.js created`);
+                  }
                 }
-              }
-            );
+              );
+            }
           }
         } else if (argv.screen) {
           if (argv.ts) {
