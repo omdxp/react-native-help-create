@@ -286,64 +286,68 @@ yargs
             }
           }
         } else if (argv.screen) {
-          if (argv.ts) {
-            fs.writeFile(
-              `app/screens/${argv.screen}/ui/${argv.screen}UI.tsx`,
-              screenUITemplateTS(argv.screen),
-              function (err) {
-                if (err) {
-                  console.log(`Unable to create ${argv.screen} screen UI`);
-                } else {
-                  console.log(
-                    `app/screens/${argv.screen}/ui/${argv.screen}UI.tsx created`
-                  );
-                }
-              }
-            );
-            fs.writeFile(
-              `app/screens/${argv.screen}/functions/index.ts`,
-              screenFunctionsTemplateTS(argv.screen),
-              function (err) {
-                if (err) {
-                  console.log(
-                    `Unable to create ${argv.screen} screen functions`
-                  );
-                } else {
-                  console.log(
-                    `app/screens/${argv.screen}/functions/index.ts created`
-                  );
-                }
-              }
-            );
+          if (fs.existsSync(`app/screens/${argv.screen}/`)) {
+            console.log(`screen ${argv.screen} already exists`);
           } else {
-            fs.writeFile(
-              `app/screens/${argv.screen}/ui/${argv.screen}UI.js`,
-              screenUITemplate(argv.screen),
-              function (err) {
-                if (err) {
-                  console.log(`Unable to create ${argv.screen} screen UI`);
-                } else {
-                  console.log(
-                    `app/screens/${argv.screen}/ui/${argv.screen}UI.js created`
-                  );
+            if (argv.ts) {
+              fs.writeFile(
+                `app/screens/${argv.screen}/ui/${argv.screen}UI.tsx`,
+                screenUITemplateTS(argv.screen),
+                function (err) {
+                  if (err) {
+                    console.log(`Unable to create ${argv.screen} screen UI`);
+                  } else {
+                    console.log(
+                      `app/screens/${argv.screen}/ui/${argv.screen}UI.tsx created`
+                    );
+                  }
                 }
-              }
-            );
-            fs.writeFile(
-              `app/screens/${argv.screen}/functions/index.js`,
-              screenFunctionsTemplate(argv.screen),
-              function (err) {
-                if (err) {
-                  console.log(
-                    `Unable to create ${argv.screen} screen functions`
-                  );
-                } else {
-                  console.log(
-                    `app/screens/${argv.screen}/functions/index.js created`
-                  );
+              );
+              fs.writeFile(
+                `app/screens/${argv.screen}/functions/index.ts`,
+                screenFunctionsTemplateTS(argv.screen),
+                function (err) {
+                  if (err) {
+                    console.log(
+                      `Unable to create ${argv.screen} screen functions`
+                    );
+                  } else {
+                    console.log(
+                      `app/screens/${argv.screen}/functions/index.ts created`
+                    );
+                  }
                 }
-              }
-            );
+              );
+            } else {
+              fs.writeFile(
+                `app/screens/${argv.screen}/ui/${argv.screen}UI.js`,
+                screenUITemplate(argv.screen),
+                function (err) {
+                  if (err) {
+                    console.log(`Unable to create ${argv.screen} screen UI`);
+                  } else {
+                    console.log(
+                      `app/screens/${argv.screen}/ui/${argv.screen}UI.js created`
+                    );
+                  }
+                }
+              );
+              fs.writeFile(
+                `app/screens/${argv.screen}/functions/index.js`,
+                screenFunctionsTemplate(argv.screen),
+                function (err) {
+                  if (err) {
+                    console.log(
+                      `Unable to create ${argv.screen} screen functions`
+                    );
+                  } else {
+                    console.log(
+                      `app/screens/${argv.screen}/functions/index.js created`
+                    );
+                  }
+                }
+              );
+            }
           }
         } else if (argv.redux) {
           if (argv.ts) {
