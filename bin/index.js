@@ -589,7 +589,46 @@ yargs
               }
             );
           });
+        } else if (argv.screens) {
+          if (argv.screens.length === 1) {
+            console.log("please provide at least 2 screens");
+            return;
+          }
+          let folders = [];
+          argv.screens.forEach((screen) => {
+            fs.fs
+              .readdirSync(`app/screens/`)
+              .filter((folder) => folder === screen)
+              .forEach((folder) => {
+                folders.push(folder);
+              });
+          });
+          if (folders.length < argv.screens.length) {
+            console.log("check if these screens do exists");
+            return;
+          }
+          fs.fs.mkdirSync(`app/screens/${argv.folder}`);
+          folders.forEach((folder) => {
+            fs.fs.renameSync(
+              `app/screens/${folder}/`,
+              `app/screens/${argv.folder}/${folder}/`,
+              function (err) {
+                if (err) {
+                  console.log(`cannot move ${folder} screen`);
+                } else {
+                  console.log(
+                    `${folder} screen moved to app/screens/${argv.folder}`
+                  );
+                }
+              }
+            );
+            console.log(`${folder} screen moved to app/screens/${argv.folder}`);
+          });
+        } else {
+          console.log("Check usage: rnhc combine --help");
         }
+      } else {
+        console.log("You may not be in the root of a react native project");
       }
     }
   )
