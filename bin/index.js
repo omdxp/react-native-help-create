@@ -479,7 +479,7 @@ yargs
         .positional("-r", {
           alias: "--redux",
           type: "string",
-          describe: "to delete basic redux implementation structure)",
+          describe: "to delete basic redux implementation structure",
         });
     },
     function (argv) {
@@ -523,6 +523,73 @@ yargs
         }
       } else {
         console.log("You may not be in the root of a react native project");
+      }
+    }
+  )
+  .command(
+    "combine [name]",
+    "this command helps you combine your components or screens in a single folder",
+    (yargs) => {
+      yargs
+        .positional("-c", {
+          alias: "--components",
+          type: "string",
+          array: true,
+          describe: "list of components to be combines in a folder",
+        })
+        .array("-c")
+        .positional("-s", {
+          alias: "--screens",
+          type: "string",
+          array: true,
+
+          describe: "list of screens to be combines in a folder",
+        })
+        .array("-s")
+        .option("f", {
+          alias: "folder",
+          type: "string",
+          describe: "name of folder that combines your components or screens",
+          demandOption: "this option is mandatort" | true,
+        });
+    },
+    function (argv) {
+      if (fs.existsSync("index.js") && fs.existsSync("app.json")) {
+        if (argv.components) {
+          if (argv.components.length === 1) {
+            console.log("please provide at least 2 components");
+            return;
+          }
+          let files = [];
+          argv.components.forEach((component) => {
+            fs.fs
+              .readdirSync(`app/components/`)
+              .filter((file) => file.startsWith(component))
+              .forEach((file) => {
+                files.push(file);
+              });
+          });
+          if (files.length < argv.components.length) {
+            console.log("check if these components do exists");
+            return;
+          }
+          fs.fs.mkdirSync(`app/components/${argv.folder}`);
+          files.forEach((file) => {
+            fs.fs.rename(
+              `app/components/${file}`,
+              `app/components/${argv.folder}/${file}`,
+              function (err) {
+                if (err) {
+                  console.log(`cannot move ${file} component`);
+                } else {
+                  console.log(
+                    `${file} component moved to app/components/${argv.folder}/`
+                  );
+                }
+              }
+            );
+          });
+        }
       }
     }
   )
