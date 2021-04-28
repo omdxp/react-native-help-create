@@ -260,23 +260,21 @@ yargs
     function (argv) {
       if (fs.existsSync("index.js") && fs.existsSync("app.json")) {
         if (argv.component) {
-          if (argv.ts) {
-            if (argv.component.length === 1) {
+          argv.component.forEach((component) => {
+            if (argv.ts) {
               const path =
                 argv.folder === ""
-                  ? `app/components/${argv.component}.tsx`
-                  : `app/components/${argv.folder}/${argv.component}.tsx`;
+                  ? `app/components/${component}.tsx`
+                  : `app/components/${argv.folder}/${component}.tsx`;
               if (fs.existsSync(path)) {
-                console.log(`component ${argv.component} already exists`);
+                console.log(`component ${component} already exists`);
               } else {
                 fs.writeFile(
                   path,
-                  componentTemplateTS(argv.component),
+                  componentTemplateTS(component),
                   function (err) {
                     if (err) {
-                      console.log(
-                        `Unable to create ${argv.component} component`
-                      );
+                      console.log(`Unable to create ${component} component`);
                     } else {
                       console.log(`${path} created`);
                     }
@@ -284,75 +282,27 @@ yargs
                 );
               }
             } else {
-              argv.component.forEach((component) => {
-                const path =
-                  argv.folder === ""
-                    ? `app/components/${component}.tsx`
-                    : `app/components/${argv.folder}/${component}.tsx`;
-                if (fs.existsSync(path)) {
-                  console.log(`component ${component} already exists`);
-                } else {
-                  fs.writeFile(
-                    path,
-                    componentTemplateTS(component),
-                    function (err) {
-                      if (err) {
-                        console.log(`Unable to create ${component} component`);
-                      } else {
-                        console.log(`${path} created`);
-                      }
-                    }
-                  );
-                }
-              });
-            }
-          } else {
-            if (argv.component.length === 1) {
               const path =
                 argv.folder === ""
-                  ? `app/components/${argv.component}.js`
-                  : `app/components/${argv.folder}/${argv.component}.js`;
+                  ? `app/components/${component}.js`
+                  : `app/components/${argv.folder}/${component}.js`;
               if (fs.existsSync(path)) {
-                console.log(`component ${argv.component} already exists`);
+                console.log(`component ${component} already exists`);
               } else {
                 fs.writeFile(
                   path,
-                  componentTemplate(argv.component),
+                  componentTemplate(component),
                   function (err) {
                     if (err) {
-                      console.log(
-                        `Unable to create ${argv.component} component`
-                      );
+                      console.log(`Unable to create ${component} component`);
                     } else {
                       console.log(`${path} created`);
                     }
                   }
                 );
               }
-            } else {
-              argv.component.forEach((component) => {
-                const path =
-                  argv.folder === ""
-                    ? `app/components/${component}.js`
-                    : `app/components/${argv.folder}/${component}.js`;
-                if (fs.existsSync(path)) {
-                  console.log(`component ${component} already exists`);
-                } else {
-                  fs.writeFile(
-                    path,
-                    componentTemplate(component),
-                    function (err) {
-                      if (err) {
-                        console.log(`Unable to create ${component} component`);
-                      } else {
-                        console.log(`${path} created`);
-                      }
-                    }
-                  );
-                }
-              });
             }
-          }
+          });
         } else if (argv.screen) {
           argv.screen.forEach((screen) => {
             const path =
