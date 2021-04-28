@@ -227,13 +227,15 @@ yargs
         .positional("-c", {
           alias: "--component",
           type: "string",
-          describe: "to create a react-native component",
+          describe: "to create a react-native components",
         })
+        .array("-c")
         .positional("-s", {
           alias: "--screen",
           type: "string",
-          describe: "to create a react-native screen",
+          describe: "to create a react-native screens",
         })
+        .array("-s")
         .positional("-r", {
           alias: "--redux",
           type: "string",
@@ -247,26 +249,63 @@ yargs
         .option("ts", {
           alias: "typescript",
           describe: "to implement the code in typescript",
+        })
+        .option("f", {
+          alias: "folder",
+          type: "string",
+          default: "",
+          describe: "name of folder that combines your components or screens",
         });
     },
     function (argv) {
       if (fs.existsSync("index.js") && fs.existsSync("app.json")) {
         if (argv.component) {
           if (argv.ts) {
-            if (fs.existsSync(`app/components/${argv.component}.tsx`)) {
-              console.log(`component ${argv.component} already exists`);
-            } else {
-              fs.writeFile(
-                `app/components/${argv.component}.tsx`,
-                componentTemplateTS(argv.component),
-                function (err) {
-                  if (err) {
-                    console.log(`Unable to create ${argv.component} component`);
-                  } else {
-                    console.log(`app/components/${argv.component}.tsx created`);
+            if (argv.component.length === 1) {
+              const path =
+                argv.folder === ""
+                  ? `app/components/${argv.component}.tsx`
+                  : `app/components/${argv.folder}/${argv.component}.tsx`;
+              if (fs.existsSync(path)) {
+                console.log(`component ${argv.component} already exists`);
+              } else {
+                fs.writeFile(
+                  path,
+                  componentTemplateTS(argv.component),
+                  function (err) {
+                    if (err) {
+                      console.log(
+                        `Unable to create ${argv.component} component`
+                      );
+                    } else {
+                      console.log(`${path} created`);
+                    }
                   }
+                );
+              }
+            } else {
+              argv.component.forEach((component) => {
+                const path =
+                  argv.folder === ""
+                    ? `app/components/${component}.tsx`
+                    : `app/components/${argv.folder}/${component}.tsx`;
+                console.log(path);
+                if (fs.existsSync(path)) {
+                  console.log(`component ${component} already exists`);
+                } else {
+                  fs.writeFile(
+                    path,
+                    componentTemplateTS(component),
+                    function (err) {
+                      if (err) {
+                        console.log(`Unable to create ${component} component`);
+                      } else {
+                        console.log(`${path} created`);
+                      }
+                    }
+                  );
                 }
-              );
+              });
             }
           } else {
             if (fs.existsSync(`app/components/${argv.component}.js`)) {
@@ -550,7 +589,7 @@ yargs
           alias: "folder",
           type: "string",
           describe: "name of folder that combines your components or screens",
-          demandOption: "this option is mandatort" | true,
+          demandOption: "this option is mandatory" | true,
         });
     },
     function (argv) {
