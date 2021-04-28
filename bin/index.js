@@ -498,26 +498,36 @@ yargs
           alias: "--redux",
           type: "string",
           describe: "to delete basic redux implementation structure",
+        })
+        .option("f", {
+          alias: "folder",
+          type: "string",
+          default: "",
+          describe: "name of folder that combines your components or screens",
         });
     },
     function (argv) {
       if (fs.existsSync("index.js") && fs.existsSync("app.json")) {
         if (argv.component) {
           argv.component.forEach((component) => {
-            if (fs.existsSync(`app/components/${component}.tsx`)) {
-              fs.unlink(`app/components/${component}.tsx`, function (err) {
+            const path =
+              argv.folder === ""
+                ? `app/components/`
+                : `app/components/${argv.folder}/`;
+            if (fs.existsSync(`${path}${component}.tsx`)) {
+              fs.unlink(`${path}${component}.tsx`, function (err) {
                 if (err) {
                   console.log(`Unable to delete ${component} component`);
                 } else {
-                  console.log(`app/components/${component}.tsx deleted`);
+                  console.log(`${path}${component}.tsx deleted`);
                 }
               });
-            } else if (fs.existsSync(`app/components/${component}.js`)) {
-              fs.unlink(`app/components/${component}.js`, function (err) {
+            } else if (fs.existsSync(`${path}${component}.js`)) {
+              fs.unlink(`${path}${component}.js`, function (err) {
                 if (err) {
                   console.log(`Unable to delete ${component} component`);
                 } else {
-                  console.log(`app/components/${component}.js deleted`);
+                  console.log(`${path}${component}.js deleted`);
                 }
               });
             } else {
