@@ -354,69 +354,67 @@ yargs
             }
           }
         } else if (argv.screen) {
-          if (fs.existsSync(`app/screens/${argv.screen}/`)) {
-            console.log(`screen ${argv.screen} already exists`);
-          } else {
-            if (argv.ts) {
-              fs.writeFile(
-                `app/screens/${argv.screen}/ui/${argv.screen}UI.tsx`,
-                screenUITemplateTS(argv.screen),
-                function (err) {
-                  if (err) {
-                    console.log(`Unable to create ${argv.screen} screen UI`);
-                  } else {
-                    console.log(
-                      `app/screens/${argv.screen}/ui/${argv.screen}UI.tsx created`
-                    );
-                  }
-                }
-              );
-              fs.writeFile(
-                `app/screens/${argv.screen}/functions/index.ts`,
-                screenFunctionsTemplateTS(argv.screen),
-                function (err) {
-                  if (err) {
-                    console.log(
-                      `Unable to create ${argv.screen} screen functions`
-                    );
-                  } else {
-                    console.log(
-                      `app/screens/${argv.screen}/functions/index.ts created`
-                    );
-                  }
-                }
-              );
+          argv.screen.forEach((screen) => {
+            const path =
+              argv.folder === ""
+                ? `app/screens/${screen}/`
+                : `app/screens/${argv.folder}/${screen}/`;
+            if (fs.existsSync(path)) {
+              console.log(`screen ${screen} already exists`);
             } else {
-              fs.writeFile(
-                `app/screens/${argv.screen}/ui/${argv.screen}UI.js`,
-                screenUITemplate(argv.screen),
-                function (err) {
-                  if (err) {
-                    console.log(`Unable to create ${argv.screen} screen UI`);
-                  } else {
-                    console.log(
-                      `app/screens/${argv.screen}/ui/${argv.screen}UI.js created`
-                    );
+              if (argv.ts) {
+                fs.writeFile(
+                  `${path}ui/${screen}UI.tsx`,
+                  screenUITemplateTS(screen),
+                  function (err) {
+                    if (err) {
+                      console.log(`Unable to create ${screen} screen UI`);
+                    } else {
+                      console.log(`${path}ui/${screen}UI.tsx created`);
+                    }
                   }
-                }
-              );
-              fs.writeFile(
-                `app/screens/${argv.screen}/functions/index.js`,
-                screenFunctionsTemplate(argv.screen),
-                function (err) {
-                  if (err) {
-                    console.log(
-                      `Unable to create ${argv.screen} screen functions`
-                    );
-                  } else {
-                    console.log(
-                      `app/screens/${argv.screen}/functions/index.js created`
-                    );
+                );
+                fs.writeFile(
+                  `${path}functions/index.ts`,
+                  screenFunctionsTemplateTS(screen),
+                  function (err) {
+                    if (err) {
+                      console.log(
+                        `Unable to create ${screen} screen functions`
+                      );
+                    } else {
+                      console.log(`${path}functions/index.ts created`);
+                    }
                   }
-                }
-              );
+                );
+              } else {
+                fs.writeFile(
+                  `${path}ui/${screen}UI.js`,
+                  screenUITemplate(screen),
+                  function (err) {
+                    if (err) {
+                      console.log(`Unable to create ${screen} screen UI`);
+                    } else {
+                      console.log(`${path}ui/${screen}UI.js created`);
+                    }
+                  }
+                );
+                fs.writeFile(
+                  `${path}functions/index.js`,
+                  screenFunctionsTemplate(screen),
+                  function (err) {
+                    if (err) {
+                      console.log(
+                        `Unable to create ${screen} screen functions`
+                      );
+                    } else {
+                      console.log(`${path}functions/index.js created`);
+                    }
+                  }
+                );
+              }
             }
-          }
+          });
         } else if (argv.redux) {
           if (fs.existsSync(`app/${argv.redux}/`)) {
             console.log(`${argv.redux} redux implementation already exists`);
