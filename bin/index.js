@@ -525,12 +525,14 @@ yargs
             }
           });
         } else if (argv.screen) {
-          try {
-            fs.rmdirSync(`app/screens/${argv.screen}/`);
-            console.log(`screen ${argv.screen} got deleted`);
-          } catch (err) {
-            console.log(`screen ${argv.screen} does not exist`);
-          }
+          argv.screen.forEach((screen) => {
+            try {
+              fs.rmdirSync(`app/screens/${screen}/`);
+              console.log(`screen ${screen} got deleted`);
+            } catch (err) {
+              console.log(`screen ${screen} does not exist`);
+            }
+          });
         } else if (argv.redux) {
           try {
             fs.rmdirSync(`app/${argv.redux}/`);
