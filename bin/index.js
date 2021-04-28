@@ -289,7 +289,6 @@ yargs
                   argv.folder === ""
                     ? `app/components/${component}.tsx`
                     : `app/components/${argv.folder}/${component}.tsx`;
-                console.log(path);
                 if (fs.existsSync(path)) {
                   console.log(`component ${component} already exists`);
                 } else {
@@ -308,20 +307,50 @@ yargs
               });
             }
           } else {
-            if (fs.existsSync(`app/components/${argv.component}.js`)) {
-              console.log(`component ${argv.component} already exists`);
-            } else {
-              fs.writeFile(
-                `app/components/${argv.component}.js`,
-                componentTemplate(argv.component),
-                function (err) {
-                  if (err) {
-                    console.log(`Unable to create ${argv.component} component`);
-                  } else {
-                    console.log(`app/components/${argv.component}.js created`);
+            if (argv.component.length === 1) {
+              const path =
+                argv.folder === ""
+                  ? `app/components/${argv.component}.js`
+                  : `app/components/${argv.folder}/${argv.component}.js`;
+              if (fs.existsSync(path)) {
+                console.log(`component ${argv.component} already exists`);
+              } else {
+                fs.writeFile(
+                  path,
+                  componentTemplate(argv.component),
+                  function (err) {
+                    if (err) {
+                      console.log(
+                        `Unable to create ${argv.component} component`
+                      );
+                    } else {
+                      console.log(`${path} created`);
+                    }
                   }
+                );
+              }
+            } else {
+              argv.component.forEach((component) => {
+                const path =
+                  argv.folder === ""
+                    ? `app/components/${component}.js`
+                    : `app/components/${argv.folder}/${component}.js`;
+                if (fs.existsSync(path)) {
+                  console.log(`component ${component} already exists`);
+                } else {
+                  fs.writeFile(
+                    path,
+                    componentTemplate(component),
+                    function (err) {
+                      if (err) {
+                        console.log(`Unable to create ${component} component`);
+                      } else {
+                        console.log(`${path} created`);
+                      }
+                    }
+                  );
                 }
-              );
+              });
             }
           }
         } else if (argv.screen) {
