@@ -515,7 +515,7 @@ yargs
               fs.rmdirSync(path);
               console.log(`${path} got deleted`);
             } catch (err) {
-              console.log(`folder ${argv.folder} does not exist`);
+              console.log(`${path} does not exist`);
             }
             return;
           }
@@ -545,6 +545,15 @@ yargs
             }
           });
         } else if (argv.screen) {
+          if (argv.screen.length === 0 && argv.folder !== "") {
+            const path = `app/screens/${argv.folder}/`;
+            try {
+              fs.rmdirSync(path);
+              console.log(`${path} got deleted`);
+            } catch (err) {
+              console.log(`${path} does not exist`);
+            }
+          }
           argv.screen.forEach((screen) => {
             try {
               fs.rmdirSync(`app/screens/${screen}/`);
