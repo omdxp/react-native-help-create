@@ -1,11 +1,11 @@
-# Tutorial
+# Documentation
 
 ## Table of Contents
 
 1. [Summary](#summary)
-2. [`rnhc create`](#`rnhc-create`)
-3. [`rnhc delete`](#`rnhc-delete`)
-4. [`rnhc combine`](#`rnhc-combine`)
+2. [`rnhc create`](#rnhc-create)
+3. [`rnhc delete`](#rnhc-delete)
+4. [`rnhc combine`](#rnhc-combine)
 5. [Notes](#notes)
 
 # Summary

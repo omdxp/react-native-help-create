@@ -28,7 +28,7 @@ in order to install it globally in your system.
 
 ## How to use it?
 
-Please follow [this tutorial](TUTORIAL.md) to see how to use this helper command.
+Please follow [this documentation](DOC.md) to see how to use this helper command.
 
 # Contributing
 
