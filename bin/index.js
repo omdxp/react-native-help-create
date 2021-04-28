@@ -555,11 +555,15 @@ yargs
             }
           }
           argv.screen.forEach((screen) => {
+            const path =
+              argv.folder === ""
+                ? `app/screens/${screen}/`
+                : `app/screens/${argv.folder}/${screen}/`;
             try {
-              fs.rmdirSync(`app/screens/${screen}/`);
-              console.log(`screen ${screen} got deleted`);
+              fs.rmdirSync(path);
+              console.log(`${path} got deleted`);
             } catch (err) {
-              console.log(`screen ${screen} does not exist`);
+              console.log(`${path} does not exist`);
             }
           });
         } else if (argv.redux) {
