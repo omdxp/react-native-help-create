@@ -634,22 +634,35 @@ yargs
             console.log("check if these screens do exists");
             return;
           }
-          fs.fs.mkdirSync(`app/screens/${argv.folder}`);
+          if (!fs.fs.existsSync(`app/screens/${argv.folder}`)) {
+            fs.fs.mkdirSync(`app/screens/${argv.folder}`);
+          } else {
+            console.log(`app/screens/${argv.folder} already exists.`);
+            console.log(`Writing new files...`);
+          }
           folders.forEach((folder) => {
-            fs.fs.renameSync(
-              `app/screens/${folder}/`,
-              `app/screens/${argv.folder}/${folder}/`,
-              function (err) {
-                if (err) {
-                  console.log(`cannot move ${folder} screen`);
-                } else {
-                  console.log(
-                    `${folder} screen moved to app/screens/${argv.folder}`
-                  );
+            if (fs.fs.existsSync(`app/screens/${argv.folder}/${folder}/`)) {
+              console.log(
+                `app/screens/${argv.folder}/${folder} already exists.`
+              );
+            } else {
+              fs.fs.renameSync(
+                `app/screens/${folder}/`,
+                `app/screens/${argv.folder}/${folder}/`,
+                function (err) {
+                  if (err) {
+                    console.log(`cannot move ${folder} screen`);
+                  } else {
+                    console.log(
+                      `${folder} screen moved to app/screens/${argv.folder}`
+                    );
+                  }
                 }
-              }
-            );
-            console.log(`${folder} screen moved to app/screens/${argv.folder}`);
+              );
+              console.log(
+                `${folder} screen moved to app/screens/${argv.folder}`
+              );
+            }
           });
         } else {
           console.log("Check usage: rnhc combine --help");
