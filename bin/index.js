@@ -485,13 +485,15 @@ yargs
         .positional("-c", {
           alias: "--component",
           type: "string",
-          describe: "to delete a react-native component",
+          describe: "to delete react-native components",
         })
+        .array("-c")
         .positional("-s", {
           alias: "--screen",
           type: "string",
-          describe: "to delete a react-native screen",
+          describe: "to delete react-native screens",
         })
+        .array("-s")
         .positional("-r", {
           alias: "--redux",
           type: "string",
@@ -501,25 +503,27 @@ yargs
     function (argv) {
       if (fs.existsSync("index.js") && fs.existsSync("app.json")) {
         if (argv.component) {
-          if (fs.existsSync(`app/components/${argv.component}.tsx`)) {
-            fs.unlink(`app/components/${argv.component}.tsx`, function (err) {
-              if (err) {
-                console.log(`Unable to delete ${argv.component} component`);
-              } else {
-                console.log(`app/components/${argv.component}.tsx deleted`);
-              }
-            });
-          } else if (fs.existsSync(`app/components/${argv.component}.js`)) {
-            fs.unlink(`app/components/${argv.component}.js`, function (err) {
-              if (err) {
-                console.log(`Unable to delete ${argv.component} component`);
-              } else {
-                console.log(`app/components/${argv.component}.js deleted`);
-              }
-            });
-          } else {
-            console.log(`component ${argv.component} does not exist`);
-          }
+          argv.component.forEach((component) => {
+            if (fs.existsSync(`app/components/${component}.tsx`)) {
+              fs.unlink(`app/components/${component}.tsx`, function (err) {
+                if (err) {
+                  console.log(`Unable to delete ${component} component`);
+                } else {
+                  console.log(`app/components/${component}.tsx deleted`);
+                }
+              });
+            } else if (fs.existsSync(`app/components/${component}.js`)) {
+              fs.unlink(`app/components/${component}.js`, function (err) {
+                if (err) {
+                  console.log(`Unable to delete ${component} component`);
+                } else {
+                  console.log(`app/components/${component}.js deleted`);
+                }
+              });
+            } else {
+              console.log(`component ${component} does not exist`);
+            }
+          });
         } else if (argv.screen) {
           try {
             fs.rmdirSync(`app/screens/${argv.screen}/`);
