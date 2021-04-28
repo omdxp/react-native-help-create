@@ -589,21 +589,32 @@ yargs
             console.log("check if these components do exists");
             return;
           }
-          fs.fs.mkdirSync(`app/components/${argv.folder}`);
+          if (!fs.fs.existsSync(`app/components/${argv.folder}`)) {
+            fs.fs.mkdirSync(`app/components/${argv.folder}`);
+          } else {
+            console.log(`app/components/${argv.folder} already exists.`);
+            console.log(`Writing new files...`);
+          }
           files.forEach((file) => {
-            fs.fs.rename(
-              `app/components/${file}`,
-              `app/components/${argv.folder}/${file}`,
-              function (err) {
-                if (err) {
-                  console.log(`cannot move ${file} component`);
-                } else {
-                  console.log(
-                    `${file} component moved to app/components/${argv.folder}/`
-                  );
+            if (fs.fs.existsSync(`app/components/${argv.folder}/${file}`)) {
+              console.log(
+                `app/components/${argv.folder}/${file} already exists.`
+              );
+            } else {
+              fs.fs.rename(
+                `app/components/${file}`,
+                `app/components/${argv.folder}/${file}`,
+                function (err) {
+                  if (err) {
+                    console.log(`cannot move ${file} component`);
+                  } else {
+                    console.log(
+                      `${file} component moved to app/components/${argv.folder}/`
+                    );
+                  }
                 }
-              }
-            );
+              );
+            }
           });
         } else if (argv.screens) {
           if (argv.screens.length === 1) {
