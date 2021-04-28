@@ -509,6 +509,16 @@ yargs
     function (argv) {
       if (fs.existsSync("index.js") && fs.existsSync("app.json")) {
         if (argv.component) {
+          if (argv.component.length === 0 && argv.folder !== "") {
+            const path = `app/components/${argv.folder}/`;
+            try {
+              fs.rmdirSync(path);
+              console.log(`${path} got deleted`);
+            } catch (err) {
+              console.log(`folder ${argv.folder} does not exist`);
+            }
+            return;
+          }
           argv.component.forEach((component) => {
             const path =
               argv.folder === ""
