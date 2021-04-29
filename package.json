@@ -1,6 +1,6 @@
 {
   "name": "react-native-help-create",
-  "version": "1.0.3",
+  "version": "1.0.4",
   "description": "This command line helps you create components, screens and even redux implementaion for your react native project.",
   "main": "bin/index.js",
   "bin": {
