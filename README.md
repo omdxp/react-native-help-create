@@ -1,6 +1,24 @@
-# react-native-help-create
+<p align="center">
+  <img src="https://user-images.githubusercontent.com/48713070/117198923-81b06500-ade1-11eb-92f6-ae2047741045.png" width="350" height="350" alt="react-native-help-create" />
+</p>
 
+<h1 align="center">react-native-help-create</h1>
+
+<p align="center">
 This command line helps you create components, screens and even redux implementaion for your react native project.
+</p>
+
+<p align="center">
+  <a href="https://github.com/Omar-Belghaouti/react-native-help-create/blob/main/LICENSE">
+    <img src="https://img.shields.io/badge/license-MIT-blue.svg" alt="react-native-help-create is released under the MIT license." />
+  </a>
+  <a href="https://www.npmjs.com/package/react-native-help-create">
+    <img src="https://img.shields.io/npm/v/react-native-help-create?color=e80441&label=react-native-help-create" alt="Current npm package version." />
+  </a>
+  <a href="https://github.com/Omar-Belghaouti/react-native-help-create/blob/main/CONTRIBUTING.md">
+    <img src="https://img.shields.io/badge/PRs-welcome-brightgreen.svg" alt="PRs welcome!" />
+  </a>
+</p>
 
 # Functionalities
 
