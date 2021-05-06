@@ -23,7 +23,7 @@
   "bugs": {
     "url": "https://github.com/Omar-Belghaouti/react-native-help-create/issues"
   },
-  "homepage": "https://github.com/Omar-Belghaouti/react-native-help-create#readme",
+  "homepage": "https://omar-belghaouti.github.io/react-native-help-create/",
   "dependencies": {
     "file-system": "^2.2.2",
     "yargs": "^16.2.0"
