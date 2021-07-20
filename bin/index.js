@@ -209,8 +209,53 @@ export const store = createStore(appReducers);
 `;
 
 /**
+ * @function stackNavigationTemplateTS
+ * @param {Array} screens screen paths to be appended to the navigation file.
+ * @returns {string} typescript implementation for navigation.
+ */
+const stackNavigationTemplateTS = (screens) => {
+  let template = `// import react
+import React, { FC } from 'react';
+
+// import stack navigation
+import { createStackNavigator } from '@react-navigation/stack';
+
+// import screens
+`;
+  for (let i = 0; i < screens.length; i++) {
+    const screenName = screens[i].split("/")[screens[i].split("/").length - 2];
+    template += `import ${screenName}Screen from './${screenName}/ui/${screenName}UI';
+`;
+  }
+  template = template.substring(0, template.length - 1);
+  template += `
+
+// create stack navigator
+const { Navigator, Screen } = createStackNavigator();
+
+// export stack navigation
+const Navigation: FC = (): JSX.Element => {
+  return (
+    <Navigator>
+    `;
+  for (let i = 0; i < screens.length; i++) {
+    const screenName = screens[i].split("/")[screens[i].split("/").length - 2];
+    template += ` <Screen name="${screenName}Screen" component={${screenName}Screen} />
+    `;
+  }
+  template = template.substring(0, template.length - 5);
+  template += `
+    </Navigator>
+  );
+};
+export default Navigation;
+`;
+  return template;
+};
+
+/**
  * @function stackNavigationTemplate
- * @param {Array} screens screens path to be appended to the navigation file.
+ * @param {Array} screens screens paths to be appended to the navigation file.
  * @returns {string} javascript implementation for navigation.
  */
 const stackNavigationTemplate = (screens) => {
@@ -514,46 +559,89 @@ yargs
         } else if (argv.navigation) {
           switch (argv.navigation[0].toLocaleLowerCase()) {
             case "stack": {
-              const path =
-                argv.folder === ""
-                  ? `app/screens/`
-                  : `app/screens/${argv.folder}/`;
-              if (fs.existsSync(`${path}Navigation.js`)) {
-                console.log(`${path}Navigation.js already exists`);
-                break;
-              }
-              // for each screen passed after the type of navigation
-              let existedScreens = [];
-              for (let i = 1; i < argv.navigation.length; i++) {
-                const screen = argv.navigation[i];
-                const _path =
+              if (argv.ts) {
+                const path =
                   argv.folder === ""
-                    ? `app/screens/${screen}/`
-                    : `app/screens/${argv.folder}/${screen}/`;
-                if (!fs.existsSync(_path)) {
-                  console.log(`${_path} does not exists`);
-                } else {
-                  existedScreens.push(_path);
+                    ? `app/screens/`
+                    : `app/screens/${argv.folder}/`;
+                if (fs.existsSync(`${path}Navigation.tsx`)) {
+                  console.log(`${path}Navigation.tsx already exists`);
+                  break;
                 }
-              }
-              // for all existed screens
-              if (existedScreens.length === 0) {
-                console.log("None of these screens exists");
+                // for each screen passed after the type of navigation
+                let existedScreens = [];
+                for (let i = 1; i < argv.navigation.length; i++) {
+                  const screen = argv.navigation[i];
+                  const _path =
+                    argv.folder === ""
+                      ? `app/screens/${screen}/`
+                      : `app/screens/${argv.folder}/${screen}/`;
+                  if (!fs.existsSync(_path)) {
+                    console.log(`${_path} does not exists`);
+                  } else {
+                    existedScreens.push(_path);
+                  }
+                }
+                // for all existed screens
+                if (existedScreens.length === 0) {
+                  console.log("None of these screens exists");
+                  break;
+                } else {
+                  fs.writeFile(
+                    `${path}Navigation.tsx`,
+                    stackNavigationTemplateTS(existedScreens),
+                    function (err) {
+                      if (err) {
+                        console.log(`Unable to create ${path}Navigation.tsx`);
+                      } else {
+                        console.log(`${path}Navigation.tsx created`);
+                      }
+                    }
+                  );
+                }
                 break;
               } else {
-                fs.writeFile(
-                  `${path}Navigation.js`,
-                  stackNavigationTemplate(existedScreens),
-                  function (err) {
-                    if (err) {
-                      console.log(`Unable to create ${path}Navigation.js`);
-                    } else {
-                      console.log(`${path}Navigation.js created`);
-                    }
+                const path =
+                  argv.folder === ""
+                    ? `app/screens/`
+                    : `app/screens/${argv.folder}/`;
+                if (fs.existsSync(`${path}Navigation.js`)) {
+                  console.log(`${path}Navigation.js already exists`);
+                  break;
+                }
+                // for each screen passed after the type of navigation
+                let existedScreens = [];
+                for (let i = 1; i < argv.navigation.length; i++) {
+                  const screen = argv.navigation[i];
+                  const _path =
+                    argv.folder === ""
+                      ? `app/screens/${screen}/`
+                      : `app/screens/${argv.folder}/${screen}/`;
+                  if (!fs.existsSync(_path)) {
+                    console.log(`${_path} does not exists`);
+                  } else {
+                    existedScreens.push(_path);
                   }
-                );
+                }
+                // for all existed screens
+                if (existedScreens.length === 0) {
+                  console.log("None of these screens exists");
+                  break;
+                } else {
+                  fs.writeFile(
+                    `${path}Navigation.js`,
+                    stackNavigationTemplate(existedScreens),
+                    function (err) {
+                      if (err) {
+                        console.log(`Unable to create ${path}Navigation.js`);
+                      } else {
+                        console.log(`${path}Navigation.js created`);
+                      }
+                    }
+                  );
+                }
+                break;
               }
-              break;
             }
 
             case "drawer":
