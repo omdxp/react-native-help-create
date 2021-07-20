@@ -297,6 +297,50 @@ export default function Navigation() {
   return template;
 };
 
+/**
+ * @function drawerNavigationTemplate
+ * @param {Array} screens screens paths to be appended to the navigation file.
+ * @returns {string} javascript implementation for navigation.
+ */
+const drawerNavigationTemplate = (screens) => {
+  let template = `// import react
+import React from 'react';
+
+// import drawer navigation
+import { createDrawerNavigator } from '@react-navigation/drawer';
+
+// import screens
+`;
+  for (let i = 0; i < screens.length; i++) {
+    const screenName = screens[i].split("/")[screens[i].split("/").length - 2];
+    template += `import ${screenName}Screen from './${screenName}/ui/${screenName}UI';
+`;
+  }
+  template = template.substring(0, template.length - 1);
+  template += `
+
+// create drawer navigator
+const { Navigator, Screen } = createDrawerNavigator();
+
+// export drawer navigation
+export default function Navigation() {
+  return (
+    <Navigator>
+    `;
+  for (let i = 0; i < screens.length; i++) {
+    const screenName = screens[i].split("/")[screens[i].split("/").length - 2];
+    template += ` <Screen name="${screenName}Screen" component={${screenName}Screen} />
+    `;
+  }
+  template = template.substring(0, template.length - 5);
+  template += `
+    </Navigator>
+  );
+};
+`;
+  return template;
+};
+
 yargs
   .scriptName("rnhc")
   .usage("$0 <cmd> [args]")
@@ -644,9 +688,48 @@ yargs
               }
             }
 
-            case "drawer":
-              console.log("Creating drawer navigation");
+            case "drawer": {
+              const path =
+                argv.folder === ""
+                  ? `app/screens/`
+                  : `app/screens/${argv.folder}/`;
+              if (fs.existsSync(`${path}Navigation.js`)) {
+                console.log(`${path}Navigation.js already exists`);
+                break;
+              }
+              // for each screen passed after the type of navigation
+              let existedScreens = [];
+              for (let i = 1; i < argv.navigation.length; i++) {
+                const screen = argv.navigation[i];
+                const _path =
+                  argv.folder === ""
+                    ? `app/screens/${screen}/`
+                    : `app/screens/${argv.folder}/${screen}/`;
+                if (!fs.existsSync(_path)) {
+                  console.log(`${_path} does not exists`);
+                } else {
+                  existedScreens.push(_path);
+                }
+              }
+              // for all existed screens
+              if (existedScreens.length === 0) {
+                console.log("None of these screens exists");
+                break;
+              } else {
+                fs.writeFile(
+                  `${path}Navigation.js`,
+                  drawerNavigationTemplate(existedScreens),
+                  function (err) {
+                    if (err) {
+                      console.log(`Unable to create ${path}Navigation.js`);
+                    } else {
+                      console.log(`${path}Navigation.js created`);
+                    }
+                  }
+                );
+              }
               break;
+            }
 
             case "tab":
               console.log("Creating tab navigation");
