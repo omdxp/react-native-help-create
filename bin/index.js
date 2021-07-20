@@ -734,7 +734,7 @@ yargs
               );
             }
           }
-        } else if (argv.navigation) {
+        } else if (argv.navigation && argv.navigation.length > 1) {
           switch (argv.navigation[0].toLocaleLowerCase()) {
             case "stack": {
               if (argv.ts) {
@@ -1031,6 +1031,11 @@ yargs
           type: "string",
           describe: "to delete basic redux implementation structure",
         })
+        .positional("-n", {
+          alias: "--navigation",
+          type: "boolean",
+          describe: "to delete a navigation file",
+        })
         .option("f", {
           alias: "folder",
           type: "string",
@@ -1104,6 +1109,28 @@ yargs
             console.log(`redux ${argv.redux} got deleted`);
           } catch (err) {
             console.log(`redux ${argv.redux} does not exist`);
+          }
+        } else if (argv.navigation) {
+          const path =
+            argv.folder === "" ? `app/screens/` : `app/screens/${argv.folder}/`;
+          if (fs.existsSync(`${path}Navigation.tsx`)) {
+            fs.unlink(`${path}Navigation.tsx`, function (err) {
+              if (err) {
+                console.log(`Unable to delete ${path}Navigation.tsx`);
+              } else {
+                console.log(`${path}Navigation.tsx deleted`);
+              }
+            });
+          } else if (fs.existsSync(`${path}Navigation.js`)) {
+            fs.unlink(`${path}Navigation.js`, function (err) {
+              if (err) {
+                console.log(`Unable to delete ${path}Navigation.tsx`);
+              } else {
+                console.log(`${path}Navigation.js deleted`);
+              }
+            });
+          } else {
+            console.log(`${path}Navigation.tsx does not exist`);
           }
         } else {
           console.log("Check usage: rnhc delete --help");
