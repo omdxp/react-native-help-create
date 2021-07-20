@@ -4,9 +4,9 @@ const yargs = require("yargs");
 const fs = require("file-system");
 
 /**
- * componentTemplateTS
+ * @function componentTemplateTS
  * @param {string} component component to be created in typescript.
- * @returns typescript implementation for the component.
+ * @returns {string} typescript implementation for the component.
  */
 const componentTemplateTS = (component) => `
 // import react native
@@ -28,9 +28,9 @@ export default ${component};
 `;
 
 /**
- * componentTemplate
+ * @function componentTemplate
  * @param {string} component component to be created in javascript.
- * @returns javascript implementation for the component.
+ * @returns {string} javascript implementation for the component.
  */
 const componentTemplate = (component) => `
 // import react native
@@ -49,9 +49,9 @@ export default function ${component}() {
 `;
 
 /**
- * screenUITemplateTS
+ * @function screenUITemplateTS
  * @param {string} screen screen to be created in typescript.
- * @returns typescript implementation for the screen ui.
+ * @returns {string} typescript implementation for the screen ui.
  */
 const screenUITemplateTS = (screen) => `
 // import react native
@@ -76,9 +76,9 @@ export default ${screen}UI;
 `;
 
 /**
- * screenUITemplate
+ * @function screenUITemplate
  * @param {string} screen screen to be created in javascript.
- * @returns javascript implementation for the screen ui.
+ * @returns {string} javascript implementation for the screen ui.
  */
 const screenUITemplate = (screen) => `
 // import react native
@@ -99,9 +99,9 @@ export default function ${screen}UI() {
 `;
 
 /**
- * screenFunctionsTemplateTS
+ * @function screenFunctionsTemplateTS
  * @param {string} screen screen to be created in typescript.
- * @returns typescript implementation for the screen functions.
+ * @returns {string} typescript implementation for the screen functions.
  */
 const screenFunctionsTemplateTS = (screen) => `
 // write your ${screen} functions here
@@ -109,18 +109,18 @@ export {};
 `;
 
 /**
- * screenFunctionsTemplate
+ * @function screenFunctionsTemplate
  * @param {string} screen screen to be created javascript.
- * @returns javascript implementation for the screen functions.
+ * @returns {string} javascript implementation for the screen functions.
  */
 const screenFunctionsTemplate = (screen) => `
 // write your ${screen} functions here
 `;
 
 /**
- * actionsTemplateTS
+ * @function actionsTemplateTS
  * @param {string} redux redux to be created in typescript.
- * @returns typescript implementation for redux actions.
+ * @returns {string} typescript implementation for redux actions.
  */
 const actionsTemplateTS = (redux) => `
 // write your ${redux} action creators here
@@ -128,18 +128,18 @@ export {};
 `;
 
 /**
- * actionsTemplate
+ * @function actionsTemplate
  * @param {string} redux redux to be created in javascript
- * @returns javascript implementation for redux actions.
+ * @returns {string} javascript implementation for redux actions.
  */
 const actionsTemplate = (redux) => `
 // write your ${redux} action creators here
 `;
 
 /**
- * constantsTemplateTS
+ * @function constantsTemplateTS
  * @param {string} redux redux to be created in typescript.
- * @returns typescript implementation for redux constants.
+ * @returns {string} typescript implementation for redux constants.
  */
 const constantsTemplateTS = (redux) => `
 // write your ${redux} action types here
@@ -147,18 +147,18 @@ export {};
 `;
 
 /**
- * constantsTemplate
+ * @function constantsTemplate
  * @param {string} redux redux to be created in javascript.
- * @returns javascript implementation for redux constants.
+ * @returns {string} javascript implementation for redux constants.
  */
 const constantsTemplate = (redux) => `
 // write your ${redux} action types here
 `;
 
 /**
- * reducersTemplateTS
+ * @function reducersTemplateTS
  * @param {string} redux redux to be created in typescript.
- * @returns tpyescript implementation for redux reducers.
+ * @returns {string} tpyescript implementation for redux reducers.
  */
 const reducersTemplateTS = (redux) => `
 // write your ${redux} reducers here
@@ -166,18 +166,18 @@ export {};
 `;
 
 /**
- * reducersTemplate
+ * @function reducersTemplate
  * @param {string} redux redux to be created in javascript.
- * @returns javascript implementation for redux reducers.
+ * @returns {string} javascript implementation for redux reducers.
  */
 const reducersTemplate = (redux) => `
 // write your ${redux} reducers here
 `;
 
 /**
- * storeTemplateTS
+ * @function storeTemplateTS
  * @param {string} redux redux to be created in typescript.
- * @returns typescript implementation for redux store.
+ * @returns {string} typescript implementation for redux store.
  */
 const storeTemplateTS = (redux) => `
 // import redux
@@ -196,9 +196,9 @@ export const store = createStore(appReducers);
 `;
 
 /**
- * storeTemplate
+ * @function storeTemplate
  * @param {string} redux redux to be created in javascript.
- * @returns javascript implementation for redux store.
+ * @returns {string} javascript implementation for redux store.
  */
 const storeTemplate = (redux) => `
 // import redux
@@ -215,6 +215,13 @@ const appReducers = combineReducers({
 // export store
 export const store = createStore(appReducers);
 `;
+
+/**
+ * @function stackNavigationTemplate
+ * @param {Array} screens screens to be appended to the navigation file.
+ * @returns {string} javascript implementation for navigation.
+ */
+const stackNavigationTemplate = (screens) => ``;
 
 yargs
   .scriptName("rnhc")
@@ -241,6 +248,12 @@ yargs
           type: "string",
           describe: "to create basic redux implementation structure",
         })
+        .positional("-n", {
+          alias: "--navigation",
+          type: "string",
+          describe: "to create navigation for selected screens",
+        })
+        .array("-n")
         .option("js", {
           alias: "javascript",
           default: true,
@@ -258,7 +271,7 @@ yargs
         });
     },
     function (argv) {
-      if (fs.existsSync("index.js") && fs.existsSync("app.json")) {
+      if (fs.existsSync("app.json")) {
         if (argv.component) {
           argv.component.forEach((component) => {
             if (argv.ts) {
@@ -269,7 +282,7 @@ yargs
               if (fs.existsSync(path)) {
                 console.log(`component ${component} already exists`);
               } else {
-                fs.writeFile(
+                fs.writeFileSync(
                   path,
                   componentTemplateTS(component),
                   function (err) {
@@ -289,7 +302,7 @@ yargs
               if (fs.existsSync(path)) {
                 console.log(`component ${component} already exists`);
               } else {
-                fs.writeFile(
+                fs.writeFileSync(
                   path,
                   componentTemplate(component),
                   function (err) {
@@ -313,7 +326,7 @@ yargs
               console.log(`screen ${screen} already exists`);
             } else {
               if (argv.ts) {
-                fs.writeFile(
+                fs.writeFileSync(
                   `${path}ui/${screen}UI.tsx`,
                   screenUITemplateTS(screen),
                   function (err) {
@@ -324,7 +337,7 @@ yargs
                     }
                   }
                 );
-                fs.writeFile(
+                fs.writeFileSync(
                   `${path}functions/index.ts`,
                   screenFunctionsTemplateTS(screen),
                   function (err) {
@@ -338,7 +351,7 @@ yargs
                   }
                 );
               } else {
-                fs.writeFile(
+                fs.writeFileSync(
                   `${path}ui/${screen}UI.js`,
                   screenUITemplate(screen),
                   function (err) {
@@ -349,7 +362,7 @@ yargs
                     }
                   }
                 );
-                fs.writeFile(
+                fs.writeFileSync(
                   `${path}functions/index.js`,
                   screenFunctionsTemplate(screen),
                   function (err) {
@@ -370,7 +383,7 @@ yargs
             console.log(`${argv.redux} redux implementation already exists`);
           } else {
             if (argv.ts) {
-              fs.writeFile(
+              fs.writeFileSync(
                 `app/${argv.redux}/actions/index.ts`,
                 actionsTemplateTS(argv.ts),
                 function (err) {
@@ -381,7 +394,7 @@ yargs
                   }
                 }
               );
-              fs.writeFile(
+              fs.writeFileSync(
                 `app/${argv.redux}/constants/index.ts`,
                 constantsTemplateTS(argv.redux),
                 function (err) {
@@ -394,7 +407,7 @@ yargs
                   }
                 }
               );
-              fs.writeFile(
+              fs.writeFileSync(
                 `app/${argv.redux}/reducers/index.ts`,
                 reducersTemplateTS(argv.redux),
                 function (err) {
@@ -407,7 +420,7 @@ yargs
                   }
                 }
               );
-              fs.writeFile(
+              fs.writeFileSync(
                 `app/${argv.redux}/store/index.ts`,
                 storeTemplateTS(argv.redux),
                 function (err) {
@@ -419,7 +432,7 @@ yargs
                 }
               );
             } else {
-              fs.writeFile(
+              fs.writeFileSync(
                 `app/${argv.redux}/actions/index.js`,
                 actionsTemplate(argv.redux),
                 function (err) {
@@ -430,7 +443,7 @@ yargs
                   }
                 }
               );
-              fs.writeFile(
+              fs.writeFileSync(
                 `app/${argv.redux}/constants/index.js`,
                 constantsTemplate(argv.redux),
                 function (err) {
@@ -443,7 +456,7 @@ yargs
                   }
                 }
               );
-              fs.writeFile(
+              fs.writeFileSync(
                 `app/${argv.redux}/reducers/index.js`,
                 reducersTemplate(argv.redux),
                 function (err) {
@@ -456,7 +469,7 @@ yargs
                   }
                 }
               );
-              fs.writeFile(
+              fs.writeFileSync(
                 `app/${argv.redux}/store/index.js`,
                 storeTemplate(argv.redux),
                 function (err) {
@@ -468,6 +481,41 @@ yargs
                 }
               );
             }
+          }
+        } else if (argv.navigation) {
+          switch (argv.navigation[0].toLocaleLowerCase()) {
+            case "stack":
+              // for each screen passed after the type of navigation
+              let existedScreens = [];
+              for (let i = 1; i < argv.navigation.length; i++) {
+                const screen = argv.navigation[i];
+                const path =
+                  argv.folder === ""
+                    ? `app/screens/${screen}/`
+                    : `app/screens/${argv.folder}/${screen}/`;
+                if (!fs.existsSync(path)) {
+                  console.log(`${path} does not exists`);
+                } else {
+                  existedScreens.push(path);
+                }
+              }
+              console.log("Creating stack navigation");
+              break;
+
+            case "drawer":
+              console.log("Creating drawer navigation");
+              break;
+
+            case "tab":
+              console.log("Creating tab navigation");
+              break;
+
+            default:
+              console.log(argv.navigation);
+              console.log(
+                "You should choose one of the following navigations: stack, drawer or tab"
+              );
+              break;
           }
         } else {
           console.log("Check usage: rnhc create --help");
@@ -507,7 +555,7 @@ yargs
         });
     },
     function (argv) {
-      if (fs.existsSync("index.js") && fs.existsSync("app.json")) {
+      if (fs.existsSync("app.json")) {
         if (argv.component) {
           if (argv.component.length === 0 && argv.folder !== "") {
             const path = `app/components/${argv.folder}/`;
@@ -609,7 +657,7 @@ yargs
         });
     },
     function (argv) {
-      if (fs.existsSync("index.js") && fs.existsSync("app.json")) {
+      if (fs.existsSync("app.json")) {
         if (argv.components) {
           if (argv.components.length === 1) {
             console.log("please provide at least 2 components");
