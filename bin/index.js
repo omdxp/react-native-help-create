@@ -8,10 +8,9 @@ const fs = require("file-system");
  * @param {string} component component to be created in typescript.
  * @returns {string} typescript implementation for the component.
  */
-const componentTemplateTS = (component) => `
-// import react native
-import React, {FC} from 'react';
-import {Text, View} from 'react-native';
+const componentTemplateTS = (component) => `// import react native
+import React, { FC } from 'react';
+import { Text, View } from 'react-native';
 
 // define ${component} props interface
 interface ${component}Props {}
@@ -32,10 +31,9 @@ export default ${component};
  * @param {string} component component to be created in javascript.
  * @returns {string} javascript implementation for the component.
  */
-const componentTemplate = (component) => `
-// import react native
+const componentTemplate = (component) => `// import react native
 import React from 'react';
-import {Text, View} from 'react-native';
+import { Text, View } from 'react-native';
 
 // export ${component} component
 export default function ${component}() {
@@ -53,10 +51,9 @@ export default function ${component}() {
  * @param {string} screen screen to be created in typescript.
  * @returns {string} typescript implementation for the screen ui.
  */
-const screenUITemplateTS = (screen) => `
-// import react native
-import React, {FC} from 'react';
-import {Text, View} from 'react-native';
+const screenUITemplateTS = (screen) => `// import react native
+import React, { FC } from 'react';
+import { Text, View } from 'react-native';
 
 // import ${screen} functions
 import {} from '../functions';
@@ -80,10 +77,9 @@ export default ${screen}UI;
  * @param {string} screen screen to be created in javascript.
  * @returns {string} javascript implementation for the screen ui.
  */
-const screenUITemplate = (screen) => `
-// import react native
+const screenUITemplate = (screen) => `// import react native
 import React from 'react';
-import {Text, View} from 'react-native';
+import { Text, View } from 'react-native';
 
 // import ${screen} functions
 import {} from '../functions';
@@ -103,8 +99,9 @@ export default function ${screen}UI() {
  * @param {string} screen screen to be created in typescript.
  * @returns {string} typescript implementation for the screen functions.
  */
-const screenFunctionsTemplateTS = (screen) => `
-// write your ${screen} functions here
+const screenFunctionsTemplateTS = (
+  screen
+) => `// write your ${screen} functions here
 export {};
 `;
 
@@ -113,8 +110,9 @@ export {};
  * @param {string} screen screen to be created javascript.
  * @returns {string} javascript implementation for the screen functions.
  */
-const screenFunctionsTemplate = (screen) => `
-// write your ${screen} functions here
+const screenFunctionsTemplate = (
+  screen
+) => `// write your ${screen} functions here
 `;
 
 /**
@@ -122,8 +120,9 @@ const screenFunctionsTemplate = (screen) => `
  * @param {string} redux redux to be created in typescript.
  * @returns {string} typescript implementation for redux actions.
  */
-const actionsTemplateTS = (redux) => `
-// write your ${redux} action creators here
+const actionsTemplateTS = (
+  redux
+) => `// write your ${redux} action creators here
 export {};
 `;
 
@@ -132,8 +131,7 @@ export {};
  * @param {string} redux redux to be created in javascript
  * @returns {string} javascript implementation for redux actions.
  */
-const actionsTemplate = (redux) => `
-// write your ${redux} action creators here
+const actionsTemplate = (redux) => `// write your ${redux} action creators here
 `;
 
 /**
@@ -141,8 +139,7 @@ const actionsTemplate = (redux) => `
  * @param {string} redux redux to be created in typescript.
  * @returns {string} typescript implementation for redux constants.
  */
-const constantsTemplateTS = (redux) => `
-// write your ${redux} action types here
+const constantsTemplateTS = (redux) => `// write your ${redux} action types here
 export {};
 `;
 
@@ -151,8 +148,7 @@ export {};
  * @param {string} redux redux to be created in javascript.
  * @returns {string} javascript implementation for redux constants.
  */
-const constantsTemplate = (redux) => `
-// write your ${redux} action types here
+const constantsTemplate = (redux) => `// write your ${redux} action types here
 `;
 
 /**
@@ -160,8 +156,7 @@ const constantsTemplate = (redux) => `
  * @param {string} redux redux to be created in typescript.
  * @returns {string} tpyescript implementation for redux reducers.
  */
-const reducersTemplateTS = (redux) => `
-// write your ${redux} reducers here
+const reducersTemplateTS = (redux) => `// write your ${redux} reducers here
 export {};
 `;
 
@@ -170,8 +165,7 @@ export {};
  * @param {string} redux redux to be created in javascript.
  * @returns {string} javascript implementation for redux reducers.
  */
-const reducersTemplate = (redux) => `
-// write your ${redux} reducers here
+const reducersTemplate = (redux) => `// write your ${redux} reducers here
 `;
 
 /**
@@ -179,9 +173,8 @@ const reducersTemplate = (redux) => `
  * @param {string} redux redux to be created in typescript.
  * @returns {string} typescript implementation for redux store.
  */
-const storeTemplateTS = (redux) => `
-// import redux
-import {createStore, combineReducers} from 'redux';
+const storeTemplateTS = (redux) => `// import redux
+import { createStore, combineReducers } from 'redux';
 
 // import ${redux} reducers
 import {} from '../reducers';
@@ -200,9 +193,8 @@ export const store = createStore(appReducers);
  * @param {string} redux redux to be created in javascript.
  * @returns {string} javascript implementation for redux store.
  */
-const storeTemplate = (redux) => `
-// import redux
-import {createStore, combineReducers} from 'redux';
+const storeTemplate = (redux) => `// import redux
+import { createStore, combineReducers } from 'redux';
 
 // import ${redux} reducers
 import {} from '../reducers';
@@ -218,10 +210,47 @@ export const store = createStore(appReducers);
 
 /**
  * @function stackNavigationTemplate
- * @param {Array} screens screens to be appended to the navigation file.
+ * @param {Array} screens screens path to be appended to the navigation file.
  * @returns {string} javascript implementation for navigation.
  */
-const stackNavigationTemplate = (screens) => ``;
+const stackNavigationTemplate = (screens) => {
+  let template = `// import react
+import React from 'react';
+
+// import stack navigation
+import { createStackNavigator } from '@react-navigation/stack';
+
+// import screens
+`;
+  for (let i = 0; i < screens.length; i++) {
+    const screenName = screens[i].split("/")[screens[i].split("/").length - 2];
+    template += `import ${screenName}Screen from './${screenName}/ui/${screenName}UI';
+`;
+  }
+  template = template.substring(0, template.length - 1);
+  template += `
+
+// create stack navigator
+const { Navigator, Screen } = createStackNavigator();
+
+// export stack navigation
+export default function Navigation() {
+  return (
+    <Navigator>
+    `;
+  for (let i = 0; i < screens.length; i++) {
+    const screenName = screens[i].split("/")[screens[i].split("/").length - 2];
+    template += ` <Screen name="${screenName}Screen" component={${screenName}Screen} />
+    `;
+  }
+  template = template.substring(0, template.length - 5);
+  template += `
+    </Navigator>
+  );
+};
+`;
+  return template;
+};
 
 yargs
   .scriptName("rnhc")
@@ -282,7 +311,7 @@ yargs
               if (fs.existsSync(path)) {
                 console.log(`component ${component} already exists`);
               } else {
-                fs.writeFileSync(
+                fs.writeFile(
                   path,
                   componentTemplateTS(component),
                   function (err) {
@@ -302,7 +331,7 @@ yargs
               if (fs.existsSync(path)) {
                 console.log(`component ${component} already exists`);
               } else {
-                fs.writeFileSync(
+                fs.writeFile(
                   path,
                   componentTemplate(component),
                   function (err) {
@@ -326,7 +355,7 @@ yargs
               console.log(`screen ${screen} already exists`);
             } else {
               if (argv.ts) {
-                fs.writeFileSync(
+                fs.writeFile(
                   `${path}ui/${screen}UI.tsx`,
                   screenUITemplateTS(screen),
                   function (err) {
@@ -337,7 +366,7 @@ yargs
                     }
                   }
                 );
-                fs.writeFileSync(
+                fs.writeFile(
                   `${path}functions/index.ts`,
                   screenFunctionsTemplateTS(screen),
                   function (err) {
@@ -351,7 +380,7 @@ yargs
                   }
                 );
               } else {
-                fs.writeFileSync(
+                fs.writeFile(
                   `${path}ui/${screen}UI.js`,
                   screenUITemplate(screen),
                   function (err) {
@@ -362,7 +391,7 @@ yargs
                     }
                   }
                 );
-                fs.writeFileSync(
+                fs.writeFile(
                   `${path}functions/index.js`,
                   screenFunctionsTemplate(screen),
                   function (err) {
@@ -383,7 +412,7 @@ yargs
             console.log(`${argv.redux} redux implementation already exists`);
           } else {
             if (argv.ts) {
-              fs.writeFileSync(
+              fs.writeFile(
                 `app/${argv.redux}/actions/index.ts`,
                 actionsTemplateTS(argv.ts),
                 function (err) {
@@ -394,7 +423,7 @@ yargs
                   }
                 }
               );
-              fs.writeFileSync(
+              fs.writeFile(
                 `app/${argv.redux}/constants/index.ts`,
                 constantsTemplateTS(argv.redux),
                 function (err) {
@@ -407,7 +436,7 @@ yargs
                   }
                 }
               );
-              fs.writeFileSync(
+              fs.writeFile(
                 `app/${argv.redux}/reducers/index.ts`,
                 reducersTemplateTS(argv.redux),
                 function (err) {
@@ -420,7 +449,7 @@ yargs
                   }
                 }
               );
-              fs.writeFileSync(
+              fs.writeFile(
                 `app/${argv.redux}/store/index.ts`,
                 storeTemplateTS(argv.redux),
                 function (err) {
@@ -432,7 +461,7 @@ yargs
                 }
               );
             } else {
-              fs.writeFileSync(
+              fs.writeFile(
                 `app/${argv.redux}/actions/index.js`,
                 actionsTemplate(argv.redux),
                 function (err) {
@@ -443,7 +472,7 @@ yargs
                   }
                 }
               );
-              fs.writeFileSync(
+              fs.writeFile(
                 `app/${argv.redux}/constants/index.js`,
                 constantsTemplate(argv.redux),
                 function (err) {
@@ -456,7 +485,7 @@ yargs
                   }
                 }
               );
-              fs.writeFileSync(
+              fs.writeFile(
                 `app/${argv.redux}/reducers/index.js`,
                 reducersTemplate(argv.redux),
                 function (err) {
@@ -469,7 +498,7 @@ yargs
                   }
                 }
               );
-              fs.writeFileSync(
+              fs.writeFile(
                 `app/${argv.redux}/store/index.js`,
                 storeTemplate(argv.redux),
                 function (err) {
@@ -484,23 +513,48 @@ yargs
           }
         } else if (argv.navigation) {
           switch (argv.navigation[0].toLocaleLowerCase()) {
-            case "stack":
+            case "stack": {
+              const path =
+                argv.folder === ""
+                  ? `app/screens/`
+                  : `app/screens/${argv.folder}/`;
+              if (fs.existsSync(`${path}Navigation.js`)) {
+                console.log(`${path}Navigation.js already exists`);
+                break;
+              }
               // for each screen passed after the type of navigation
               let existedScreens = [];
               for (let i = 1; i < argv.navigation.length; i++) {
                 const screen = argv.navigation[i];
-                const path =
+                const _path =
                   argv.folder === ""
                     ? `app/screens/${screen}/`
                     : `app/screens/${argv.folder}/${screen}/`;
-                if (!fs.existsSync(path)) {
-                  console.log(`${path} does not exists`);
+                if (!fs.existsSync(_path)) {
+                  console.log(`${_path} does not exists`);
                 } else {
-                  existedScreens.push(path);
+                  existedScreens.push(_path);
                 }
               }
-              console.log("Creating stack navigation");
+              // for all existed screens
+              if (existedScreens.length === 0) {
+                console.log("None of these screens exists");
+                break;
+              } else {
+                fs.writeFile(
+                  `${path}Navigation.js`,
+                  stackNavigationTemplate(existedScreens),
+                  function (err) {
+                    if (err) {
+                      console.log(`Unable to create ${path}Navigation.js`);
+                    } else {
+                      console.log(`${path}Navigation.js created`);
+                    }
+                  }
+                );
+              }
               break;
+            }
 
             case "drawer":
               console.log("Creating drawer navigation");
