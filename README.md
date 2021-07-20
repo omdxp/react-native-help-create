@@ -5,7 +5,7 @@
 <h1 align="center">react-native-help-create</h1>
 
 <p align="center">
-This command line helps you create components, screens and even redux implementaion for your react native project.
+This command line helps you create components, screens, navigations and even redux implementaion for your react native project.
 </p>
 
 <p align="center">
@@ -22,6 +22,7 @@ This command line helps you create components, screens and even redux implementa
 
 # Functionalities
 
+- Create navigations with all types (stack, drawer or tab).
 - Delete entire folder that combines screens or components.
 - Delete multiple screens and components.
 - Create multiple screens and components to a specific folder if needed.
