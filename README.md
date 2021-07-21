@@ -22,7 +22,8 @@ This command line helps you create components, screens, navigations and even red
 
 # Functionalities
 
-- Create navigations with all types (stack, drawer or tab).
+- Works inside projects initialized with expo or react native cli.
+- Create and delete navigations with all types (stack, drawer or tab).
 - Delete entire folder that combines screens or components.
 - Delete multiple screens and components.
 - Create multiple screens and components to a specific folder if needed.
