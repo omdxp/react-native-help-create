@@ -149,6 +149,18 @@ rnhc delete -c -f <folder_name>
 rnhc delete -s -f <folder_name>
 ```
 
+- to delete an existed navigation file at `app/screens/` run
+
+```
+rnhc delete -n
+```
+
+- to delete an existed navigation file in a specified folder run
+
+```
+rnhc delete -n -f <folder_name>
+```
+
 ---
 
 # `rnhc combine`
