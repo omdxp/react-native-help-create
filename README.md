@@ -1,5 +1,5 @@
 <p align="center">
-  <img src="https://user-images.githubusercontent.com/48713070/117198923-81b06500-ade1-11eb-92f6-ae2047741045.png" width="350" height="350" alt="react-native-help-create" />
+  <img src="https://user-images.githubusercontent.com/48713070/126584137-aacbf763-0a97-4071-86b2-b97f845d013d.png" width="350" height="350" alt="react-native-help-create" />
 </p>
 
 <h1 align="center">react-native-help-create</h1>
