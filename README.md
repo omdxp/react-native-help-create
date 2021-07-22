@@ -50,6 +50,8 @@ in order to install it globally in your system.
 
 Please follow [this documentation](DOC.md) to see how to use this helper command.
 
+Or you can see [this medium article](https://omarbelghaouti.medium.com/react-native-help-create-a-friendly-tool-for-react-native-projects-f85cbcf64da5) that explains it.
+
 # Contributing
 
 Please check [this](CONTRIBUTING.md) if you consider to contribute to this project.
