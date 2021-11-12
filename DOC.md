@@ -21,7 +21,7 @@ Here are the following commands and how to use them
 
 # `rnhc create`
 
-- Runc `rnhc create --help` to see the available options.
+- Run `rnhc create --help` to see the available options.
 
 - To create a component run
 
@@ -191,6 +191,6 @@ rnhc create -s s1 s2 -f path/to/folder
 
 This will create s1 and s2 screens inside the folder `./app/screens/path/to/folder/`.
 
-- Keep in mind that you are at the root of your react native project, the command will check eaither way.
+- Keep in mind that you are at the root of your react native project, the command will check either way.
 
-- `rnhc` will always check if files or folders are existed for all commands.
+- `rnhc` will always check if files or folders does exist for all commands.
