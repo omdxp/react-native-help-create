@@ -5,18 +5,18 @@
  * @author [Omar Belghaouti](https://github.com/Omar-Belghaouti)
  */
 exports.componentTemplateTs = (componentName) => {
-  return `import React, { FC } from 'react';
-import { Text, View } from 'react-native';
+  return `import React, { FC } from "react";
+import { Text, View } from "react-native";
+import { ${componentName}Styles } from "./styles";
 
 interface ${componentName}Props {}
 
-const ${componentName}: FC<${componentName}Props> = ({}: ${componentName}Props) => {
+export const ${componentName}: FC<${componentName}Props> = ({}: ${componentName}Props) => {
   return (
     <View>
       <Text>${componentName} component created!</Text>
     </View>
   );
 }
-export default ${componentName};
 `;
 };

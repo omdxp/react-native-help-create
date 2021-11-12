@@ -14,53 +14,53 @@ yargs
   .usage("$0 <command> [option]")
   .command(
     "create [name]",
-    "create components, screens, navigations and redux implementation",
+    "Create components, screens, navigations and redux implementation",
     (yargs) => {
       yargs
         .positional("-c", {
           alias: "--component",
           type: "string",
-          describe: "to create components",
+          describe: "To create components",
         })
         .array("-c")
         .positional("-s", {
           alias: "--screen",
           type: "string",
-          describe: "to create screens",
+          describe: "To create screens",
         })
         .array("-s")
         .positional("-r", {
           alias: "--redux",
           type: "boolean",
-          describe: "to create redux store implementation",
+          describe: "To create redux store implementation",
         })
         .positional("-n", {
           alias: "--navigation",
           type: "string",
-          describe: "to create navigation for selected screens",
+          describe: "To create navigation for selected screens",
+          choices: ["stack", "drawer", "tab"],
         })
         .array("-n")
         .option("js", {
           alias: "javascript",
           default: true,
-          describe: "to write files in javascript",
-          choices: ["stack", "drawer", "tab"],
+          describe: "To write files in javascript",
         })
         .option("ts", {
           alias: "typescript",
-          describe: "to write files in typescript",
+          describe: "To write files in typescript",
         })
         .option("f", {
           alias: "folder",
           type: "string",
           default: "",
-          describe: "folder path to create files within",
+          describe: "Folder path to create files within",
         })
         .option("t", {
           alias: "template",
           type: "string",
           default: "",
-          describe: "template to be used to create files with",
+          describe: "Template to be used to create files with",
         });
     },
     (argv) => {
@@ -87,9 +87,14 @@ yargs
           if (navigation.length > 1) {
             createNavigation(navigation, js, ts, folder);
           } else {
-            console.log("at least give 2 screens");
+            console.log("At least give 2 screens");
           }
         }
+      } else {
+        console.log(
+          "You don't seem to be at the root of a react native project"
+        );
       }
     }
-  );
+  )
+  .help().argv;

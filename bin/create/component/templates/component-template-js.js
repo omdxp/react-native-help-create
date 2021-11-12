@@ -5,16 +5,16 @@
  * @author [Omar Belghaouti](https://github.com/Omar-Belghaouti)
  */
 exports.componentTemplateJs = (componentName) => {
-  return `import React from 'react';
-import { Text, View } from 'react-native';
+  return `import React from "react";
+import { Text, View } from "react-native";
+import { ${componentName}Styles } from "./styles";
 
-const ${componentName} = () => {
+export const ${componentName} = () => {
   return (
     <View>
       <Text>${componentName} component created!</Text>
     </View>
   );
 }
-export default ${componentName};
 `;
 };
