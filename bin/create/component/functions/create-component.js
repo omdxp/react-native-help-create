@@ -135,7 +135,7 @@ exports.createComponent = (componentName, js, ts, folder, template) => {
           if (err) {
             console.log(`Unable to create ${component} component styles`);
           } else {
-            console.log(`${path} created`);
+            console.log(`${stylesPath} created`);
           }
         });
       }
