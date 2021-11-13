@@ -14,6 +14,7 @@ const {
   deleteReduxStore,
   deleteNavigation,
 } = require("./delete");
+const { combineComponents, combineScreens } = require("./combine");
 
 yargs
   .scriptName("rnhc")
@@ -151,6 +152,49 @@ yargs
           deleteNavigation(folder);
         } else {
           console.log("Check usage: rnhc delete --help");
+        }
+      } else {
+        console.log(
+          "You don't seem to be at the root of a react native project"
+        );
+      }
+    }
+  )
+  .command(
+    "combine [name]",
+    "Combine components or screens in a folder",
+    (yargs) => {
+      yargs
+        .positional("-c", {
+          alias: "--component",
+          type: "string",
+          array: true,
+          describe: "To combine components in a folder",
+        })
+        .array("-c")
+        .positional("-s", {
+          alias: "--page",
+          type: "string",
+          array: true,
+          describe: "To combine pages in a folder",
+        })
+        .array("-s")
+        .option("f", {
+          alias: "folder",
+          type: "string",
+          describe: "Folder path to combine components or screens",
+          demandOption: "This option is mandatory" | true,
+        });
+    },
+    (argv) => {
+      if (fs.existsSync("package.json")) {
+        const { component, screen, folder } = argv;
+        if (component) {
+          combineComponents(component, folder);
+        } else if (screen) {
+          combineScreens(screen, folder);
+        } else {
+          console.log("Check usage: rnhc combine --help");
         }
       } else {
         console.log(
