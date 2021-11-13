@@ -5,18 +5,18 @@
  * @author [Omar Belghaouti](https://github.com/Omar-Belghaouti)
  */
 exports.screenTemplateJs = (screenName) => {
-  return `import React from 'react';
-import { Text, View } from 'react-native';
+  return `import React from "react";
+import { Text, View } from "react-native";
 
-import {} from '../functions';
+import {} from "./functions";
+import { ${screenName}Styles } from "./styles";
 
-const ${screenName} = () => {
+export const ${screenName}Screen = () => {
   return (
     <View>
-      <Text>${screenName} created!</Text>
+      <Text>${screenName} screen created!</Text>
     </View>
   );
 }
-export default ${screenName};
 `;
 };

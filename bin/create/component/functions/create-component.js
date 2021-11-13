@@ -17,6 +17,7 @@ const {
  */
 exports.createComponent = (componentName, js, ts, folder, template) => {
   // TODO: apply regex to component name
+  // TODO: write files synchronously
   let component =
     componentName.charAt(0).toUpperCase() + componentName.slice(1);
   if (componentName.includes("-")) {
@@ -51,7 +52,6 @@ exports.createComponent = (componentName, js, ts, folder, template) => {
           });
           fs.writeFile(path, file, (err) => {
             if (err) {
-              console.log(err);
               console.log(`Unable to create ${component} component`);
             } else {
               console.log(`${path} created`);
@@ -59,7 +59,6 @@ exports.createComponent = (componentName, js, ts, folder, template) => {
           });
           fs.writeFile(stylesPath, stylesTemplate(component), (err) => {
             if (err) {
-              console.log(err);
               console.log(`Unable to create ${component} component styles`);
             } else {
               console.log(`${stylesPath} created`);
@@ -71,7 +70,6 @@ exports.createComponent = (componentName, js, ts, folder, template) => {
       } else {
         fs.writeFile(path, componentTemplateTs(component), (err) => {
           if (err) {
-            console.log(err);
             console.log(`Unable to create ${component} component`);
           } else {
             console.log(`${path} created`);
@@ -79,7 +77,6 @@ exports.createComponent = (componentName, js, ts, folder, template) => {
         });
         fs.writeFile(stylesPath, stylesTemplate(component), (err) => {
           if (err) {
-            console.log(err);
             console.log(`Unable to create ${component} component styles`);
           } else {
             console.log(`${stylesPath} created`);
@@ -111,7 +108,6 @@ exports.createComponent = (componentName, js, ts, folder, template) => {
           });
           fs.writeFile(path, file, (err) => {
             if (err) {
-              console.log(err);
               console.log(`Unable to create ${component} component`);
             } else {
               console.log(`${path} created`);
@@ -119,7 +115,6 @@ exports.createComponent = (componentName, js, ts, folder, template) => {
           });
           fs.writeFile(stylesPath, stylesTemplate(component), (err) => {
             if (err) {
-              console.log(err);
               console.log(`Unable to create ${component} component styles`);
             } else {
               console.log(`${stylesPath} created`);
