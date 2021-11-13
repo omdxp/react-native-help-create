@@ -17,7 +17,7 @@ export type StateInterface = ReturnType<typeof mainStore.getState>;
 /**
  * list of action types
  */
-export type ActionType = "";
+export type ActionType = "UPDATE_GENERAL";
 
 export interface Action<T> {
   type: ActionType;
