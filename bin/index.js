@@ -38,7 +38,6 @@ yargs
           alias: "--navigation",
           type: "string",
           describe: "To create navigation for selected screens",
-          choices: ["stack", "drawer", "tab"],
         })
         .array("-n")
         .option("js", {
