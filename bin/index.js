@@ -190,7 +190,11 @@ yargs
       if (fs.existsSync("package.json")) {
         const { component, screen, folder } = argv;
         if (component) {
-          combineComponents(component, folder);
+          if (component.length > 1) {
+            combineComponents(component, folder);
+          } else {
+            console.log("At least give 2 components");
+          }
         } else if (screen) {
           combineScreens(screen, folder);
         } else {
