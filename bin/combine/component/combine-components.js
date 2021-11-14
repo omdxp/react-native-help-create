@@ -12,13 +12,12 @@ exports.combineComponents = (components, folder) => {
   const _path = `${path}${folder}/`;
   let folders = [];
   components.forEach((component) => {
-    fs.fs
-      .readdirSync(path)
+    fs.readdirSync(path)
       .filter((f) => f === component)
       .forEach((f) => folders.push(f));
   });
   if (folders.length < components.length) {
-    console.log("Check if all of these components do exist");
+    console.log("Check if all of these components exist");
     return;
   }
   if (!fs.existsSync(_path)) {

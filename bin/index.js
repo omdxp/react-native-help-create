@@ -173,7 +173,7 @@ yargs
         })
         .array("-c")
         .positional("-s", {
-          alias: "--page",
+          alias: "--screen",
           type: "string",
           array: true,
           describe: "To combine pages in a folder",
