@@ -71,16 +71,16 @@ yargs
     },
     (argv) => {
       if (fs.existsSync("package.json")) {
-        const {
-          component,
-          screen,
-          redux,
-          navigation,
-          js,
-          ts,
-          folder,
-          template,
-        } = argv;
+        let { component, screen, redux, navigation, js, ts, folder, template } =
+          argv;
+        // check if project is written in typescript
+        let faf = fs.readdirSync("."); // folders and files
+        for (let i = 0; i < faf.length; i++) {
+          if (faf[i].endsWith("tsx")) {
+            ts = true;
+            break;
+          }
+        }
         if (component) {
           component.forEach((c) =>
             createComponent(c, js, ts, folder, template)

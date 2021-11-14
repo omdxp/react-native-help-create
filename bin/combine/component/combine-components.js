@@ -34,7 +34,7 @@ exports.combineComponents = (components, folder) => {
         if (err) {
           console.log(`Cannot move ${f} component`);
         } else {
-          console.log(`${f} component moved to ${path}${folder}/`);
+          console.log(`${f} component moved to ${_path}`);
         }
       });
     }
