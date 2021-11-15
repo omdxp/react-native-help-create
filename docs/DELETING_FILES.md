@@ -41,7 +41,7 @@ rnhc delete -c <component-name-1> <component-name-2> ... -f <folder-path>
 1. To delete a screen simply run:
 
 ```sh
-rnhc delete -c <screen-name>
+rnhc delete -s <screen-name>
 ```
 
 - This will delete the screen with the given name `<screen-name>` under the `src/screens/` folder.
@@ -55,7 +55,7 @@ src/screens/<screen-name>/ does not exist
 2. To delete multiple screens run:
 
 ```sh
-rnhc delete -c <screen-name-1> <screen-name-2> ...
+rnhc delete -s <screen-name-1> <screen-name-2> ...
 ```
 
 - This will delete only the existed screens with the given inputs that resides under the `src/screens/` folder.
@@ -63,7 +63,7 @@ rnhc delete -c <screen-name-1> <screen-name-2> ...
 3. To delete one or multiple screens that resides in a specific path under the `src/screens/` folder, you can run:
 
 ```sh
-rnhc delete -c <screen-name-1> <screen-name-2> ... -f <folder-path>
+rnhc delete -s <screen-name-1> <screen-name-2> ... -f <folder-path>
 ```
 
 - This will delete only the existed screens with the given inputs that resides under the `src/screens/<folder-path>/` folder.
