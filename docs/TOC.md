@@ -6,6 +6,7 @@
    - [Screens](./CREATING_FILES.md#screens)
    - [Navigations](./CREATING_FILES.md#navigations)
    - [Using templates](./CREATING_FILES.md#templates)
+   - [Redux](./CREATING_FILES.md#redux)
 3. [Deleting Files](./DELETING_FILES.md)
    - [Components](./DELETING_FILES.md#components)
    - [Screens](./DELETING_FILES.md#screens)

@@ -6,6 +6,8 @@
 
 - If you want to force the use of a specific language you can add the `--js` or `--ts` options at the end of your `create` commands.
 
+- `rnhc` will not overwrite the existed implementation for all of the `create` commands.
+
 The following points shows how to use the `create` command.
 
 ## Components
@@ -507,3 +509,180 @@ rnhc create -c comp -t componentWithUseEffect
 - This will create `comp` component under `src/components/` folder and the `index.jsx` for this component will contain the same code written in the template.
 
 - For the screen case, the `index.jsx` for that screen will contain the code written in the template.
+
+## Redux
+
+- To create a redux implementation run:
+
+```sh
+rnhc create -r
+```
+
+- This will create a `redux` folder under the `src/` folder containing the following:
+
+```sh
+src
+└───redux
+    │   index.js
+    │
+    ├───actions
+    │   └───general
+    │           index.js
+    │
+    └───reducers
+        │   index.js
+        │
+        └───general
+                index.js
+```
+
+- Where `index.js` under the `redux` folder contains the redux store definition:
+
+```js
+import { applyMiddleware, compose, createStore } from "redux";
+import { mainReducer } from "./reducers";
+
+/**
+ * the main redux state, with all the reducers
+ */
+export const mainStore = createStore(
+  mainReducer,
+  compose(applyMiddleware(thunk))
+);
+
+/**
+ * Creates a new redux state each time this function is called, this is used only for unit tests, to ensure that we have fresh state on each individual test
+ */
+export const createMainStore = () => {
+  return createStore(mainReducer, compose(applyMiddleware(thunk)));
+};
+```
+
+- And `actions` folder contains the action for each reducer, as for a example, at first `rnhc` will create a sample reducer and action which is called `general`.
+
+- The `general` action's `index.js` contains:
+
+```js
+// write your general actions here
+
+// this is an example for an action
+export const init = () => async (dispatch, getState) => {
+  dispatch({ type: "UPDATE_GENERAL", payload: { message: "init created!" } });
+};
+```
+
+- And the `general` reducer's `index.js` contains:
+
+```js
+const initialState = { message: "" };
+
+export const general = (state = initialState, action) => {
+  switch (action.type) {
+    case "UPDATE_GENERAL":
+      return { ...state, ...action.payload };
+    default:
+      return state;
+  }
+};
+```
+
+- And the `index.js` file under the `reducers` folder contains the following:
+
+```js
+import { combineReducers } from "redux";
+import { general } from "./general";
+
+export const mainReducer = combineReducers({
+  general,
+});
+```
+
+- In TypeScript, the files will be written as the following:
+
+`redux/index.ts`
+
+```ts
+import { applyMiddleware, compose, createStore } from "redux";
+import { mainReducer } from "./reducers";
+
+/**
+ * the main redux state, with all the reducers
+ */
+export const mainStore = createStore(
+  mainReducer,
+  compose(applyMiddleware(thunk))
+);
+
+export type StateInterface = ReturnType<typeof mainStore.getState>;
+
+/**
+ * list of action types
+ */
+export type ActionType = "UPDATE_GENERAL";
+
+export interface Action<T> {
+  type: ActionType;
+  payload: Partial<T>;
+}
+
+export type ThunkResult<
+  A = Record<string, unknown>,
+  E = Record<string, unknown>
+> = ThunkAction<void, StateInterface, E, Action<A>>;
+
+export type Dispatch<A> = ThunkDispatch<
+  StateInterface,
+  Record<string, unknown>,
+  Action<A>
+>;
+```
+
+`redux/actions/general/index.ts`
+
+```ts
+import { GeneralState } from "../../reducers/general";
+import { ThunkResult } from "../..";
+
+// write your general actions here
+
+// this is an example for an action
+export const init =
+  (): ThunkResult<GeneralState> => async (dispatch, getState) => {
+    dispatch({ type: "UPDATE_GENERAL", payload: { message: "init created!" } });
+  };
+```
+
+`redux/reducers/general/index.ts`
+
+```ts
+import { Action } from "../..";
+
+export interface GeneralState {
+  message: string;
+}
+
+export const general = (
+  state: GeneralState = {
+    message: "",
+  },
+  action: Action<GeneralState>
+) => {
+  switch (action.type) {
+    case "UPDATE_GENERAL":
+      return { ...state, ...action.payload };
+    default:
+      return state;
+  }
+};
+```
+
+`redux/reducers/index.ts`
+
+```ts
+import { combineReducers } from "redux";
+import { general } from "./general";
+
+export const mainReducer = combineReducers({
+  general,
+});
+```
