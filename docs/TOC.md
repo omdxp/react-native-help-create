@@ -11,6 +11,7 @@
    - [Components](./DELETING_FILES.md#components)
    - [Screens](./DELETING_FILES.md#screens)
    - [Navigations](./DELETING_FILES.md#navigations)
+   - [Redux](./DELETING_FILES.md#redux)
 4. [Combining Files](./COMBINING_FILES.md)
    - [Components](./COMBINING_FILES.md#components)
    - [Screens](./COMBINING_FILES.md#screens)
