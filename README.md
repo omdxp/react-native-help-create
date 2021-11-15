@@ -22,7 +22,7 @@ This command line helps you create components, screens, navigations and even red
 
 ## How to install it?
 
-- To install it globally in your operating system you should type on your shell the following
+- To install it globally in your system run:
 
 ```
 npm i react-native-help-create -g
@@ -34,7 +34,7 @@ Or
 yarn global add react-native-help-create
 ```
 
-- To install it as a dev dependency in your react native project run
+- To install it as a dev dependency in your react native project run:
 
 ```
 npm i react-native-help-create --save-dev
