@@ -1,0 +1,18 @@
+# Table of Contents
+
+1. [Summary](./SUMMARY.md)
+2. [Creating Files](./CREATING_FILES.md)
+   - [Components](./CREATING_FILES.md#components)
+   - [Screens](./CREATING_FILES.md#screens)
+   - [Navigations](./CREATING_FILES.md#navigations)
+   - [Using templates](./CREATING_FILES.md#templates)
+   - [Redux](./CREATING_FILES.md#redux)
+3. [Deleting Files](./DELETING_FILES.md)
+   - [Components](./DELETING_FILES.md#components)
+   - [Screens](./DELETING_FILES.md#screens)
+   - [Navigations](./DELETING_FILES.md#navigations)
+   - [Redux](./DELETING_FILES.md#redux)
+4. [Combining Files](./COMBINING_FILES.md)
+   - [Components](./COMBINING_FILES.md#components)
+   - [Screens](./COMBINING_FILES.md#screens)
+5. [Notes](./NOTES.md)
