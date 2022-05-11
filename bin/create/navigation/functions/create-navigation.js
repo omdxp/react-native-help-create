@@ -13,6 +13,10 @@ const { navigationTemplateJs, navigationTemplateTs } = require("../templates");
  */
 exports.createNavigation = (navigation, js, ts, folder, overwrite) => {
   const path = folder === "" ? "src/screens/" : `src/screens/${folder}/`;
+  if (!fs.existsSync(path)) {
+    console.log(`${path} does not exist`);
+    return;
+  }
   switch (navigation[0].toLowerCase()) {
     case "stack":
     case "drawer":
@@ -23,9 +27,15 @@ exports.createNavigation = (navigation, js, ts, folder, overwrite) => {
           break;
         }
         // get existed screens
+        navigation.shift();
+        let screens = navigation;
         let existedScreens = [];
-        for (let i = 1; i < navigation.length; i++) {
-          const screen = navigation[i];
+        if (screens[0] === "*") {
+          // folders and files
+          screens = fs.readdirSync(path).filter((el) => !el.endsWith("sx"));
+        }
+        for (let i = 0; i < screens.length; i++) {
+          const screen = screens[i];
           let componentName = screen.charAt(0).toUpperCase() + screen.slice(1);
           if (screen.includes("-")) {
             componentName = "";
@@ -112,9 +122,15 @@ exports.createNavigation = (navigation, js, ts, folder, overwrite) => {
           break;
         }
         // get existed screens
+        navigation.shift();
+        let screens = navigation;
         let existedScreens = [];
-        for (let i = 1; i < navigation.length; i++) {
-          const screen = navigation[i];
+        if (screens[0] === "*") {
+          // folders and files
+          screens = fs.readdirSync(path).filter((el) => !el.endsWith("sx"));
+        }
+        for (let i = 0; i < screens.length; i++) {
+          const screen = screens[i];
           let componentName = screen.charAt(0).toUpperCase() + screen.slice(1);
           if (screen.includes("-")) {
             componentName = "";

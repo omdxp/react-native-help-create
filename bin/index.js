@@ -107,11 +107,7 @@ yargs
         } else if (redux) {
           createReduxStore(js, ts, overwrite);
         } else if (navigation) {
-          if (navigation.length > 2) {
-            createNavigation(navigation, js, ts, folder, overwrite);
-          } else {
-            console.log("At least give 2 screens");
-          }
+          createNavigation(navigation, js, ts, folder, overwrite);
         } else {
           console.log("Check usage: rnhc create --help");
         }
