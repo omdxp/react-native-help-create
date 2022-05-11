@@ -67,12 +67,27 @@ yargs
           type: "string",
           default: "",
           describe: "Template to be used to create files with",
+        })
+        .option("o", {
+          alias: "overwrite",
+          type: "boolean",
+          default: false,
+          describe: "Used to overwrite created files",
         });
     },
     (argv) => {
       if (fs.existsSync("package.json")) {
-        let { component, screen, redux, navigation, js, ts, folder, template } =
-          argv;
+        let {
+          component,
+          screen,
+          redux,
+          navigation,
+          js,
+          ts,
+          folder,
+          template,
+          overwrite,
+        } = argv;
         // check if project is written in typescript
         let faf = fs.readdirSync("."); // folders and files
         for (let i = 0; i < faf.length; i++) {
@@ -83,18 +98,16 @@ yargs
         }
         if (component) {
           component.forEach((c) =>
-            createComponent(c, js, ts, folder, template)
+            createComponent(c, js, ts, folder, template, overwrite)
           );
         } else if (screen) {
-          screen.forEach((s) => createScreen(s, js, ts, folder, template));
+          screen.forEach((s) =>
+            createScreen(s, js, ts, folder, template, overwrite)
+          );
         } else if (redux) {
-          createReduxStore(js, ts);
+          createReduxStore(js, ts, overwrite);
         } else if (navigation) {
-          if (navigation.length > 2) {
-            createNavigation(navigation, js, ts, folder);
-          } else {
-            console.log("At least give 2 screens");
-          }
+          createNavigation(navigation, js, ts, folder, overwrite);
         } else {
           console.log("Check usage: rnhc create --help");
         }

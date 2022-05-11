@@ -13,11 +13,17 @@ const {
  * @param {boolean} ts - write file in typescript.
  * @param {string} folder - folder path to create files within.
  * @param {string} template - template file to create component with.
+ * @param {boolean} overwrite - overwrite existed files.
  * @author [Omar Belghaouti](https://github.com/Omar-Belghaouti)
  */
-exports.createComponent = (componentName, js, ts, folder, template) => {
-  // TODO: apply regex to component name
-  // TODO: write files synchronously
+exports.createComponent = (
+  componentName,
+  js,
+  ts,
+  folder,
+  template,
+  overwrite
+) => {
   let component =
     componentName.charAt(0).toUpperCase() + componentName.slice(1);
   if (componentName.includes("-")) {
@@ -37,7 +43,7 @@ exports.createComponent = (componentName, js, ts, folder, template) => {
         ? `src/components/${componentName.toLowerCase()}/styles.ts`
         : `src/components/${folder}/${componentName.toLowerCase()}/styles.ts`;
 
-    if (fs.existsSync(path)) {
+    if (fs.existsSync(path) && !overwrite) {
       console.log(`${path} already exist`);
     } else {
       // check if template file exist
@@ -93,7 +99,7 @@ exports.createComponent = (componentName, js, ts, folder, template) => {
       folder === ""
         ? `src/components/${componentName.toLowerCase()}/styles.js`
         : `src/components/${folder}/${componentName.toLowerCase()}/styles.js`;
-    if (fs.existsSync(path)) {
+    if (fs.existsSync(path) && !overwrite) {
       console.log(`${path} already exist`);
     } else {
       // check if template file exist

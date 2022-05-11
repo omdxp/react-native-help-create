@@ -8,23 +8,34 @@ const { navigationTemplateJs, navigationTemplateTs } = require("../templates");
  * @param {boolean} js - write file in javascript.
  * @param {boolean} ts - write file in typescript.
  * @param {string} folder - folder path to create navigation with.
+ * @param {boolean} overwrite - overwrite existed files.
  * @author [Omar Belghaouti](https://github.com/Omar-Belghaouti)
  */
-exports.createNavigation = (navigation, js, ts, folder) => {
+exports.createNavigation = (navigation, js, ts, folder, overwrite) => {
   const path = folder === "" ? "src/screens/" : `src/screens/${folder}/`;
+  if (!fs.existsSync(path)) {
+    console.log(`${path} does not exist`);
+    return;
+  }
   switch (navigation[0].toLowerCase()) {
     case "stack":
     case "drawer":
     case "tab": {
       if (ts) {
-        if (fs.existsSync(`${path}navigation.tsx`)) {
+        if (fs.existsSync(`${path}navigation.tsx`) && !overwrite) {
           console.log(`${path}navigation.tsx already exist`);
           break;
         }
         // get existed screens
+        navigation.shift();
+        let screens = navigation;
         let existedScreens = [];
-        for (let i = 1; i < navigation.length; i++) {
-          const screen = navigation[i];
+        if (screens[0] === "*") {
+          // folders and files
+          screens = fs.readdirSync(path).filter((el) => !el.endsWith("sx"));
+        }
+        for (let i = 0; i < screens.length; i++) {
+          const screen = screens[i];
           let componentName = screen.charAt(0).toUpperCase() + screen.slice(1);
           if (screen.includes("-")) {
             componentName = "";
@@ -49,18 +60,40 @@ exports.createNavigation = (navigation, js, ts, folder) => {
                 importAs: true,
               });
             } else {
+              // folders and files
+              let faf = fs.readdirSync(`${_path}`);
+              let importableAs = faf.some((el) => el === "navigation.tsx");
               const __path = `./${_path}`.replace("src/screens/", "");
-              existedScreens.push({
-                folderName: screen,
-                componentName: `${componentName}Screen`,
-                path:
-                  folder === ""
-                    ? __path.slice(0, __path.length - 1)
-                    : __path
-                        .slice(0, __path.length - 1)
-                        .replace(`${folder}/`, ""),
-                importAs: false,
-              });
+              if (importableAs) {
+                existedScreens.push({
+                  folderName: screen,
+                  componentName: `${componentName}Screen`,
+                  path:
+                    folder === ""
+                      ? __path.slice(0, __path.length - 1)
+                      : __path
+                          .slice(0, __path.length - 1)
+                          .replace(`${folder}/`, ""),
+                  importAs: importableAs,
+                });
+              } else {
+                let importable = faf.some((el) => el === "index.tsx");
+                if (importable) {
+                  existedScreens.push({
+                    folderName: screen,
+                    componentName: `${componentName}Screen`,
+                    path:
+                      folder === ""
+                        ? __path.slice(0, __path.length - 1)
+                        : __path
+                            .slice(0, __path.length - 1)
+                            .replace(`${folder}/`, ""),
+                    importAs: importableAs,
+                  });
+                } else {
+                  console.log(`${_path}navigation.tsx does not exist`);
+                }
+              }
             }
           } else {
             console.log(`${_path} does not exist`);
@@ -84,14 +117,20 @@ exports.createNavigation = (navigation, js, ts, folder) => {
           );
         }
       } else {
-        if (fs.existsSync(`${path}navigation.jsx`)) {
+        if (fs.existsSync(`${path}navigation.jsx`) && !overwrite) {
           console.log(`${path}navigation.jsx already exist`);
           break;
         }
         // get existed screens
+        navigation.shift();
+        let screens = navigation;
         let existedScreens = [];
-        for (let i = 1; i < navigation.length; i++) {
-          const screen = navigation[i];
+        if (screens[0] === "*") {
+          // folders and files
+          screens = fs.readdirSync(path).filter((el) => !el.endsWith("sx"));
+        }
+        for (let i = 0; i < screens.length; i++) {
+          const screen = screens[i];
           let componentName = screen.charAt(0).toUpperCase() + screen.slice(1);
           if (screen.includes("-")) {
             componentName = "";
@@ -116,18 +155,40 @@ exports.createNavigation = (navigation, js, ts, folder) => {
                 importAs: true,
               });
             } else {
+              // folders and files
+              let faf = fs.readdirSync(`${_path}`);
+              let importableAs = faf.some((el) => el === "navigation.jsx");
               const __path = `./${_path}`.replace("src/screens/", "");
-              existedScreens.push({
-                folderName: screen,
-                componentName: `${componentName}Screen`,
-                path:
-                  folder === ""
-                    ? __path.slice(0, __path.length - 1)
-                    : __path
-                        .slice(0, __path.length - 1)
-                        .replace(`${folder}/`, ""),
-                importAs: false,
-              });
+              if (importableAs) {
+                existedScreens.push({
+                  folderName: screen,
+                  componentName,
+                  path:
+                    folder === ""
+                      ? __path.slice(0, __path.length - 1)
+                      : __path
+                          .slice(0, __path.length - 1)
+                          .replace(`${folder}/`, ""),
+                  importAs: importableAs,
+                });
+              } else {
+                let importable = faf.some((el) => el === "index.jsx");
+                if (importable) {
+                  existedScreens.push({
+                    folderName: screen,
+                    componentName: `${componentName}Screen`,
+                    path:
+                      folder === ""
+                        ? __path.slice(0, __path.length - 1)
+                        : __path
+                            .slice(0, __path.length - 1)
+                            .replace(`${folder}/`, ""),
+                    importAs: importableAs,
+                  });
+                } else {
+                  console.log(`${_path}navigation.jsx does not exist`);
+                }
+              }
             }
           } else {
             console.log(`${_path} does not exist`);

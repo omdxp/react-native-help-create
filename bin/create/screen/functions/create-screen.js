@@ -15,11 +15,10 @@ const {
  * @param {boolean} ts - write file in typescript.
  * @param {string} folder - folder path to create files within.
  * @param {string} template - template file to create screen with.
+ * @param {boolean} overwrite - overwrite existed files.
  * @author [Omar Belghaouti](https://github.com/Omar-Belghaouti)
  */
-exports.createScreen = (screenName, js, ts, folder, template) => {
-  // TODO: apply regex to screen name
-  // TODO: write files synchronously
+exports.createScreen = (screenName, js, ts, folder, template, overwrite) => {
   let screen = screenName.charAt(0).toUpperCase() + screenName.slice(1);
   if (screenName.includes("-")) {
     screen = "";
@@ -32,7 +31,7 @@ exports.createScreen = (screenName, js, ts, folder, template) => {
     folder === ""
       ? `src/screens/${screenName.toLowerCase()}/`
       : `src/screens/${folder}/${screenName.toLowerCase()}/`;
-  if (fs.existsSync(path)) {
+  if (fs.existsSync(path) && !overwrite) {
     console.log(`${path} already exist`);
   } else {
     if (ts) {
