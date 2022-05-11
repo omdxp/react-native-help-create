@@ -49,18 +49,40 @@ exports.createNavigation = (navigation, js, ts, folder) => {
                 importAs: true,
               });
             } else {
+              // folders and files
+              let faf = fs.readdirSync(`${_path}`);
+              let importableAs = faf.some((el) => el === "navigation.tsx");
               const __path = `./${_path}`.replace("src/screens/", "");
-              existedScreens.push({
-                folderName: screen,
-                componentName: `${componentName}Screen`,
-                path:
-                  folder === ""
-                    ? __path.slice(0, __path.length - 1)
-                    : __path
-                        .slice(0, __path.length - 1)
-                        .replace(`${folder}/`, ""),
-                importAs: false,
-              });
+              if (importableAs) {
+                existedScreens.push({
+                  folderName: screen,
+                  componentName: `${componentName}Screen`,
+                  path:
+                    folder === ""
+                      ? __path.slice(0, __path.length - 1)
+                      : __path
+                          .slice(0, __path.length - 1)
+                          .replace(`${folder}/`, ""),
+                  importAs: importableAs,
+                });
+              } else {
+                let importable = faf.some((el) => el === "index.tsx");
+                if (importable) {
+                  existedScreens.push({
+                    folderName: screen,
+                    componentName: `${componentName}Screen`,
+                    path:
+                      folder === ""
+                        ? __path.slice(0, __path.length - 1)
+                        : __path
+                            .slice(0, __path.length - 1)
+                            .replace(`${folder}/`, ""),
+                    importAs: importableAs,
+                  });
+                } else {
+                  console.log(`${_path}navigation.tsx does not exist`);
+                }
+              }
             }
           } else {
             console.log(`${_path} does not exist`);
@@ -116,18 +138,40 @@ exports.createNavigation = (navigation, js, ts, folder) => {
                 importAs: true,
               });
             } else {
+              // folders and files
+              let faf = fs.readdirSync(`${_path}`);
+              let importableAs = faf.some((el) => el === "navigation.jsx");
               const __path = `./${_path}`.replace("src/screens/", "");
-              existedScreens.push({
-                folderName: screen,
-                componentName: `${componentName}Screen`,
-                path:
-                  folder === ""
-                    ? __path.slice(0, __path.length - 1)
-                    : __path
-                        .slice(0, __path.length - 1)
-                        .replace(`${folder}/`, ""),
-                importAs: false,
-              });
+              if (importableAs) {
+                existedScreens.push({
+                  folderName: screen,
+                  componentName,
+                  path:
+                    folder === ""
+                      ? __path.slice(0, __path.length - 1)
+                      : __path
+                          .slice(0, __path.length - 1)
+                          .replace(`${folder}/`, ""),
+                  importAs: importableAs,
+                });
+              } else {
+                let importable = faf.some((el) => el === "index.jsx");
+                if (importable) {
+                  existedScreens.push({
+                    folderName: screen,
+                    componentName: `${componentName}Screen`,
+                    path:
+                      folder === ""
+                        ? __path.slice(0, __path.length - 1)
+                        : __path
+                            .slice(0, __path.length - 1)
+                            .replace(`${folder}/`, ""),
+                    importAs: importableAs,
+                  });
+                } else {
+                  console.log(`${_path}navigation.jsx does not exist`);
+                }
+              }
             }
           } else {
             console.log(`${_path} does not exist`);
