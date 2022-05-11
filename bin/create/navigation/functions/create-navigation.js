@@ -8,16 +8,17 @@ const { navigationTemplateJs, navigationTemplateTs } = require("../templates");
  * @param {boolean} js - write file in javascript.
  * @param {boolean} ts - write file in typescript.
  * @param {string} folder - folder path to create navigation with.
+ * @param {boolean} overwrite - overwrite existed files.
  * @author [Omar Belghaouti](https://github.com/Omar-Belghaouti)
  */
-exports.createNavigation = (navigation, js, ts, folder) => {
+exports.createNavigation = (navigation, js, ts, folder, overwrite) => {
   const path = folder === "" ? "src/screens/" : `src/screens/${folder}/`;
   switch (navigation[0].toLowerCase()) {
     case "stack":
     case "drawer":
     case "tab": {
       if (ts) {
-        if (fs.existsSync(`${path}navigation.tsx`)) {
+        if (fs.existsSync(`${path}navigation.tsx`) && !overwrite) {
           console.log(`${path}navigation.tsx already exist`);
           break;
         }
@@ -106,7 +107,7 @@ exports.createNavigation = (navigation, js, ts, folder) => {
           );
         }
       } else {
-        if (fs.existsSync(`${path}navigation.jsx`)) {
+        if (fs.existsSync(`${path}navigation.jsx`) && !overwrite) {
           console.log(`${path}navigation.jsx already exist`);
           break;
         }

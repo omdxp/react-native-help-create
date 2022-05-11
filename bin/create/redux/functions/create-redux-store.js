@@ -14,11 +14,12 @@ const {
  * @description this function is used to create redux store file.
  * @param {boolean} js - write file in javascript.
  * @param {boolean} ts - write file in typescript.
+ * @param {boolean} overwrite - overwrite existed files.
  * @author [Omar Belghaouti](https://github.com/Omar-Belghaouti)
  */
-exports.createReduxStore = (js, ts) => {
+exports.createReduxStore = (js, ts, overwrite) => {
   const path = "src/redux/";
-  if (fs.existsSync(path)) {
+  if (fs.existsSync(path) && !overwrite) {
     console.log("Redux implementation already exists");
   } else {
     if (ts) {
