@@ -7,7 +7,10 @@
     "rnhc": "bin/index.js"
   },
   "scripts": {
-    "test": "echo \"Error: no test specified\" && exit 1"
+    "rnhc": "node .",
+    "rnhc:help": "node . --help",
+    "test": "jest --runInBand",
+    "test:watch": "jest --watch --runInBand"
   },
   "repository": {
     "type": "git",
@@ -31,5 +34,9 @@
   "dependencies": {
     "file-system": "^2.2.2",
     "yargs": "^16.2.0"
+  },
+  "devDependencies": {
+    "@types/jest": "^27.5.1",
+    "jest": "^28.1.0"
   }
 }
