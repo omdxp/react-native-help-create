@@ -20,7 +20,6 @@ const { config } = require("../../../utils");
  */
 exports.createReduxStore = (js, ts, overwrite) => {
   const { reduxRoot } = config;
-
   const path = `${reduxRoot}/`;
   if (fs.existsSync(path) && !overwrite) {
     console.log("Redux implementation already exists");

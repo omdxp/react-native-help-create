@@ -6,7 +6,7 @@ const {
   screenFunctionTemplateTs,
   stylesTemplate,
 } = require("../templates");
-const { config } = require("../../../utils");
+const { config, getComponentName } = require("../../../utils");
 
 /**
  * @function createScreen
@@ -22,14 +22,7 @@ const { config } = require("../../../utils");
 exports.createScreen = (screenName, js, ts, folder, template, overwrite) => {
   const { withStyles, withFunctions, withProps, defaultExports, screensRoot } =
     config;
-  let screen = screenName.charAt(0).toUpperCase() + screenName.slice(1);
-  if (screenName.includes("-")) {
-    screen = "";
-    let words = screenName.split("-");
-    words.forEach((w) => {
-      screen += w.charAt(0).toUpperCase() + w.slice(1);
-    });
-  }
+  let screen = getComponentName(screenName);
   const path =
     folder === ""
       ? `${screensRoot}/${screenName.toLowerCase()}/`
@@ -50,7 +43,7 @@ exports.createScreen = (screenName, js, ts, folder, template, overwrite) => {
           });
           fs.writeFile(
             `${path}index.tsx`,
-            file.replace(/__COMPONENT__/g, page),
+            file.replace(/__COMPONENT__/g, screen),
             (err) => {
               if (err) {
                 console.log(`Unable to create ${screen} screen`);
@@ -130,7 +123,7 @@ exports.createScreen = (screenName, js, ts, folder, template, overwrite) => {
           });
           fs.writeFile(
             `${path}index.jsx`,
-            file.replace(/__COMPONENT__/g, page),
+            file.replace(/__COMPONENT__/g, screen),
             (err) => {
               if (err) {
                 console.log(`Unable to create ${screen} screen`);
