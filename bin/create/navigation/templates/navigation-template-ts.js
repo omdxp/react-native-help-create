@@ -3,9 +3,10 @@
  * @description this function returns navigation file for the specified navigation type and screens in typescript.
  * @param {string} type - navigation type.
  * @param {Array} screens - array of screens.
+ * @param {boolean} defaultExports - if the navigation and screens are default exported.
  * @author [Omar Belghaouti](https://github.com/Omar-Belghaouti)
  */
-exports.navigationTemplateTs = (type, screens) => {
+exports.navigationTemplateTs = (type, screens, defaultExports) => {
   let template = `import React, { FC } from "react";\n\n`;
   switch (type) {
     case "stack":
@@ -30,28 +31,58 @@ exports.navigationTemplateTs = (type, screens) => {
     default:
       break;
   }
-  screens.forEach((screen) => {
-    template += `import { ${
-      screen.importAs
-        ? `Navigation as ${screen.componentName}`
-        : screen.componentName
-    } } from "${screen.path}";
+  if (defaultExports) {
+    screens.forEach((screen) => {
+      template += `import ${
+        screen.importAs
+          ? `${screen.componentName}Navigation`
+          : screen.componentName
+      } from "${screen.path}";
 `;
-  });
-
-  template += `export const Navigation: FC = () => {
+    });
+    template += `\nconst Navigation: FC = () => {
   return (
     <Navigator>
     `;
-  screens.forEach((screen) => {
-    template += `  <Screen name="${screen.folderName}" component={${screen.componentName}} />
+    screens.forEach((screen) => {
+      template += `  <Screen name="${screen.folderName}" component={${
+        screen.importAs
+          ? `${screen.componentName}Navigation`
+          : screen.componentName
+      }} />
     `;
-  });
-  template = template.substring(0, template.length - 5);
-  template += `
+    });
+    template = template.substring(0, template.length - 5);
+    template += `
+    </Navigator>
+  );
+};
+export default Navigation;
+`;
+  } else {
+    screens.forEach((screen) => {
+      template += `import { ${
+        screen.importAs
+          ? `Navigation as ${screen.componentName}`
+          : screen.componentName
+      } } from "${screen.path}";
+`;
+    });
+
+    template += `\nexport const Navigation: FC = () => {
+  return (
+    <Navigator>
+    `;
+    screens.forEach((screen) => {
+      template += `  <Screen name="${screen.folderName}" component={${screen.componentName}} />
+    `;
+    });
+    template = template.substring(0, template.length - 5);
+    template += `
     </Navigator>
   );
 };
 `;
+  }
   return template;
 };
