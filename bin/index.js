@@ -7,14 +7,17 @@ const {
   createNavigation,
   createReduxStore,
   createScreen,
+  createConfig,
 } = require("./create");
 const {
   deleteComponents,
   deleteScreens,
   deleteReduxStore,
   deleteNavigation,
+  deleteConfig,
 } = require("./delete");
 const { combineComponents, combineScreens } = require("./combine");
+const { loadConfig } = require("./utils");
 
 yargs
   .scriptName("rnhc")
@@ -47,6 +50,10 @@ yargs
           describe: "To create navigation for selected screens",
         })
         .array("-n")
+        .positional("--config", {
+          type: "boolean",
+          describe: "to create config file",
+        })
         .option("js", {
           alias: "javascript",
           default: true,
@@ -82,12 +89,16 @@ yargs
           screen,
           redux,
           navigation,
+          config,
           js,
           ts,
           folder,
           template,
           overwrite,
         } = argv;
+        try {
+          loadConfig();
+        } catch {}
         // check if project is written in typescript
         let faf = fs.readdirSync("."); // folders and files
         for (let i = 0; i < faf.length; i++) {
@@ -108,6 +119,8 @@ yargs
           createReduxStore(js, ts, overwrite);
         } else if (navigation) {
           createNavigation(navigation, js, ts, folder, overwrite);
+        } else if (config) {
+          createConfig(overwrite);
         } else {
           console.log("Check usage: rnhc create --help");
         }
@@ -145,6 +158,10 @@ yargs
           type: "boolean",
           describe: "To delete navigations",
         })
+        .positional("--config", {
+          type: "boolean",
+          describe: "to delete config file",
+        })
         .option("f", {
           alias: "folder",
           type: "string",
@@ -154,7 +171,10 @@ yargs
     },
     (argv) => {
       if (fs.existsSync("package.json")) {
-        const { component, screen, redux, navigation, folder } = argv;
+        const { component, screen, redux, navigation, config, folder } = argv;
+        try {
+          loadConfig();
+        } catch {}
         if (component) {
           deleteComponents(component, folder);
         } else if (screen) {
@@ -163,6 +183,8 @@ yargs
           deleteReduxStore();
         } else if (navigation) {
           deleteNavigation(folder);
+        } else if (config) {
+          deleteConfig();
         } else {
           console.log("Check usage: rnhc delete --help");
         }
@@ -202,6 +224,9 @@ yargs
     (argv) => {
       if (fs.existsSync("package.json")) {
         const { component, screen, folder } = argv;
+        try {
+          loadConfig();
+        } catch {}
         if (component) {
           if (component.length > 1) {
             combineComponents(component, folder);

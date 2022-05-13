@@ -1,4 +1,5 @@
 const fs = require("file-system");
+const { config } = require("../../utils");
 
 /**
  * @function deleteReduxStore
@@ -6,7 +7,8 @@ const fs = require("file-system");
  * @author [Omar Belghaouti](https://github.com/Omar-Belghaouti)
  */
 exports.deleteReduxStore = () => {
-  const path = "src/redux/";
+  const { reduxRoot } = config;
+  const path = `${reduxRoot}/`;
   try {
     fs.rmdirSync(path);
     console.log(`${path} deleted`);

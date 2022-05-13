@@ -8,6 +8,7 @@ const {
   actionTemplateTs,
   mainReducerTemplate,
 } = require("../templates");
+const { config } = require("../../../utils");
 
 /**
  * @function createReduxStore
@@ -18,7 +19,9 @@ const {
  * @author [Omar Belghaouti](https://github.com/Omar-Belghaouti)
  */
 exports.createReduxStore = (js, ts, overwrite) => {
-  const path = "src/redux/";
+  const { reduxRoot } = config;
+
+  const path = `${reduxRoot}/`;
   if (fs.existsSync(path) && !overwrite) {
     console.log("Redux implementation already exists");
   } else {

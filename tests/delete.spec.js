@@ -28,6 +28,8 @@ describe("delete component tests", () => {
       await sleep(100);
       createComponent("del-test", false, true, "", "", false);
       await sleep(100);
+      expect(fs.existsSync("./src/components/del-test/index.tsx")).toBe(true);
+      expect(fs.existsSync("./src/components/del-test/styles.ts")).toBe(true);
       deleteComponents(["del-test"], "");
       await sleep(100);
       expect(fs.existsSync("./src/components/del-test/index.tsx")).toBe(false);
@@ -39,11 +41,12 @@ describe("delete component tests", () => {
 
   test("should not delete not existed component", async () => {
     try {
+      expect(fs.existsSync("./src/components/del-test/index.tsx")).toBe(false);
+      expect(fs.existsSync("./src/components/del-test/styles.ts")).toBe(false);
       deleteComponents(["del-test"], "");
       await sleep(100);
-      expect(console.log).lastCalledWith(
-        "src/components/del-test/ does not exist"
-      );
+      expect(fs.existsSync("./src/components/del-test/index.tsx")).toBe(false);
+      expect(fs.existsSync("./src/components/del-test/styles.ts")).toBe(false);
     } catch (err) {
       fail(err);
     }
@@ -65,6 +68,11 @@ describe("delete screen tests", () => {
       await sleep(100);
       createScreen("del-test", false, true, "", "", false);
       await sleep(100);
+      expect(fs.existsSync("./src/screens/del-test/index.tsx")).toBe(true);
+      expect(fs.existsSync("./src/screens/del-test/styles.ts")).toBe(true);
+      expect(fs.existsSync("./src/screens/del-test/functions/index.ts")).toBe(
+        true
+      );
       deleteScreens(["del-test"], "");
       await sleep(100);
       expect(fs.existsSync("./src/screens/del-test/index.tsx")).toBe(false);
@@ -81,9 +89,18 @@ describe("delete screen tests", () => {
     try {
       deleteScreens(["del-test"], "");
       await sleep(100);
+      expect(fs.existsSync("./src/screens/del-test/index.tsx")).toBe(false);
+      expect(fs.existsSync("./src/screens/del-test/styles.ts")).toBe(false);
+      expect(fs.existsSync("./src/screens/del-test/functions/index.ts")).toBe(
+        false
+      );
       deleteScreens(["del-test"], "");
       await sleep(100);
-      expect(console.log).lastCalledWith("src/screens/del-test does not exist");
+      expect(fs.existsSync("./src/screens/del-test/index.tsx")).toBe(false);
+      expect(fs.existsSync("./src/screens/del-test/styles.ts")).toBe(false);
+      expect(fs.existsSync("./src/screens/del-test/functions/index.ts")).toBe(
+        false
+      );
     } catch (err) {
       fail(err);
     }
@@ -104,6 +121,7 @@ describe("delete redux tests", () => {
       await sleep(100);
       createReduxStore(false, true);
       await sleep(100);
+      expect(fs.existsSync("src/redux/")).toBe(true);
       deleteReduxStore();
       await sleep(100);
       expect(fs.existsSync("src/redux/")).toBe(false);
@@ -117,7 +135,6 @@ describe("delete redux tests", () => {
       deleteReduxStore();
       await sleep(100);
       expect(fs.existsSync("src/redux/")).toBe(false);
-      expect(console.log).lastCalledWith("src/redux/ does not exist");
     } catch (err) {
       fail(err);
     }

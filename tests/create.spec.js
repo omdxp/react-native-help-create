@@ -3,12 +3,14 @@ const {
   createScreen,
   createReduxStore,
   createNavigation,
+  createConfig,
 } = require("../bin/create");
 const {
   deleteComponents,
   deleteScreens,
   deleteReduxStore,
   deleteNavigation,
+  deleteConfig,
 } = require("../bin/delete");
 
 const fs = require("file-system");
@@ -266,6 +268,38 @@ describe("create navigation tests", () => {
       await sleep(100);
       expect(fs.existsSync("./src/screens/navigation.tsx")).toBe(true);
       deleteNavigation();
+      await sleep(100);
+    } catch (err) {
+      fail(err);
+    }
+  });
+});
+
+describe("create config tests", () => {
+  beforeEach(() => {
+    clear();
+  });
+  afterEach(() => {
+    clear();
+  });
+  test("should create config file", async () => {
+    try {
+      createConfig();
+      await sleep(100);
+      expect(fs.existsSync("rnhc.config.json")).toBe(true);
+      deleteConfig();
+      await sleep(100);
+    } catch (err) {
+      fail(err);
+    }
+  });
+
+  test("should not create already existed config file", async () => {
+    try {
+      createConfig();
+      await sleep(100);
+      expect(fs.existsSync("rnhc.config.json")).toBe(true);
+      deleteConfig();
       await sleep(100);
     } catch (err) {
       fail(err);

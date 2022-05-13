@@ -1,5 +1,6 @@
 const fs = require("file-system");
 const { navigationTemplateJs, navigationTemplateTs } = require("../templates");
+const { config } = require("../../../utils");
 
 /**
  * @function createNavigation
@@ -12,7 +13,8 @@ const { navigationTemplateJs, navigationTemplateTs } = require("../templates");
  * @author [Omar Belghaouti](https://github.com/Omar-Belghaouti)
  */
 exports.createNavigation = (navigation, js, ts, folder, overwrite) => {
-  const path = folder === "" ? "src/screens/" : `src/screens/${folder}/`;
+  const { defaultExports, screensRoot } = config;
+  const path = folder === "" ? `${screensRoot}/` : `${screensRoot}/${folder}/`;
   if (!fs.existsSync(path)) {
     console.log(`${path} does not exist`);
     return;
@@ -52,7 +54,7 @@ exports.createNavigation = (navigation, js, ts, folder, overwrite) => {
                 componentName,
                 path:
                   folder === ""
-                    ? `./${_path}navigation`.replace("src/screens/", "")
+                    ? `./${_path}navigation`.replace(`${screensRoot}/`, "")
                     : `./${_path}navigation`.replace(
                         `src/screens/${folder}/`,
                         ""
@@ -63,7 +65,7 @@ exports.createNavigation = (navigation, js, ts, folder, overwrite) => {
               // folders and files
               let faf = fs.readdirSync(`${_path}`);
               let importableAs = faf.some((el) => el === "navigation.tsx");
-              const __path = `./${_path}`.replace("src/screens/", "");
+              const __path = `./${_path}`.replace(`${screensRoot}/`, "");
               if (importableAs) {
                 existedScreens.push({
                   folderName: screen,
@@ -106,7 +108,11 @@ exports.createNavigation = (navigation, js, ts, folder, overwrite) => {
         } else {
           fs.writeFile(
             `${path}navigation.tsx`,
-            navigationTemplateTs(navigation[0].toLowerCase(), existedScreens),
+            navigationTemplateTs(
+              navigation[0].toLowerCase(),
+              existedScreens,
+              defaultExports
+            ),
             (err) => {
               if (err) {
                 console.log(`Unable to create ${path}navigation.tsx`);
@@ -147,9 +153,9 @@ exports.createNavigation = (navigation, js, ts, folder, overwrite) => {
                 componentName,
                 path:
                   folder === ""
-                    ? `./${_path}navigation`.replace("src/screens/", "")
+                    ? `./${_path}navigation`.replace(`${screensRoot}/`, "")
                     : `./${_path}navigation`.replace(
-                        `src/screens/${folder}/`,
+                        `${screensRoot}/${folder}/`,
                         ""
                       ),
                 importAs: true,
@@ -158,7 +164,7 @@ exports.createNavigation = (navigation, js, ts, folder, overwrite) => {
               // folders and files
               let faf = fs.readdirSync(`${_path}`);
               let importableAs = faf.some((el) => el === "navigation.jsx");
-              const __path = `./${_path}`.replace("src/screens/", "");
+              const __path = `./${_path}`.replace(`${screensRoot}/`, "");
               if (importableAs) {
                 existedScreens.push({
                   folderName: screen,
@@ -201,7 +207,11 @@ exports.createNavigation = (navigation, js, ts, folder, overwrite) => {
         } else {
           fs.writeFile(
             `${path}navigation.jsx`,
-            navigationTemplateJs(navigation[0].toLowerCase(), existedScreens),
+            navigationTemplateJs(
+              navigation[0].toLowerCase(),
+              existedScreens,
+              defaultExports
+            ),
             (err) => {
               if (err) {
                 console.log(`Unable to create ${path}navigation.jsx`);
