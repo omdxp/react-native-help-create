@@ -15,6 +15,7 @@ const {
   deleteNavigation,
 } = require("./delete");
 const { combineComponents, combineScreens } = require("./combine");
+const { loadConfig } = require("./utils");
 
 yargs
   .scriptName("rnhc")
@@ -88,6 +89,9 @@ yargs
           template,
           overwrite,
         } = argv;
+        try {
+          loadConfig();
+        } catch {}
         // check if project is written in typescript
         let faf = fs.readdirSync("."); // folders and files
         for (let i = 0; i < faf.length; i++) {
@@ -155,6 +159,9 @@ yargs
     (argv) => {
       if (fs.existsSync("package.json")) {
         const { component, screen, redux, navigation, folder } = argv;
+        try {
+          loadConfig();
+        } catch {}
         if (component) {
           deleteComponents(component, folder);
         } else if (screen) {
@@ -202,6 +209,9 @@ yargs
     (argv) => {
       if (fs.existsSync("package.json")) {
         const { component, screen, folder } = argv;
+        try {
+          loadConfig();
+        } catch {}
         if (component) {
           if (component.length > 1) {
             combineComponents(component, folder);
