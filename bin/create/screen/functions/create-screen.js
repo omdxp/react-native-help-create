@@ -43,7 +43,7 @@ exports.createScreen = (screenName, js, ts, folder, template, overwrite) => {
           });
           fs.writeFile(
             `${path}index.tsx`,
-            file.replace(/__COMPONENT__/g, page),
+            file.replace(/__COMPONENT__/g, screen),
             (err) => {
               if (err) {
                 console.log(`Unable to create ${screen} screen`);
@@ -123,7 +123,7 @@ exports.createScreen = (screenName, js, ts, folder, template, overwrite) => {
           });
           fs.writeFile(
             `${path}index.jsx`,
-            file.replace(/__COMPONENT__/g, page),
+            file.replace(/__COMPONENT__/g, screen),
             (err) => {
               if (err) {
                 console.log(`Unable to create ${screen} screen`);
