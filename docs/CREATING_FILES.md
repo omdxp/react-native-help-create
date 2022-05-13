@@ -481,6 +481,60 @@ rnhc create -n <navigation-type> * -f <folder-path>
 
 - The wildcard `*` can work also for the nested navigations.
 
+- All the sub folders should contain the navigation files so it can be added to the navigation file you want to create, for example take this structure:
+
+```sh
+src
+└───screens
+    │   navigation.jsx
+    │
+    ├───folder
+    │   │
+    │   ├───screen-one
+    │   │   │   index.jsx
+    │   │   │   styles.js
+    │   │   │
+    │   │   └───functions
+    │   │           index.js
+    │   │
+    │   └───screen-two
+    │       │   index.jsx
+    │       │   styles.js
+    │       │
+    │       └───functions
+    │               index.js
+    │
+    ├───screen-three
+    │   │   index.jsx
+    │   │   styles.js
+    │   │
+    │   └───functions
+    │           index.js
+    │
+    └───screen-four
+        │   index.jsx
+        │   styles.js
+        │
+        └───functions
+                index.js
+```
+
+When you try to create a navigation like this:
+
+```sh
+rnhc create -n stack *
+```
+
+It will contain only `screen-three` and `screen-four` because the `src/screens/folder` does not contain a navigation file.
+
+So if you want to create a navigation file for all existed screens in the `src/screens/` folder, you must take in consideration that all subfolders must contain a navigation file first and then you can either update the navigation file or create a new one.
+
+By updating it means overwriting in other words, so you can just do this:
+
+```sh
+rnhc create -n stack * -o
+```
+
 ## Templates
 
 You can create your screens and components with your defined templates by following these steps:

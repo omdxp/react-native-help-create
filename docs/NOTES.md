@@ -31,3 +31,23 @@ rnhc create -s test-screen --ts
 ```sh
 rnhc create -s world-to-react
 ```
+
+- You can always overwrite your implementation using the `--overwrite` or `-o` option, for example:
+
+```sh
+rnhc create -c test-component -o
+```
+
+```sh
+rnhc create -s test-screen -o
+```
+
+```sh
+rnhc create -r -o
+```
+
+- This is helpful when you want to update your navigation files, for example you already have a navigation file in `src/screens/` folder and you want to update it with the new screens you created:
+
+```sh
+rnhc create -n stack * --overwrite
+```
