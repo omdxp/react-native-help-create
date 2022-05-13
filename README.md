@@ -46,6 +46,12 @@ Or
 yarn add react-native-help-create --dev
 ```
 
+- If you want to use it without installing it (using npm cache) run:
+
+```sh
+npx react-native-help-create --help
+```
+
 ## How to use it?
 
 Please follow [this documentation](docs/TOC.md) to see how to use this helper command.
