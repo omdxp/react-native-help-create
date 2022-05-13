@@ -1,4 +1,5 @@
 const fs = require("file-system");
+const { config } = require("../../utils");
 
 /**
  * @function deleteScreens
@@ -8,7 +9,8 @@ const fs = require("file-system");
  * @author [Omar Belghaouti](https://github.com/Omar-Belghaouti)
  */
 exports.deleteScreens = (screens, folder) => {
-  const path = folder === "" ? `src/screens/` : `src/screens/${folder}/`;
+  const { screensRoot } = config;
+  const path = folder === "" ? `${screensRoot}/` : `${screensRoot}/${folder}/`;
   if (screens.length === 0 && folder !== "") {
     try {
       fs.rmdirSync(path);

@@ -1,4 +1,5 @@
 const fs = require("file-system");
+const { config } = require("../../utils");
 
 /**
  * @function deleteNavigation
@@ -6,7 +7,8 @@ const fs = require("file-system");
  * @param {string} folder - folder path that contains the navigation file.
  */
 exports.deleteNavigation = (folder) => {
-  const path = folder === "" ? "src/screens/" : `src/screens/${folder}/`;
+  const { screensRoot } = config;
+  const path = folder === "" ? `${screensRoot}/` : `${screensRoot}/${folder}/`;
   if (fs.existsSync(`${path}navigation.tsx`)) {
     fs.unlink(`${path}navigation.tsx`, (err) => {
       if (err) {

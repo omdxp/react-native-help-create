@@ -1,4 +1,5 @@
 const fs = require("file-system");
+const { config } = require("../../utils");
 
 /**
  * @function combineScreens
@@ -8,7 +9,8 @@ const fs = require("file-system");
  * @author [Omar Belghaouti](https://github.com/Omar-Belghaouti)
  */
 exports.combineScreens = (screens, folder) => {
-  const path = "src/screens/";
+  const { screensRoot } = config;
+  const path = `${screensRoot}/`;
   const _path = `${path}${folder}/`;
   let folders = [];
   screens.forEach((screen) => {
