@@ -7,6 +7,7 @@ const {
   createNavigation,
   createReduxStore,
   createScreen,
+  createConfig,
 } = require("./create");
 const {
   deleteComponents,
@@ -48,6 +49,10 @@ yargs
           describe: "To create navigation for selected screens",
         })
         .array("-n")
+        .positional("--config", {
+          type: "boolean",
+          describe: "to create config file",
+        })
         .option("js", {
           alias: "javascript",
           default: true,
@@ -83,6 +88,7 @@ yargs
           screen,
           redux,
           navigation,
+          config,
           js,
           ts,
           folder,
@@ -112,6 +118,8 @@ yargs
           createReduxStore(js, ts, overwrite);
         } else if (navigation) {
           createNavigation(navigation, js, ts, folder, overwrite);
+        } else if (config) {
+          createConfig(overwrite);
         } else {
           console.log("Check usage: rnhc create --help");
         }
