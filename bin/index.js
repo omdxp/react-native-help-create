@@ -17,7 +17,7 @@ const {
   deleteConfig,
 } = require("./delete");
 const { combineComponents, combineScreens } = require("./combine");
-const { loadConfig } = require("./utils");
+const { loadConfig, rootChecker } = require("./utils");
 
 yargs
   .scriptName("rnhc")
@@ -83,7 +83,7 @@ yargs
         });
     },
     (argv) => {
-      if (fs.existsSync("package.json")) {
+      if (rootChecker()) {
         let {
           component,
           screen,
@@ -170,7 +170,7 @@ yargs
         });
     },
     (argv) => {
-      if (fs.existsSync("package.json")) {
+      if (rootChecker()) {
         const { component, screen, redux, navigation, config, folder } = argv;
         try {
           loadConfig();
@@ -222,7 +222,7 @@ yargs
         });
     },
     (argv) => {
-      if (fs.existsSync("package.json")) {
+      if (rootChecker()) {
         const { component, screen, folder } = argv;
         try {
           loadConfig();
