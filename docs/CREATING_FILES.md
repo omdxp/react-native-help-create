@@ -8,6 +8,8 @@
 
 - `rnhc` will not overwrite the existed implementation for all of the `create` commands.
 
+- If you want to overwrite the existed implementation for a specific `create` command you can add the `--overwrite` or `-o` option at the end of the command.
+
 The following points shows how to use the `create` command.
 
 ## Components
@@ -461,6 +463,24 @@ export const Navigation = () => {
 };
 ```
 
+4. To create a navigation file for multiple screens that resides at the root of the `src/screens/` folder, you can run this:
+
+```sh
+rnhc create -n <navigation-type> *
+```
+
+- This will create the navigation file for all existed screens in the `src/screens/` folder.
+
+You can also run this command to create a navigation file for multiple screens that resides in a specific path under the `src/screens/` folder:
+
+```sh
+rnhc create -n <navigation-type> * -f <folder-path>
+```
+
+- This will create the navigation file for all existed screens in the `src/screens/<folder-path>/` folder.
+
+- The wildcard `*` can work also for the nested navigations.
+
 ## Templates
 
 You can create your screens and components with your defined templates by following these steps:
@@ -473,7 +493,7 @@ You can create your screens and components with your defined templates by follow
 import React, { useEffect } from "react";
 import { View, Text } from "react-native";
 
-export default function Component() {
+export default function __COMPONENT__() {
   useEffect(() => {}, []);
 
   return (
@@ -485,6 +505,8 @@ export default function Component() {
 ```
 
 - There is a restriction in naming these templates which is you should not put dots (`.`) between the name, like this (`component.WithUseEffect.jsx`). It should only contain one dot that makes the extension file like we're doing above.
+
+- You should type `__COMPONENT__` in the template file and it will be replaced with the component name you want to create.
 
 3. After creating your template you can use them to create components or screens as the following:
 
