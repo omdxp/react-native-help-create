@@ -17,7 +17,7 @@ const {
   deleteConfig,
 } = require("./delete");
 const { combineComponents, combineScreens } = require("./combine");
-const { loadConfig, rootChecker } = require("./utils");
+const { loadConfig, rootChecker, languageChecker } = require("./utils");
 
 yargs
   .scriptName("rnhc")
@@ -100,13 +100,7 @@ yargs
           loadConfig();
         } catch {}
         // check if project is written in typescript
-        let faf = fs.readdirSync("."); // folders and files
-        for (let i = 0; i < faf.length; i++) {
-          if (faf[i].endsWith("tsx")) {
-            ts = true;
-            break;
-          }
-        }
+        ts = languageChecker() === "ts" ? true : ts;
         if (component) {
           component.forEach((c) =>
             createComponent(c, js, ts, folder, template, overwrite)
