@@ -14,6 +14,7 @@ const {
   deleteScreens,
   deleteReduxStore,
   deleteNavigation,
+  deleteConfig,
 } = require("./delete");
 const { combineComponents, combineScreens } = require("./combine");
 const { loadConfig } = require("./utils");
@@ -157,6 +158,10 @@ yargs
           type: "boolean",
           describe: "To delete navigations",
         })
+        .positional("--config", {
+          type: "boolean",
+          describe: "to delete config file",
+        })
         .option("f", {
           alias: "folder",
           type: "string",
@@ -166,7 +171,7 @@ yargs
     },
     (argv) => {
       if (fs.existsSync("package.json")) {
-        const { component, screen, redux, navigation, folder } = argv;
+        const { component, screen, redux, navigation, config, folder } = argv;
         try {
           loadConfig();
         } catch {}
@@ -178,6 +183,8 @@ yargs
           deleteReduxStore();
         } else if (navigation) {
           deleteNavigation(folder);
+        } else if (config) {
+          deleteConfig();
         } else {
           console.log("Check usage: rnhc delete --help");
         }
