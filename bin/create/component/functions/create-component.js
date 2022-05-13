@@ -4,7 +4,7 @@ const {
   componentTemplateTs,
   stylesTemplate,
 } = require("../templates");
-const { config } = require("../../../utils");
+const { config, getComponentName } = require("../../../utils");
 
 /**
  * @function createComponent
@@ -26,15 +26,7 @@ exports.createComponent = (
   overwrite
 ) => {
   const { withStyles, withProps, defaultExports, componentsRoot } = config;
-  let component =
-    componentName.charAt(0).toUpperCase() + componentName.slice(1);
-  if (componentName.includes("-")) {
-    component = "";
-    let words = componentName.split("-");
-    words.forEach((w) => {
-      component += w.charAt(0).toUpperCase() + w.slice(1);
-    });
-  }
+  let component = getComponentName(componentName);
   if (ts) {
     const path =
       folder === ""
