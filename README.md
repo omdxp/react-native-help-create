@@ -20,6 +20,8 @@ This command line helps you create components, screens, navigations and even red
   </a>
 </p>
 
+[![Rate this package](https://badges.openbase.com/js/rating/react-native-help-create.svg?token=jaha1TEOwxBzmHNH3/CKrz3l1UzPeeSD4rfe2cSGD+I=)](https://openbase.com/js/react-native-help-create?utm_source=embedded&amp;utm_medium=badge&amp;utm_campaign=rate-badge)
+
 ## How to install it?
 
 - To install it globally in your system run:
