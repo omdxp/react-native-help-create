@@ -5,6 +5,7 @@
  */
 exports.storeTemplateJs =
   () => `import { applyMiddleware, compose, createStore } from "redux";
+import thunk, { ThunkAction, ThunkDispatch } from "redux-thunk";
 import { mainReducer } from "./reducers";
 
 /**
