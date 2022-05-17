@@ -22,7 +22,7 @@ exports.createReducer = (reducerName, js, ts, overwrite) => {
   const path = `${reduxRoot}/reducers/${reducerName}/`;
   let reducer = getCamelCase(reducerName);
   if (fs.existsSync(path) && !overwrite) {
-    console.log(`${reducerName} reducer already exists`);
+    console.log(`${reducer} reducer already exists`);
   } else {
     if (ts) {
       if (!fs.fs.existsSync(path)) {
@@ -59,7 +59,7 @@ exports.createReducer = (reducerName, js, ts, overwrite) => {
         }
         console.log("index.ts updated");
       });
-      console.log(`${reducerName} reducer created`);
+      console.log(`${reducer} reducer created`);
     } else {
       if (!fs.fs.existsSync(path)) {
         fs.fs.mkdirSync(path);
@@ -74,29 +74,32 @@ exports.createReducer = (reducerName, js, ts, overwrite) => {
         flag: "r",
       });
       if (
-        new RegExp(
+        !new RegExp(
           `import[. \t]*{[. \t]*${reducer}[. \t]*}[. \t]*from[. \t]*['"\`]./${reducerName}['"\`]`
         ).test(data)
       ) {
-        console.log("here");
-        return;
+        let result = data.replace(
+          /import { combineReducers } from "redux";/g,
+          `import { combineReducers } from "redux";\nimport { ${reducer} } from "./${reducerName}";`
+        );
+        // update combineReducers in indx.js
+        result = result.replace(
+          /combineReducers\({/g,
+          `combineReducers({\n  ${reducer},`
+        );
+        fs.writeFile(
+          `${reduxRoot}/reducers/index.js`,
+          result,
+          "utf8",
+          (err) => {
+            if (err) {
+              console.log("Unable to update index.js");
+            }
+            console.log("index.js updated");
+          }
+        );
       }
-      let result = data.replace(
-        /import { combineReducers } from "redux";/g,
-        `import { combineReducers } from "redux";\nimport { ${reducer} } from "./${reducerName}";`
-      );
-      // update combineReducers in indx.js
-      result = result.replace(
-        /combineReducers\({/g,
-        `combineReducers({\n  ${reducer},`
-      );
-      fs.writeFile(`${reduxRoot}/reducers/index.js`, result, "utf8", (err) => {
-        if (err) {
-          console.log("Unable to update index.js");
-        }
-        console.log("index.js updated");
-      });
-      console.log(`${reducerName} reducer created`);
+      console.log(`${reducer} reducer created`);
     }
   }
 };

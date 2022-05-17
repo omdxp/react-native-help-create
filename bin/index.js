@@ -9,6 +9,7 @@ const {
   createScreen,
   createConfig,
   createReducer,
+  createAction,
 } = require("./create");
 const {
   deleteComponents,
@@ -49,6 +50,11 @@ yargs
           type: "string",
           describe: "To create redux reducer implementation",
         })
+        .positional("--action", {
+          type: "string",
+          describe: "To create redux action implementation",
+        })
+        .array("--action")
         .positional("-n", {
           alias: "--navigation",
           type: "string",
@@ -94,6 +100,7 @@ yargs
           screen,
           redux,
           reducer,
+          action,
           navigation,
           config,
           js,
@@ -119,6 +126,8 @@ yargs
           createReduxStore(js, ts, overwrite);
         } else if (reducer) {
           createReducer(reducer, js, ts, overwrite);
+        } else if (action) {
+          createAction(action, js, ts, overwrite);
         } else if (navigation) {
           createNavigation(navigation, js, ts, folder, overwrite);
         } else if (config) {
