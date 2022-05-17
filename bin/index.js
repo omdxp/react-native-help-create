@@ -8,6 +8,7 @@ const {
   createReduxStore,
   createScreen,
   createConfig,
+  createReducer,
 } = require("./create");
 const {
   deleteComponents,
@@ -43,6 +44,10 @@ yargs
           alias: "--redux",
           type: "boolean",
           describe: "To create redux store implementation",
+        })
+        .positional("--reducer", {
+          type: "string",
+          describe: "To create redux reducer implementation",
         })
         .positional("-n", {
           alias: "--navigation",
@@ -88,6 +93,7 @@ yargs
           component,
           screen,
           redux,
+          reducer,
           navigation,
           config,
           js,
@@ -111,6 +117,8 @@ yargs
           );
         } else if (redux) {
           createReduxStore(js, ts, overwrite);
+        } else if (reducer) {
+          createReducer(reducer, js, ts, overwrite);
         } else if (navigation) {
           createNavigation(navigation, js, ts, folder, overwrite);
         } else if (config) {
