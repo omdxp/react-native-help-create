@@ -87,17 +87,10 @@ exports.createReducer = (reducerName, js, ts, overwrite) => {
           /combineReducers\({/g,
           `combineReducers({\n  ${reducer},`
         );
-        fs.writeFile(
-          `${reduxRoot}/reducers/index.js`,
-          result,
-          "utf8",
-          (err) => {
-            if (err) {
-              console.log("Unable to update index.js");
-            }
-            console.log("index.js updated");
-          }
-        );
+        fs.fs.writeFileSync(`${reduxRoot}/reducers/index.js`, result, {
+          encoding: "utf8",
+          flag: "w",
+        });
       }
       console.log(`${reducer} reducer created`);
     }

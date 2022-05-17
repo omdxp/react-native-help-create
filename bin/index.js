@@ -50,6 +50,7 @@ yargs
           type: "string",
           describe: "To create redux reducer implementation",
         })
+        .array("--reducer")
         .positional("--action", {
           type: "string",
           describe: "To create redux action implementation",
@@ -125,7 +126,9 @@ yargs
         } else if (redux) {
           createReduxStore(js, ts, overwrite);
         } else if (reducer) {
-          createReducer(reducer, js, ts, overwrite);
+          reducer.forEach((r) => {
+            createReducer(r, js, ts, overwrite);
+          });
         } else if (action) {
           createAction(action, js, ts, overwrite);
         } else if (navigation) {
