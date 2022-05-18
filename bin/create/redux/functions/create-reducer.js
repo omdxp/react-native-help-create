@@ -38,27 +38,24 @@ exports.createReducer = (reducerName, js, ts, overwrite) => {
         flag: "r",
       });
       if (
-        new RegExp(
+        !new RegExp(
           `import[. \t]*{[. \t]*${reducer}[. \t]*}[. \t]*from[. \t]*['"\`]./${reducerName}['"\`]`
         ).test(data)
       ) {
-        return;
+        let result = data.replace(
+          /import { combineReducers } from "redux";/g,
+          `import { combineReducers } from "redux";\nimport { ${reducer} } from "./${reducerName}";`
+        );
+        // update combineReducers in indx.ts
+        result = result.replace(
+          /combineReducers\({/g,
+          `combineReducers({\n  ${reducer},`
+        );
+        fs.fs.writeFileSync(`${reduxRoot}/reducers/index.ts`, result, {
+          encoding: "utf8",
+          flag: "w",
+        });
       }
-      let result = data.replace(
-        /import { combineReducers } from "redux";/g,
-        `import { combineReducers } from "redux";\nimport { ${reducer} } from "./${reducerName}";`
-      );
-      // update combineReducers in indx.js
-      result = result.replace(
-        /combineReducers\({/g,
-        `combineReducers({\n  ${reducer},`
-      );
-      fs.writeFile(`${reduxRoot}/reducers/index.ts`, result, "utf8", (err) => {
-        if (err) {
-          console.log("Unable to update index.js");
-        }
-        console.log("index.ts updated");
-      });
       console.log(`${reducer} reducer created`);
     } else {
       if (!fs.fs.existsSync(path)) {

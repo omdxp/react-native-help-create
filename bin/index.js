@@ -15,6 +15,7 @@ const {
   deleteComponents,
   deleteScreens,
   deleteReduxStore,
+  deleteReducers,
   deleteNavigation,
   deleteConfig,
 } = require("./delete");
@@ -167,6 +168,11 @@ yargs
           type: "boolean",
           describe: "To delete redux implementation",
         })
+        .positional("--reducer", {
+          type: "string",
+          describe: "To delete redux reducer implementation",
+        })
+        .array("--reducer")
         .positional("-n", {
           alias: "--navigation",
           type: "boolean",
@@ -185,7 +191,15 @@ yargs
     },
     (argv) => {
       if (rootChecker()) {
-        const { component, screen, redux, navigation, config, folder } = argv;
+        const {
+          component,
+          screen,
+          redux,
+          reducer,
+          navigation,
+          config,
+          folder,
+        } = argv;
         try {
           loadConfig();
         } catch {}
@@ -195,6 +209,8 @@ yargs
           deleteScreens(screen, folder);
         } else if (redux) {
           deleteReduxStore();
+        } else if (reducer) {
+          deleteReducers(reducer, languageChecker() === "ts");
         } else if (navigation) {
           deleteNavigation(folder);
         } else if (config) {
