@@ -16,6 +16,7 @@ const {
   deleteScreens,
   deleteReduxStore,
   deleteReducers,
+  deleteActions,
   deleteNavigation,
   deleteConfig,
 } = require("./delete");
@@ -173,6 +174,11 @@ yargs
           describe: "To delete redux reducer implementation",
         })
         .array("--reducer")
+        .positional("--action", {
+          type: "string",
+          describe: "To delete redux action implementation",
+        })
+        .array("--action")
         .positional("-n", {
           alias: "--navigation",
           type: "boolean",
@@ -196,6 +202,7 @@ yargs
           screen,
           redux,
           reducer,
+          action,
           navigation,
           config,
           folder,
@@ -211,6 +218,8 @@ yargs
           deleteReduxStore();
         } else if (reducer) {
           deleteReducers(reducer, languageChecker() === "ts");
+        } else if (action) {
+          deleteActions(action, languageChecker() === "ts");
         } else if (navigation) {
           deleteNavigation(folder);
         } else if (config) {
