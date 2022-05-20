@@ -26,7 +26,7 @@ You don't seem to be at the root of a react native project
 rnhc create -s test-screen --ts
 ```
 
-- It is advisable to give the components and screens names with this case `component-name` and `screen-name`, for example:
+- It is advisable to give the components, screens, reducers and actions with this case `some-name`, for example:
 
 ```sh
 rnhc create -s world-to-react
@@ -46,8 +46,22 @@ rnhc create -s test-screen -o
 rnhc create -r -o
 ```
 
+```sh
+rnhc create --reducer test-reducer -o
+```
+
+```sh
+rnhc create --action test-reducer test-action -o
+```
+
 - This is helpful when you want to update your navigation files, for example you already have a navigation file in `src/screens/` folder and you want to update it with the new screens you created:
 
 ```sh
 rnhc create -n stack * --overwrite
 ```
+
+- When creating reducers you should have already a redux implmentation created with `rnhc create -r` so it can work.
+
+- When creating actions, you should have already a redux implementation created with `rnhc create -r` as well as an existed reducer with `rnhc create --reducer <reducer-name>` so it can create actions for that specific reducer.
+
+- Creating and deleting reducers and actions will not just delete files, but also update other files that depends on them under the `src/redux/` folder (Or your specified path for the root of redux folder in `rnhc.config.json`).
