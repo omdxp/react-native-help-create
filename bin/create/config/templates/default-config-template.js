@@ -11,6 +11,7 @@ exports.defaultConfigTemplate = () => {
   "defaultExports": true,
   "componentsRoot": "./src/components",
   "screensRoot": "./src/screens",
-  "reduxRoot": "./src/redux"
+  "reduxRoot": "./src/redux",
+  "applyReduxThunk": true
 }`;
 };
