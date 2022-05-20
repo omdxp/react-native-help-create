@@ -8,11 +8,15 @@ const {
   createReduxStore,
   createScreen,
   createConfig,
+  createReducer,
+  createAction,
 } = require("./create");
 const {
   deleteComponents,
   deleteScreens,
   deleteReduxStore,
+  deleteReducers,
+  deleteActions,
   deleteNavigation,
   deleteConfig,
 } = require("./delete");
@@ -44,6 +48,16 @@ yargs
           type: "boolean",
           describe: "To create redux store implementation",
         })
+        .positional("--reducer", {
+          type: "string",
+          describe: "To create redux reducer implementation",
+        })
+        .array("--reducer")
+        .positional("--action", {
+          type: "string",
+          describe: "To create redux action implementation",
+        })
+        .array("--action")
         .positional("-n", {
           alias: "--navigation",
           type: "string",
@@ -88,6 +102,8 @@ yargs
           component,
           screen,
           redux,
+          reducer,
+          action,
           navigation,
           config,
           js,
@@ -111,6 +127,12 @@ yargs
           );
         } else if (redux) {
           createReduxStore(js, ts, overwrite);
+        } else if (reducer) {
+          reducer.forEach((r) => {
+            createReducer(r, js, ts, overwrite);
+          });
+        } else if (action) {
+          createAction(action, js, ts, overwrite);
         } else if (navigation) {
           createNavigation(navigation, js, ts, folder, overwrite);
         } else if (config) {
@@ -147,6 +169,16 @@ yargs
           type: "boolean",
           describe: "To delete redux implementation",
         })
+        .positional("--reducer", {
+          type: "string",
+          describe: "To delete redux reducer implementation",
+        })
+        .array("--reducer")
+        .positional("--action", {
+          type: "string",
+          describe: "To delete redux action implementation",
+        })
+        .array("--action")
         .positional("-n", {
           alias: "--navigation",
           type: "boolean",
@@ -165,7 +197,16 @@ yargs
     },
     (argv) => {
       if (rootChecker()) {
-        const { component, screen, redux, navigation, config, folder } = argv;
+        const {
+          component,
+          screen,
+          redux,
+          reducer,
+          action,
+          navigation,
+          config,
+          folder,
+        } = argv;
         try {
           loadConfig();
         } catch {}
@@ -175,6 +216,10 @@ yargs
           deleteScreens(screen, folder);
         } else if (redux) {
           deleteReduxStore();
+        } else if (reducer) {
+          deleteReducers(reducer, languageChecker() === "ts");
+        } else if (action) {
+          deleteActions(action, languageChecker() === "ts");
         } else if (navigation) {
           deleteNavigation(folder);
         } else if (config) {
