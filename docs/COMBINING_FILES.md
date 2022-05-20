@@ -14,7 +14,7 @@ rnhc combine -c <component-name-1> <component-name-2> ... -f <folder-path>
 
 - This will move the existed components for the given inputs to `src/components/<folder-path>/` folder.
 
-- If somehome one of the given components does not exist, `rnhc` will prompt:
+- If somehow one of the given components does not exist, `rnhc` will prompt:
 
 ```sh
 Check if all of these components exist
@@ -45,7 +45,7 @@ rnhc combine -s <screen-name-1> <screen-name-2> ... -f <folder-path>
 
 - This will move the existed screens for the given inputs to `src/screens/<folder-path>/` folder.
 
-- If somehome one of the given screens does not exist, `rnhc` will prompt:
+- If somehow one of the given screens does not exist, `rnhc` will prompt:
 
 ```sh
 Check if all of these screens exist
