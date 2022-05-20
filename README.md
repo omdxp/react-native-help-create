@@ -4,6 +4,8 @@
 
 <h1 align="center">react-native-help-create</h1>
 
+<p align="center">Focus on your code, not your project structure!</p>
+
 <p align="center">
 This command line helps you create components, screens, navigations and even redux implementaion for your react native project.
 </p>
@@ -20,7 +22,7 @@ This command line helps you create components, screens, navigations and even red
   </a>
 </p>
 
-[![Rate this package](https://badges.openbase.com/js/rating/react-native-help-create.svg?token=jaha1TEOwxBzmHNH3/CKrz3l1UzPeeSD4rfe2cSGD+I=)](https://openbase.com/js/react-native-help-create?utm_source=embedded&amp;utm_medium=badge&amp;utm_campaign=rate-badge)
+[![Rate this package](https://badges.openbase.com/js/rating/react-native-help-create.svg?token=jaha1TEOwxBzmHNH3/CKrz3l1UzPeeSD4rfe2cSGD+I=)](https://openbase.com/js/react-native-help-create?utm_source=embedded&utm_medium=badge&utm_campaign=rate-badge)
 
 ## How to install it?
 
