@@ -57,7 +57,7 @@ rnhc create --action test-reducer test-action -o
 - This is helpful when you want to update your navigation files, for example you already have a navigation file in `src/screens/` folder and you want to update it with the new screens you created:
 
 ```sh
-rnhc create -n stack * --overwrite
+rnhc create -n stack --overwrite
 ```
 
 - When creating reducers you should have already a redux implmentation created with `rnhc create -r` so it can work.

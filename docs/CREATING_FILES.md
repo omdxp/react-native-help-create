@@ -466,7 +466,7 @@ export const Navigation = () => {
 4. To create a navigation file for multiple screens that resides at the root of the `src/screens/` folder, you can run this:
 
 ```sh
-rnhc create -n <navigation-type> *
+rnhc create -n <navigation-type>
 ```
 
 - This will create the navigation file for all existed screens in the `src/screens/` folder.
@@ -474,12 +474,12 @@ rnhc create -n <navigation-type> *
 You can also run this command to create a navigation file for multiple screens that resides in a specific path under the `src/screens/` folder:
 
 ```sh
-rnhc create -n <navigation-type> * -f <folder-path>
+rnhc create -n <navigation-type> -f <folder-path>
 ```
 
 - This will create the navigation file for all existed screens in the `src/screens/<folder-path>/` folder.
 
-- The wildcard `*` can work also for the nested navigations.
+- This also work for the nested navigations.
 
 - All the sub folders should contain the navigation files so it can be added to the navigation file you want to create, for example take this structure:
 
@@ -522,7 +522,7 @@ src
 When you try to create a navigation like this:
 
 ```sh
-rnhc create -n stack *
+rnhc create -n stack
 ```
 
 It will contain only `screen-three` and `screen-four` because the `src/screens/folder` does not contain a navigation file.
@@ -532,7 +532,7 @@ So if you want to create a navigation file for all existed screens in the `src/s
 By updating it means overwriting in other words, so you can just do this:
 
 ```sh
-rnhc create -n stack * -o
+rnhc create -n stack -o
 ```
 
 ## Templates
