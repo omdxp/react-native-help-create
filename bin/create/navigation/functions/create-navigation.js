@@ -19,7 +19,15 @@ exports.createNavigation = (navigation, js, ts, folder, overwrite) => {
     console.log(`${path} does not exist`);
     return;
   }
-  switch (navigation[0].toLowerCase()) {
+  if (!navigation.length) {
+    console.log("Please provide at least a navigation type");
+    console.log(
+      "Only the following navigations are supported: stack, drawer or tab"
+    );
+    return;
+  }
+  const navigationType = navigation[0].toLowerCase();
+  switch (navigationType) {
     case "stack":
     case "drawer":
     case "tab": {
@@ -32,7 +40,7 @@ exports.createNavigation = (navigation, js, ts, folder, overwrite) => {
         navigation.shift();
         let screens = navigation;
         let existedScreens = [];
-        if (screens[0] === "*") {
+        if (screens.length === 0) {
           // folders and files
           screens = fs.readdirSync(path).filter((el) => !el.endsWith("sx"));
         }
@@ -63,7 +71,7 @@ exports.createNavigation = (navigation, js, ts, folder, overwrite) => {
               });
             } else {
               // folders and files
-              let faf = fs.readdirSync(`${_path}`);
+              let faf = fs.readdirSync(_path);
               let importableAs = faf.some((el) => el === "navigation.tsx");
               const __path = `./${_path}`.replace(`${screensRoot}/`, "");
               if (importableAs) {
@@ -109,7 +117,7 @@ exports.createNavigation = (navigation, js, ts, folder, overwrite) => {
           fs.writeFile(
             `${path}navigation.tsx`,
             navigationTemplateTs(
-              navigation[0].toLowerCase(),
+              navigationType,
               existedScreens,
               defaultExports
             ),
@@ -131,7 +139,7 @@ exports.createNavigation = (navigation, js, ts, folder, overwrite) => {
         navigation.shift();
         let screens = navigation;
         let existedScreens = [];
-        if (screens[0] === "*") {
+        if (screens.length === 0) {
           // folders and files
           screens = fs.readdirSync(path).filter((el) => !el.endsWith("sx"));
         }
@@ -208,7 +216,7 @@ exports.createNavigation = (navigation, js, ts, folder, overwrite) => {
           fs.writeFile(
             `${path}navigation.jsx`,
             navigationTemplateJs(
-              navigation[0].toLowerCase(),
+              navigationType,
               existedScreens,
               defaultExports
             ),
