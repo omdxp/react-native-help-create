@@ -41,20 +41,30 @@ exports.navigationTemplateJs = (type, screens, defaultExports) => {
 `;
     });
 
+    template += `\nconst routes = [\n`;
+
+    screens.forEach((screen) => {
+      template += `  {
+    name: "${screen.folderName}",
+    component: ${
+      screen.importAs
+        ? `${screen.componentName}Navigation`
+        : screen.componentName
+    }
+  },\n`;
+    });
+    template += "];\n";
+
     template += `\nconst Navigation = () => {
   return (
     <Navigator>
-    `;
-    screens.forEach((screen) => {
-      template += `  <Screen name="${screen.folderName}" component={${
-        screen.importAs
-          ? `${screen.componentName}Navigation`
-          : screen.componentName
-      }} />
-    `;
-    });
-    template = template.substring(0, template.length - 5);
-    template += `
+      {routes.map(({name, component}) => (
+        <Screen
+          key={name}
+          name={name}
+          component={component}
+        />
+      ))}
     </Navigator>
   );
 };
@@ -70,16 +80,26 @@ export default Navigation;
 `;
     });
 
+    template += `\nconst routes = [\n`;
+
+    screens.forEach((screen) => {
+      template += `  {
+    name: "${screen.folderName}",
+    component: ${screen.componentName}
+  },\n`;
+    });
+    template += "];\n";
+
     template += `\nexport const Navigation = () => {
   return (
     <Navigator>
-    `;
-    screens.forEach((screen) => {
-      template += `  <Screen name="${screen.folderName}" component={${screen.componentName}} />
-    `;
-    });
-    template = template.substring(0, template.length - 5);
-    template += `
+      {routes.map(({name, component}) => (
+        <Screen
+          key={name}
+          name={name}
+          component={component}
+        />
+      ))}
     </Navigator>
   );
 };

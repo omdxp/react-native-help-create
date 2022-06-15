@@ -312,11 +312,23 @@ const { Navigator, Screen } = createStackNavigator();
 import { Screen1Screen } from "./screen-1";
 import { Screen2Screen } from "./screen-2";
 
+const routes = [
+  {
+    name: "screen-1",
+    component: Screen1Screen,
+  },
+  {
+    name: "screen-2",
+    component: Screen2Screen,
+  },
+];
+
 export const Navigation = () => {
   return (
     <Navigator>
-      <Screen name="screen-1" component={Screen1Screen} />
-      <Screen name="screen-2" component={Screen2Screen} />
+      {routes.map(({ name, component }) => (
+        <Screen key={name} name={name} component={component} />
+      ))}
     </Navigator>
   );
 };
@@ -341,17 +353,29 @@ rhnc create -n drawer screen-1 screen-2 -f foo/bar
 ```jsx
 import React from "react";
 
-import { createDrawerNavigator } from "@react-navigation/drawer";
-const { Navigator, Screen } = createDrawerNavigator();
+import { createStackNavigator } from "@react-navigation/stack";
+const { Navigator, Screen } = createStackNavigator();
 
 import { Screen1Screen } from "./screen-1";
 import { Screen2Screen } from "./screen-2";
 
+const routes = [
+  {
+    name: "screen-1",
+    component: Screen1Screen,
+  },
+  {
+    name: "screen-2",
+    component: Screen2Screen,
+  },
+];
+
 export const Navigation = () => {
   return (
     <Navigator>
-      <Screen name="screen-1" component={Screen1Screen} />
-      <Screen name="screen-2" component={Screen2Screen} />
+      {routes.map(({ name, component }) => (
+        <Screen key={name} name={name} component={component} />
+      ))}
     </Navigator>
   );
 };
@@ -453,11 +477,23 @@ const { Navigator, Screen } = createStackNavigator();
 import { Navigation as Folder } from "./folder/navigation";
 import { ScreenThreeScreen } from "./screen-three";
 
+const routes = [
+  {
+    name: "folder",
+    component: Folder,
+  },
+  {
+    name: "screen-three",
+    component: ScreenThreeScreen,
+  },
+];
+
 export const Navigation = () => {
   return (
     <Navigator>
-      <Screen name="folder" component={Folder} />
-      <Screen name="screen-three" component={ScreenThreeScreen} />
+      {routes.map(({ name, component }) => (
+        <Screen key={name} name={name} component={component} />
+      ))}
     </Navigator>
   );
 };
