@@ -34,7 +34,7 @@ const ${screenName}Screen = () => {
     </View>
   );
 };
-export default ${screenName};
+export default ${screenName}Screen;
 `;
   } else {
     str += `
