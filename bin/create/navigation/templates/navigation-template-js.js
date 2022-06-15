@@ -45,7 +45,7 @@ exports.navigationTemplateJs = (type, screens, defaultExports) => {
 
     screens.forEach((screen) => {
       template += `  {
-    name: "${screen.componentName}",
+    name: "${screen.folderName}",
     component: ${
       screen.importAs
         ? `${screen.componentName}Navigation`
@@ -53,7 +53,7 @@ exports.navigationTemplateJs = (type, screens, defaultExports) => {
     }
   },\n`;
     });
-    template += "];\n\n";
+    template += "];\n";
 
     template += `\nconst Navigation = () => {
   return (
@@ -84,11 +84,11 @@ export default Navigation;
 
     screens.forEach((screen) => {
       template += `  {
-    name: "${screen.componentName}",
+    name: "${screen.folderName}",
     component: ${screen.componentName}
   },\n`;
     });
-    template += "];\n\n";
+    template += "];\n";
 
     template += `\nexport const Navigation = () => {
   return (
