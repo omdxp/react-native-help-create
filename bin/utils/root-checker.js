@@ -7,6 +7,7 @@ const fs = require("file-system");
  * @author [Omar Belghaouti](https://github.com/Omar-Belghaouti)
  */
 exports.rootChecker = () => {
+  if (!fs.fs.existsSync("./package.json")) return false;
   const { dependencies } = JSON.parse(fs.fs.readFileSync("./package.json"));
   if (dependencies.react && !dependencies["react-native"]) {
     console.log(
