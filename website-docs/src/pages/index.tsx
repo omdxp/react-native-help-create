@@ -35,10 +35,18 @@ export default function Home(): JSX.Element {
       description="Documentation for rnhc, a command line to help you create components, screens, navigations and even redux implementation for your react native project"
     >
       <Head>
+        <meta name="twitter:card" content="summary_large_image" />
+        <meta name="og:site_name" content={siteConfig.title} />
+        <meta name="og:title" content={siteConfig.title} />
+        <meta
+          name="description"
+          content="Documentation for rnhc, a command line to help you create components, screens, navigations and even redux implementation for your react native project"
+        />
         <meta
           name="og:image"
           content={`${siteConfig.baseUrl}img/rnhc-logo.png`}
         />
+        <link rel="icon" href={`${siteConfig.baseUrl}img/favicon.ico`} />
       </Head>
       <HomepageHeader />
       <main>
