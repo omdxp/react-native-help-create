@@ -1,3 +1,4 @@
+import Head from "@docusaurus/Head";
 import HomepageFeatures from "@site/src/components/HomepageFeatures";
 import Layout from "@theme/Layout";
 import Link from "@docusaurus/Link";
@@ -33,6 +34,12 @@ export default function Home(): JSX.Element {
       title={`${siteConfig.title} docs`}
       description="Documentation for rnhc, a command line to help you create components, screens, navigations and even redux implementation for your react native project"
     >
+      <Head>
+        <meta
+          name="og:image"
+          content={`${siteConfig.baseUrl}img/rnhc-logo.png`}
+        />
+      </Head>
       <HomepageHeader />
       <main>
         <img
