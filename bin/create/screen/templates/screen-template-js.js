@@ -14,8 +14,7 @@ exports.screenTemplateJs = (
   withStyles,
   defaultExports
 ) => {
-  let str = `import React from "react";
-import { Text, View } from "react-native";
+  let str = `import { Text, View } from "react-native";
 `;
   if (withFunctions) {
     str += `import {} from "./functions";

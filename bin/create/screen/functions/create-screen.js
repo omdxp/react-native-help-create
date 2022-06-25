@@ -5,6 +5,7 @@ const {
   screenFunctionTemplateJs,
   screenFunctionTemplateTs,
   stylesTemplate,
+  testTemplate,
 } = require("../templates");
 const { config, getComponentName, getKebabCase } = require("../../../utils");
 
@@ -20,8 +21,14 @@ const { config, getComponentName, getKebabCase } = require("../../../utils");
  * @author [Omar Belghaouti](https://github.com/Omar-Belghaouti)
  */
 exports.createScreen = (screenName, js, ts, folder, template, overwrite) => {
-  const { withStyles, withFunctions, withProps, defaultExports, screensRoot } =
-    config;
+  const {
+    withStyles,
+    withFunctions,
+    withProps,
+    withTests,
+    defaultExports,
+    screensRoot,
+  } = config;
   screenName = getKebabCase(screenName);
   folder = folder.includes("/")
     ? folder
@@ -117,6 +124,17 @@ exports.createScreen = (screenName, js, ts, folder, template, overwrite) => {
             console.log(`${path}styles.ts created`);
           }
         });
+      withTests &&
+        fs.writeFile(
+          `${path}__tests__/index.spec.tsx`,
+          testTemplate(screen, defaultExports),
+          (err) => {
+            if (err) {
+              console.log(`Unable to create ${screen} screen tests`);
+            }
+            console.log(`${path}__tests__/index.spec.tsx created`);
+          }
+        );
     } else {
       // check if template file exist
       if (template !== "") {
@@ -185,6 +203,17 @@ exports.createScreen = (screenName, js, ts, folder, template, overwrite) => {
             console.log(`${path}styles.js created`);
           }
         });
+      withTests &&
+        fs.writeFile(
+          `${path}__tests__/index.spec.jsx`,
+          testTemplate(screen, defaultExports),
+          (err) => {
+            if (err) {
+              console.log(`Unable to create ${screen} screen tests`);
+            }
+            console.log(`${path}__tests__/index.spec.jsx created`);
+          }
+        );
     }
   }
 };
