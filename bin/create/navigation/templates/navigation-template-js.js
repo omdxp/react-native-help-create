@@ -7,12 +7,19 @@
  * @author [Omar Belghaouti](https://github.com/Omar-Belghaouti)
  */
 exports.navigationTemplateJs = (type, screens, defaultExports) => {
-  let template = `import React from "react";\n\n`;
+  let template = "";
   switch (type) {
     case "stack":
       template +=
         'import { createStackNavigator } from "@react-navigation/stack";\n';
       template += "const { Navigator, Screen } = createStackNavigator();\n\n";
+      break;
+
+    case "native-stack":
+      template +=
+        'import { createNativeStackNavigator } from "@react-navigation/native-stack";\n';
+      template +=
+        "const { Navigator, Screen } = createNativeStackNavigator();\n\n";
       break;
 
     case "drawer":
@@ -21,11 +28,25 @@ exports.navigationTemplateJs = (type, screens, defaultExports) => {
       template += "const { Navigator, Screen } = createDrawerNavigator();\n\n";
       break;
 
-    case "tab":
+    case "bottom-tabs":
       template +=
         'import { createBottomTabNavigator } from "@react-navigation/bottom-tabs";\n';
       template +=
         "const { Navigator, Screen } = createBottomTabNavigator();\n\n";
+      break;
+
+    case "material-bottom-tabs":
+      template +=
+        'import { createMaterialBottomTabNavigator } from "@react-navigation/material-bottom-tabs";\n';
+      template +=
+        "const { Navigator, Screen } = createMaterialBottomTabNavigator();\n\n";
+      break;
+
+    case "material-top-tabs":
+      template +=
+        'import { createMaterialTopTabNavigator } from "@react-navigation/material-top-tabs";\n';
+      template +=
+        "const { Navigator, Screen } = createMaterialTopTabNavigator();\n\n";
       break;
 
     default:

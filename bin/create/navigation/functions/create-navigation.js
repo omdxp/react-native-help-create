@@ -35,8 +35,11 @@ exports.createNavigation = (navigation, js, ts, folder, overwrite) => {
   const navigationType = navigation[0].toLowerCase();
   switch (navigationType) {
     case "stack":
+    case "native-stack":
     case "drawer":
-    case "tab": {
+    case "bottom-tabs":
+    case "material-bottom-tabs":
+    case "material-top-tabs": {
       if (ts) {
         if (fs.existsSync(`${path}navigation.tsx`) && !overwrite) {
           console.log(`${path}navigation.tsx already exist`);
@@ -242,7 +245,7 @@ exports.createNavigation = (navigation, js, ts, folder, overwrite) => {
 
     default:
       console.log(
-        "Only the following navigations are supported: stack, drawer or tab"
+        "Only the following navigations are supported: stack, native-stack, drawer, bottom-tabs, material-bottom-tabs or material-top-tabs"
       );
       break;
   }
