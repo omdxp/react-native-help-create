@@ -35,6 +35,13 @@ const config = {
       ({
         docs: {
           sidebarPath: require.resolve("./sidebars.js"),
+          lastVersion: "current",
+          versions: {
+            current: {
+              badge: true,
+              label: "Current",
+            },
+          },
         },
         theme: {
           customCss: require.resolve("./src/css/custom.css"),
@@ -58,6 +65,11 @@ const config = {
             docId: "intro",
             position: "left",
             label: "Tutorial",
+          },
+          {
+            type: "docsVersionDropdown",
+            position: "left",
+            dropdownActiveClassDisabled: true,
           },
           {
             href: "https://github.com/Omar-Belghaouti/react-native-help-create",

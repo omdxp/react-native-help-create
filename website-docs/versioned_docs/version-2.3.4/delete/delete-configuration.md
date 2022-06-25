@@ -4,7 +4,7 @@ sidebar_position: 6
 
 # Delete Configuration
 
-To delete a configuration file run:
+- To delete a configuration file run:
 
 ```sh
 rnhc delete --config

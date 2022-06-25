@@ -4,7 +4,7 @@ sidebar_position: 5
 
 # Delete Redux
 
-To delete a redux implementation run:
+- To delete a redux implementation run:
 
 ```sh
 rnhc delete -r
