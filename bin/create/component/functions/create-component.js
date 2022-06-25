@@ -83,13 +83,17 @@ exports.createComponent = (
               }
             });
           withTests &&
-            fs.writeFile(testsPath, testTemplate(component), (err) => {
-              if (err) {
-                console.log(`Unable to create ${component} component tests`);
-              } else {
-                console.log(`${testsPath} created`);
+            fs.writeFile(
+              testsPath,
+              testTemplate(component, defaultExports),
+              (err) => {
+                if (err) {
+                  console.log(`Unable to create ${component} component tests`);
+                } else {
+                  console.log(`${testsPath} created`);
+                }
               }
-            });
+            );
         } else {
           console.log(`.template/${template} file does not exist`);
         }
@@ -114,13 +118,17 @@ exports.createComponent = (
             }
           });
         withTests &&
-          fs.writeFile(testsPath, testTemplate(component), (err) => {
-            if (err) {
-              console.log(`Unable to create ${component} component tests`);
-            } else {
-              console.log(`${testsPath} created`);
+          fs.writeFile(
+            testsPath,
+            testTemplate(component, defaultExports),
+            (err) => {
+              if (err) {
+                console.log(`Unable to create ${component} component tests`);
+              } else {
+                console.log(`${testsPath} created`);
+              }
             }
-          });
+          );
       }
     }
   } else {
@@ -169,13 +177,17 @@ exports.createComponent = (
               }
             });
           withTests &&
-            fs.writeFile(testsPath, testTemplate(component), (err) => {
-              if (err) {
-                console.log(`Unable to create ${component} component tests`);
-              } else {
-                console.log(`${testsPath} created`);
+            fs.writeFile(
+              testsPath,
+              testTemplate(component, defaultExports),
+              (err) => {
+                if (err) {
+                  console.log(`Unable to create ${component} component tests`);
+                } else {
+                  console.log(`${testsPath} created`);
+                }
               }
-            });
+            );
         } else {
           console.log(`.template/${template} file does not exist`);
         }
@@ -200,13 +212,17 @@ exports.createComponent = (
             }
           });
         withTests &&
-          fs.writeFile(testsPath, testTemplate(component), (err) => {
-            if (err) {
-              console.log(`Unable to create ${component} component tests`);
-            } else {
-              console.log(`${testsPath} created`);
+          fs.writeFile(
+            testsPath,
+            testTemplate(component, defaultExports),
+            (err) => {
+              if (err) {
+                console.log(`Unable to create ${component} component tests`);
+              } else {
+                console.log(`${testsPath} created`);
+              }
             }
-          });
+          );
       }
     }
   }
