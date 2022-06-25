@@ -8,8 +8,7 @@
  * @author [Omar Belghaouti](https://github.com/Omar-Belghaouti)
  */
 exports.componentTemplateJs = (componentName, withStyles, defaultExports) => {
-  let str = `import React from "react";
-import { Text, View } from "react-native";
+  let str = `import { Text, View } from "react-native";
 `;
   if (withStyles) {
     str += `import { ${componentName}Styles } from "./styles";

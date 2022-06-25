@@ -3,6 +3,7 @@ const {
   componentTemplateJs,
   componentTemplateTs,
   stylesTemplate,
+  testTemplate,
 } = require("../templates");
 const { config, getComponentName, getKebabCase } = require("../../../utils");
 
@@ -25,7 +26,8 @@ exports.createComponent = (
   template,
   overwrite
 ) => {
-  const { withStyles, withProps, defaultExports, componentsRoot } = config;
+  const { withStyles, withProps, withTests, defaultExports, componentsRoot } =
+    config;
   componentName = getKebabCase(componentName);
   folder = folder.includes("/")
     ? folder
@@ -43,6 +45,10 @@ exports.createComponent = (
       folder === ""
         ? `${componentsRoot}/${componentName}/styles.ts`
         : `${componentsRoot}/${folder}/${componentName}/styles.ts`;
+    const testsPath =
+      folder === ""
+        ? `${componentsRoot}/${componentName}/__tests__/index.spec.tsx`
+        : `${componentsRoot}/${folder}/${componentName}/__tests__/index.spec.tsx`;
 
     if (fs.existsSync(path) && !overwrite) {
       console.log(`${path} already exist`);
@@ -76,6 +82,18 @@ exports.createComponent = (
                 console.log(`${stylesPath} created`);
               }
             });
+          withTests &&
+            fs.writeFile(
+              testsPath,
+              testTemplate(component, defaultExports),
+              (err) => {
+                if (err) {
+                  console.log(`Unable to create ${component} component tests`);
+                } else {
+                  console.log(`${testsPath} created`);
+                }
+              }
+            );
         } else {
           console.log(`.template/${template} file does not exist`);
         }
@@ -99,6 +117,18 @@ exports.createComponent = (
               console.log(`${stylesPath} created`);
             }
           });
+        withTests &&
+          fs.writeFile(
+            testsPath,
+            testTemplate(component, defaultExports),
+            (err) => {
+              if (err) {
+                console.log(`Unable to create ${component} component tests`);
+              } else {
+                console.log(`${testsPath} created`);
+              }
+            }
+          );
       }
     }
   } else {
@@ -110,6 +140,10 @@ exports.createComponent = (
       folder === ""
         ? `${componentsRoot}/${componentName}/styles.js`
         : `${componentsRoot}/${folder}/${componentName}/styles.js`;
+    const testsPath =
+      folder === ""
+        ? `${componentsRoot}/${componentName}/__tests__/index.spec.jsx`
+        : `${componentsRoot}/${folder}/${componentName}/__tests__/index.spec.jsx`;
     if (fs.existsSync(path) && !overwrite) {
       console.log(`${path} already exist`);
     } else {
@@ -142,6 +176,18 @@ exports.createComponent = (
                 console.log(`${stylesPath} created`);
               }
             });
+          withTests &&
+            fs.writeFile(
+              testsPath,
+              testTemplate(component, defaultExports),
+              (err) => {
+                if (err) {
+                  console.log(`Unable to create ${component} component tests`);
+                } else {
+                  console.log(`${testsPath} created`);
+                }
+              }
+            );
         } else {
           console.log(`.template/${template} file does not exist`);
         }
@@ -165,6 +211,18 @@ exports.createComponent = (
               console.log(`${stylesPath} created`);
             }
           });
+        withTests &&
+          fs.writeFile(
+            testsPath,
+            testTemplate(component, defaultExports),
+            (err) => {
+              if (err) {
+                console.log(`Unable to create ${component} component tests`);
+              } else {
+                console.log(`${testsPath} created`);
+              }
+            }
+          );
       }
     }
   }

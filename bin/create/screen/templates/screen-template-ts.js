@@ -16,7 +16,7 @@ exports.screenTemplateTs = (
   defaultExports,
   withProps
 ) => {
-  let str = `import React, { FC } from "react";
+  let str = `import { FC } from "react";
 import { Text, View } from "react-native";
 `;
   if (withFunctions) {
@@ -36,7 +36,7 @@ interface ${screenName}ScreenProps {}
     str += `
 const ${screenName}Screen: FC${
       withProps ? `<${screenName}ScreenProps>` : ""
-    } = (${withProps ? `{}: ${screenName}ScreenProps` : ""}) => {
+    } = ({}) => {
   return (
     <View>
       <Text>${screenName} screen created!</Text>
@@ -49,7 +49,7 @@ export default ${screenName}Screen;
     str += `
 export const ${screenName}Screen: FC${
       withProps ? `<${screenName}ScreenProps>` : ""
-    } = (${withProps ? `{}: ${screenName}ScreenProps` : ""}) => {
+    } = ({}) => {
   return (
     <View>
       <Text>${screenName} screen created!</Text>
