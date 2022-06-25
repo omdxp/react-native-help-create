@@ -271,7 +271,7 @@ Navigations are the relations between chosen screens, those relations can be sta
 rnhc create -n <navigation-type> <screen-name-1> <screen-name-2> ...
 ```
 
-- The `<navigation-type>` can be either of these types: `stack` or `drawer` or `tab`.
+- The `<navigation-type>` can be either of these types: `stack`, `native-stack`, `drawer`, `bottom-tab`, `material-bottom-tabs` or `material-top-tabs`.
 
 - The number of given screens should be 2 or more.
 
@@ -526,39 +526,38 @@ rnhc create -n <navigation-type> -f <folder-path>
 - All the sub folders should contain the navigation files so it can be added to the navigation file you want to create, for example take this structure:
 
 ```sh
-src
-└───screens
-    │   navigation.jsx
-    │
-    ├───folder
-    │   │
-    │   ├───screen-one
-    │   │   │   index.jsx
-    │   │   │   styles.js
-    │   │   │
-    │   │   └───functions
-    │   │           index.js
-    │   │
-    │   └───screen-two
-    │       │   index.jsx
-    │       │   styles.js
-    │       │
-    │       └───functions
-    │               index.js
-    │
-    ├───screen-three
-    │   │   index.jsx
-    │   │   styles.js
-    │   │
-    │   └───functions
-    │           index.js
-    │
-    └───screen-four
-        │   index.jsx
-        │   styles.js
-        │
-        └───functions
-                index.js
+src/
+└── screens
+    ├── folder
+    │   ├── screen-one
+    │   │   ├── __tests__
+    │   │   │   └── index.spec.jsx
+    │   │   ├── functions
+    │   │   │   └── index.js
+    │   │   ├── index.jsx
+    │   │   └── styles.js
+    │   └── screen-two
+    │       ├── __tests__
+    │       │   └── index.spec.jsx
+    │       ├── functions
+    │       │   └── index.js
+    │       ├── index.jsx
+    │       └── styles.js
+    ├── navigation.jsx
+    ├── screen-four
+    │   ├── __tests__
+    │   │   └── index.spec.jsx
+    │   ├── functions
+    │   │   └── index.js
+    │   ├── index.jsx
+    │   └── styles.js
+    └── screen-three
+        ├── __tests__
+        │   └── index.spec.jsx
+        ├── functions
+        │   └── index.js
+        ├── index.jsx
+        └── styles.js
 ```
 
 When you try to create a navigation like this:
