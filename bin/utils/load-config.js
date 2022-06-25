@@ -14,6 +14,7 @@ exports.loadConfig = () => {
       withStyles,
       withFunctions,
       withProps,
+      withTest,
       defaultExports,
       componentsRoot,
       screensRoot,
@@ -24,6 +25,7 @@ exports.loadConfig = () => {
     config.withFunctions =
       typeof withFunctions === "boolean" ? withFunctions : true;
     config.withProps = typeof withProps === "boolean" ? withProps : true;
+    config.withTest = typeof withTest === "boolean" ? withTest : true;
     config.defaultExports =
       typeof defaultExports === "boolean" ? defaultExports : true;
     config.componentsRoot =
