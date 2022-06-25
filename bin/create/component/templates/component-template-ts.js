@@ -28,9 +28,9 @@ interface ${componentName}Props {}
   }
   if (defaultExports) {
     str += `
-const ${componentName}: FC${withProps ? `<${componentName}Props>` : ""} = (${
-      withProps ? `{}: ${componentName}Props` : ""
-    }) => {
+const ${componentName}: FC${
+      withProps ? `<${componentName}Props>` : ""
+    } = ({}) => {
   return (
     <View>
       <Text>${componentName} component created!</Text>
@@ -43,7 +43,7 @@ export default ${componentName};
     str += `
 export const ${componentName}: FC${
       withProps ? `<${componentName}Props>` : ""
-    } = (${withProps ? `{}: ${componentName}Props` : ""}) => {
+    } = ({}) => {
   return (
     <View>
       <Text>${componentName} component created!</Text>
