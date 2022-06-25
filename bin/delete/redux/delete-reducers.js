@@ -1,5 +1,5 @@
 const fs = require("file-system");
-const { config, getCamelCase } = require("../../utils");
+const { config, getCamelCase, getKebabCase } = require("../../utils");
 
 /**
  * @function deleteReducers
@@ -10,6 +10,7 @@ const { config, getCamelCase } = require("../../utils");
  */
 exports.deleteReducers = (reducers, ts) => {
   const { reduxRoot } = config;
+  reducers = reducers.map((reducer) => getKebabCase(reducer));
   const path = `${reduxRoot}/reducers/`;
   const fileExtension = ts ? "ts" : "js";
   const data = fs.readFileSync(`${reduxRoot}/reducers/index.${fileExtension}`, {
@@ -48,7 +49,10 @@ exports.deleteReducers = (reducers, ts) => {
           ),
           ""
         );
-        result = result.replace(new RegExp(`${r}[. \t\n]*,`), "");
+        result = result.replace(
+          new RegExp(`[. \t]*${getCamelCase(r)}[. \t]*,`),
+          ""
+        );
       }
       console.log(`${_path} deleted`);
     } catch (err) {

@@ -1,5 +1,5 @@
 const fs = require("file-system");
-const { config, getCamelCase } = require("../../utils");
+const { config, getCamelCase, getKebabCase } = require("../../utils");
 
 /**
  * @function deleteActions
@@ -24,7 +24,7 @@ exports.deleteActions = (actions, ts) => {
     encoding: "utf8",
   });
   let storeResult = storeIndexFileContent;
-  let reducer = actions[0];
+  let reducer = getKebabCase(actions[0]);
   const path = `${reduxRoot}/actions/${reducer}/`;
   if (!fs.existsSync(path)) {
     console.log(`${path} does not exist`);
@@ -50,9 +50,12 @@ exports.deleteActions = (actions, ts) => {
     }
     actions = existedActions;
   }
-  actions = actions.map((a) =>
-    a.endsWith(`.${fileExtension}`) ? a : `${a}.${fileExtension}`
-  );
+  actions = actions.map((a) => {
+    const actionKebabCase = getKebabCase(a.split(".")[0]);
+    return actionKebabCase.endsWith(`.${fileExtension}`)
+      ? actionKebabCase
+      : `${actionKebabCase}.${fileExtension}`;
+  });
   actions.forEach((a) => {
     const _path = `${path}${a}`;
     try {

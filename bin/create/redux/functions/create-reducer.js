@@ -1,5 +1,5 @@
 const fs = require("file-system");
-const { config, getCamelCase } = require("../../../utils");
+const { config, getCamelCase, getKebabCase } = require("../../../utils");
 const {
   customReducerTemplateTs,
   customReducerTemplateJs,
@@ -19,6 +19,7 @@ exports.createReducer = (reducerName, js, ts, overwrite) => {
     console.log("Redux implementation does not exist");
     return;
   }
+  reducerName = getKebabCase(reducerName);
   const path = `${reduxRoot}/reducers/${reducerName}/`;
   let reducer = getCamelCase(reducerName);
   if (fs.existsSync(path) && !overwrite) {

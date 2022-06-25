@@ -1,6 +1,6 @@
 const fs = require("file-system");
 const { navigationTemplateJs, navigationTemplateTs } = require("../templates");
-const { config } = require("../../../utils");
+const { config, getKebabCase } = require("../../../utils");
 
 /**
  * @function createNavigation
@@ -14,6 +14,12 @@ const { config } = require("../../../utils");
  */
 exports.createNavigation = (navigation, js, ts, folder, overwrite) => {
   const { defaultExports, screensRoot } = config;
+  folder = folder.includes("/")
+    ? folder
+        .split("/")
+        .map((folder) => getKebabCase(folder))
+        .join("/")
+    : getKebabCase(folder);
   const path = folder === "" ? `${screensRoot}/` : `${screensRoot}/${folder}/`;
   if (!fs.existsSync(path)) {
     console.log(`${path} does not exist`);
@@ -39,6 +45,7 @@ exports.createNavigation = (navigation, js, ts, folder, overwrite) => {
         // get existed screens
         navigation.shift();
         let screens = navigation;
+        screens = screens.map((screen) => getKebabCase(screen));
         let existedScreens = [];
         if (screens.length === 0) {
           // folders and files

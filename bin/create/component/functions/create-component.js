@@ -4,7 +4,7 @@ const {
   componentTemplateTs,
   stylesTemplate,
 } = require("../templates");
-const { config, getComponentName } = require("../../../utils");
+const { config, getComponentName, getKebabCase } = require("../../../utils");
 
 /**
  * @function createComponent
@@ -26,16 +26,23 @@ exports.createComponent = (
   overwrite
 ) => {
   const { withStyles, withProps, defaultExports, componentsRoot } = config;
+  componentName = getKebabCase(componentName);
+  folder = folder.includes("/")
+    ? folder
+        .split("/")
+        .map((folder) => getKebabCase(folder))
+        .join("/")
+    : getKebabCase(folder);
   let component = getComponentName(componentName);
   if (ts) {
     const path =
       folder === ""
-        ? `${componentsRoot}/${componentName.toLowerCase()}/index.tsx`
-        : `${componentsRoot}/${folder}/${componentName.toLowerCase()}/index.tsx`;
+        ? `${componentsRoot}/${componentName}/index.tsx`
+        : `${componentsRoot}/${folder}/${componentName}/index.tsx`;
     const stylesPath =
       folder === ""
-        ? `${componentsRoot}/${componentName.toLowerCase()}/styles.ts`
-        : `${componentsRoot}/${folder}/${componentName.toLowerCase()}/styles.ts`;
+        ? `${componentsRoot}/${componentName}/styles.ts`
+        : `${componentsRoot}/${folder}/${componentName}/styles.ts`;
 
     if (fs.existsSync(path) && !overwrite) {
       console.log(`${path} already exist`);
@@ -97,12 +104,12 @@ exports.createComponent = (
   } else {
     const path =
       folder === ""
-        ? `${componentsRoot}/${componentName.toLowerCase()}/index.jsx`
-        : `${componentsRoot}/${folder}/${componentName.toLowerCase()}/index.jsx`;
+        ? `${componentsRoot}/${componentName}/index.jsx`
+        : `${componentsRoot}/${folder}/${componentName}/index.jsx`;
     const stylesPath =
       folder === ""
-        ? `${componentsRoot}/${componentName.toLowerCase()}/styles.js`
-        : `${componentsRoot}/${folder}/${componentName.toLowerCase()}/styles.js`;
+        ? `${componentsRoot}/${componentName}/styles.js`
+        : `${componentsRoot}/${folder}/${componentName}/styles.js`;
     if (fs.existsSync(path) && !overwrite) {
       console.log(`${path} already exist`);
     } else {

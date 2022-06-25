@@ -1,5 +1,5 @@
 const fs = require("file-system");
-const { config } = require("../../utils");
+const { config, getKebabCase } = require("../../utils");
 
 /**
  * @function deleteComponents
@@ -10,6 +10,13 @@ const { config } = require("../../utils");
  */
 exports.deleteComponents = (components, folder) => {
   const { componentsRoot } = config;
+  components = components.map((component) => getKebabCase(component));
+  folder = folder.includes("/")
+    ? folder
+        .split("/")
+        .map((folder) => getKebabCase(folder))
+        .join("/")
+    : getKebabCase(folder);
   const path =
     folder === "" ? `${componentsRoot}/` : `${componentsRoot}/${folder}/`;
   if (components.length === 0 && folder !== "") {

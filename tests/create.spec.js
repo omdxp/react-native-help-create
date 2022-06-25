@@ -271,7 +271,7 @@ describe("create navigation tests", () => {
       createNavigation(["stack", "s1", "s2"], false, true, "", false);
       await sleep(100);
       expect(fs.existsSync("./src/screens/navigation.tsx")).toBe(true);
-      deleteNavigation();
+      deleteNavigation("");
       await sleep(100);
     } catch (err) {
       fail(err);
