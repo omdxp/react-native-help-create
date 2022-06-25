@@ -1,0 +1,8 @@
+{
+  "label": "Delete",
+  "position": 4,
+  "link": {
+    "type": "generated-index",
+    "description": "How to delete files in the project?"
+  }
+}
