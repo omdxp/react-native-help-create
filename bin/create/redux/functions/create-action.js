@@ -1,5 +1,5 @@
 const fs = require("file-system");
-const { config, getCamelCase } = require("../../../utils");
+const { config, getCamelCase, getKebabCase } = require("../../../utils");
 const {
   customActionTemplateJs,
   customActionTemplateTs,
@@ -24,7 +24,7 @@ exports.createAction = (actionName, js, ts, overwrite) => {
     console.log(`${reduxRoot} does not exist`);
     return;
   }
-  const reducer = actionName[0];
+  const reducer = getKebabCase(actionName[0]);
   const reducerPath = `${reduxRoot}/reducers/${reducer}`;
   if (!fs.existsSync(reducerPath)) {
     console.log(`${reducerPath} does not exist`);
@@ -41,7 +41,7 @@ exports.createAction = (actionName, js, ts, overwrite) => {
     fs.fs.mkdirSync(actionsPath);
   }
   for (let i = 0; i < actions.length; i++) {
-    const action = actions[i];
+    const action = getKebabCase(actions[i]);
     const actionFilePath = `${actionsPath}/${action}.${fileExtension}`;
     // create action
     if (fs.existsSync(actionFilePath) && !overwrite) {

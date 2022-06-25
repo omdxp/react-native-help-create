@@ -1,5 +1,5 @@
 const fs = require("file-system");
-const { config } = require("../../utils");
+const { config, getKebabCase } = require("../../utils");
 
 /**
  * @function deleteNavigation
@@ -8,6 +8,12 @@ const { config } = require("../../utils");
  */
 exports.deleteNavigation = (folder) => {
   const { screensRoot } = config;
+  folder = folder.includes("/")
+    ? folder
+        .split("/")
+        .map((folder) => getKebabCase(folder))
+        .join("/")
+    : getKebabCase(folder);
   const path = folder === "" ? `${screensRoot}/` : `${screensRoot}/${folder}/`;
   if (fs.existsSync(`${path}navigation.tsx`)) {
     fs.unlink(`${path}navigation.tsx`, (err) => {

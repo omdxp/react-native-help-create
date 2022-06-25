@@ -6,7 +6,7 @@ const {
   screenFunctionTemplateTs,
   stylesTemplate,
 } = require("../templates");
-const { config, getComponentName } = require("../../../utils");
+const { config, getComponentName, getKebabCase } = require("../../../utils");
 
 /**
  * @function createScreen
@@ -22,11 +22,18 @@ const { config, getComponentName } = require("../../../utils");
 exports.createScreen = (screenName, js, ts, folder, template, overwrite) => {
   const { withStyles, withFunctions, withProps, defaultExports, screensRoot } =
     config;
+  screenName = getKebabCase(screenName);
+  folder = folder.includes("/")
+    ? folder
+        .split("/")
+        .map((folder) => getKebabCase(folder))
+        .join("/")
+    : getKebabCase(folder);
   let screen = getComponentName(screenName);
   const path =
     folder === ""
-      ? `${screensRoot}/${screenName.toLowerCase()}/`
-      : `${screensRoot}/${folder}/${screenName.toLowerCase()}/`;
+      ? `${screensRoot}/${screenName}/`
+      : `${screensRoot}/${folder}/${screenName}/`;
   if (fs.existsSync(path) && !overwrite) {
     console.log(`${path} already exist`);
   } else {

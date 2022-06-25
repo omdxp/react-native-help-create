@@ -1,5 +1,5 @@
 const fs = require("file-system");
-const { config } = require("../../utils");
+const { config, getKebabCase } = require("../../utils");
 
 /**
  * @function combineComponents
@@ -10,6 +10,13 @@ const { config } = require("../../utils");
  */
 exports.combineComponents = (components, folder) => {
   const { componentsRoot } = config;
+  components = components.map((component) => getKebabCase(component));
+  folder = folder.includes("/")
+    ? folder
+        .split("/")
+        .map((folder) => getKebabCase(folder))
+        .join("/")
+    : getKebabCase(folder);
   const path = `${componentsRoot}/`;
   const _path = `${path}${folder}/`;
   let folders = [];

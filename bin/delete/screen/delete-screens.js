@@ -1,5 +1,5 @@
 const fs = require("file-system");
-const { config } = require("../../utils");
+const { config, getKebabCase } = require("../../utils");
 
 /**
  * @function deleteScreens
@@ -10,6 +10,13 @@ const { config } = require("../../utils");
  */
 exports.deleteScreens = (screens, folder) => {
   const { screensRoot } = config;
+  screens = screens.map((screen) => getKebabCase(screen));
+  folder = folder.includes("/")
+    ? folder
+        .split("/")
+        .map((folder) => getKebabCase(folder))
+        .join("/")
+    : getKebabCase(folder);
   const path = folder === "" ? `${screensRoot}/` : `${screensRoot}/${folder}/`;
   if (screens.length === 0 && folder !== "") {
     try {
