@@ -27,12 +27,18 @@ describe("combine components tests", () => {
       expect(fs.existsSync("./src/components/folder/test1/styles.ts")).toBe(
         true
       );
+      expect(
+        fs.existsSync("./src/components/folder/test1/__tests__/index.spec.tsx")
+      ).toBe(true);
       expect(fs.existsSync("./src/components/folder/test2/index.tsx")).toBe(
         true
       );
       expect(fs.existsSync("./src/components/folder/test2/styles.ts")).toBe(
         true
       );
+      expect(
+        fs.existsSync("./src/components/folder/test2/__tests__/index.spec.tsx")
+      ).toBe(true);
       deleteComponents(["test1", "test2"], "folder");
       await sleep(100);
     } catch (err) {
@@ -78,10 +84,16 @@ describe("combine screens tests", () => {
       expect(
         fs.existsSync("./src/screens/folder/test1/functions/index.ts")
       ).toBe(true);
+      expect(
+        fs.existsSync("./src/screens/folder/test1/__tests__/index.spec.tsx")
+      ).toBe(true);
       expect(fs.existsSync("./src/screens/folder/test2/index.tsx")).toBe(true);
       expect(fs.existsSync("./src/screens/folder/test2/styles.ts")).toBe(true);
       expect(
         fs.existsSync("./src/screens/folder/test2/functions/index.ts")
+      ).toBe(true);
+      expect(
+        fs.existsSync("./src/screens/folder/test2/__tests__/index.spec.tsx")
       ).toBe(true);
       deleteScreens(["test1", "test2"], "folder");
       await sleep(100);
