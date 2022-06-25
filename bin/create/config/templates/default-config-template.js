@@ -8,7 +8,7 @@ exports.defaultConfigTemplate = () => {
   "withStyles": true,
   "withFunctions": true,
   "withProps": true,
-  "withTest": true,
+  "withTests": true,
   "defaultExports": true,
   "componentsRoot": "./src/components",
   "screensRoot": "./src/screens",
