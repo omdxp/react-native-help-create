@@ -14,7 +14,7 @@ Navigations are the relations between chosen screens, those relations can be sta
 rnhc create -n <navigation-type> <screen-name-1> <screen-name-2> ...
 ```
 
-- The `<navigation-type>` can be either of these types: `stack` or `drawer` or `tab`.
+- The `<navigation-type>` can be either of these types: `stack`, `native-stack`, `drawer`, `bottom-tab`, `material-bottom-tabs` or `material-top-tabs`.
 
 - The number of given screens should be 2 or more.
 
@@ -35,35 +35,33 @@ rnhc create -n stack screen-1 screen-2
 - This will create a `navigation.jsx` file next to `screen-1` and `screen-2` screens as the following:
 
 ```sh
-src
-└───screens
-    │   navigation.jsx
-    │
-    ├───screen-1
-    │   │   index.jsx
-    │   │   styles.js
-    │   │
-    │   └───functions
-    │           index.js
-    │
-    └───screen-2
-        │   index.jsx
-        │   styles.js
-        │
-        └───functions
-                index.js
+src/
+└── screens
+    ├── navigation.jsx
+    ├── screen-1
+    │   ├── __tests__
+    │   │   └── index.spec.jsx
+    │   ├── functions
+    │   │   └── index.js
+    │   ├── index.jsx
+    │   └── styles.js
+    └── screen-2
+        ├── __tests__
+        │   └── index.spec.jsx
+        ├── functions
+        │   └── index.js
+        ├── index.jsx
+        └── styles.js
 ```
 
 - The content for the `navigation.jsx` file is as the following:
 
 ```jsx
-import React from "react";
-
 import { createStackNavigator } from "@react-navigation/stack";
 const { Navigator, Screen } = createStackNavigator();
 
-import { Screen1Screen } from "./screen-1";
-import { Screen2Screen } from "./screen-2";
+import Screen1Screen from "./screen-1";
+import Screen2Screen from "./screen-2";
 
 const routes = [
   {
@@ -76,7 +74,7 @@ const routes = [
   },
 ];
 
-export const Navigation = () => {
+const Navigation = () => {
   return (
     <Navigator>
       {routes.map(({ name, component }) => (
@@ -85,6 +83,7 @@ export const Navigation = () => {
     </Navigator>
   );
 };
+export default Navigation;
 ```
 
 ## Create Navigation for specific screens in a specific folder
@@ -106,13 +105,11 @@ rhnc create -n drawer screen-1 screen-2 -f foo/bar
 - This will create `navigation.jsx` file under `src/screens/foo/bar/` folder which contains the following:
 
 ```jsx
-import React from "react";
-
 import { createStackNavigator } from "@react-navigation/stack";
 const { Navigator, Screen } = createStackNavigator();
 
-import { Screen1Screen } from "./screen-1";
-import { Screen2Screen } from "./screen-2";
+import Screen1Screen from "./screen-1";
+import Screen2Screen from "./screen-2";
 
 const routes = [
   {
@@ -125,7 +122,7 @@ const routes = [
   },
 ];
 
-export const Navigation = () => {
+const Navigation = () => {
   return (
     <Navigator>
       {routes.map(({ name, component }) => (
@@ -134,6 +131,7 @@ export const Navigation = () => {
     </Navigator>
   );
 };
+export default Navigation;
 ```
 
 ## Create Navigation that depends on other navigations
@@ -151,31 +149,31 @@ rnhc create -n <navigation-type> <screen-name-1> <screen-name-2> ... <another-na
 In this example, we have the following structure:
 
 ```sh
-src
-└───screens
-    ├───folder
-    │   │   navigation.jsx
-    │   │
-    │   ├───screen-one
-    │   │   │   index.jsx
-    │   │   │   styles.js
-    │   │   │
-    │   │   └───functions
-    │   │           index.js
-    │   │
-    │   └───screen-two
-    │       │   index.jsx
-    │       │   styles.js
-    │       │
-    │       └───functions
-    │               index.js
-    │
-    └───screen-three
-        │   index.jsx
-        │   styles.js
-        │
-        └───functions
-                index.js
+src/
+└── screens
+    ├── folder
+    │   ├── navigation.jsx
+    │   ├── screen-one
+    │   │   ├── __tests__
+    │   │   │   └── index.spec.jsx
+    │   │   ├── functions
+    │   │   │   └── index.js
+    │   │   ├── index.jsx
+    │   │   └── styles.js
+    │   └── screen-two
+    │       ├── __tests__
+    │       │   └── index.spec.jsx
+    │       ├── functions
+    │       │   └── index.js
+    │       ├── index.jsx
+    │       └── styles.js
+    └── screen-three
+        ├── __tests__
+        │   └── index.spec.jsx
+        ├── functions
+        │   └── index.js
+        ├── index.jsx
+        └── styles.js
 ```
 
 Where we have a drawer navigation between `screen-one` and `screen-two` under the `folder` folder. And we want to create a stack navigation between `folder` and `screen-three`. And to show that `rnhc` will continue to run for the existed screens we added in the command line `screen-four` which does not exist as the following:
@@ -194,50 +192,47 @@ src/screens/navigation.jsx created
 - And it will add a new `navigation.jsx` that resides between `folder` and `screen-three` as the following:
 
 ```sh
-src
-└───screens
-    │   navigation.jsx
-    │
-    ├───folder
-    │   │   navigation.jsx
-    │   │
-    │   ├───screen-one
-    │   │   │   index.jsx
-    │   │   │   styles.js
-    │   │   │
-    │   │   └───functions
-    │   │           index.js
-    │   │
-    │   └───screen-two
-    │       │   index.jsx
-    │       │   styles.js
-    │       │
-    │       └───functions
-    │               index.js
-    │
-    └───screen-three
-        │   index.jsx
-        │   styles.js
-        │
-        └───functions
-                index.js
+src/
+└── screens
+    ├── folder
+    │   ├── navigation.jsx
+    │   ├── screen-one
+    │   │   ├── __tests__
+    │   │   │   └── index.spec.jsx
+    │   │   ├── functions
+    │   │   │   └── index.js
+    │   │   ├── index.jsx
+    │   │   └── styles.js
+    │   └── screen-two
+    │       ├── __tests__
+    │       │   └── index.spec.jsx
+    │       ├── functions
+    │       │   └── index.js
+    │       ├── index.jsx
+    │       └── styles.js
+    ├── navigation.jsx
+    └── screen-three
+        ├── __tests__
+        │   └── index.spec.jsx
+        ├── functions
+        │   └── index.js
+        ├── index.jsx
+        └── styles.js
 ```
 
 - And the content of the new `navigation.jsx` file will be like this:
 
 ```jsx
-import React from "react";
-
 import { createStackNavigator } from "@react-navigation/stack";
 const { Navigator, Screen } = createStackNavigator();
 
-import { Navigation as Folder } from "./folder/navigation";
-import { ScreenThreeScreen } from "./screen-three";
+import FolderNavigation from "./folder/navigation";
+import ScreenThreeScreen from "./screen-three";
 
 const routes = [
   {
     name: "folder",
-    component: Folder,
+    component: FolderNavigation,
   },
   {
     name: "screen-three",
@@ -245,7 +240,7 @@ const routes = [
   },
 ];
 
-export const Navigation = () => {
+const Navigation = () => {
   return (
     <Navigator>
       {routes.map(({ name, component }) => (
@@ -254,6 +249,7 @@ export const Navigation = () => {
     </Navigator>
   );
 };
+export default Navigation;
 ```
 
 ## Create Navigation for all screens
@@ -279,39 +275,38 @@ rnhc create -n <navigation-type> -f <folder-path>
 - All the sub folders should contain the navigation files so it can be added to the navigation file you want to create, for example take this structure:
 
 ```sh
-src
-└───screens
-    │   navigation.jsx
-    │
-    ├───folder
-    │   │
-    │   ├───screen-one
-    │   │   │   index.jsx
-    │   │   │   styles.js
-    │   │   │
-    │   │   └───functions
-    │   │           index.js
-    │   │
-    │   └───screen-two
-    │       │   index.jsx
-    │       │   styles.js
-    │       │
-    │       └───functions
-    │               index.js
-    │
-    ├───screen-three
-    │   │   index.jsx
-    │   │   styles.js
-    │   │
-    │   └───functions
-    │           index.js
-    │
-    └───screen-four
-        │   index.jsx
-        │   styles.js
-        │
-        └───functions
-                index.js
+src/
+└── screens
+    ├── folder
+    │   ├── screen-one
+    │   │   ├── __tests__
+    │   │   │   └── index.spec.jsx
+    │   │   ├── functions
+    │   │   │   └── index.js
+    │   │   ├── index.jsx
+    │   │   └── styles.js
+    │   └── screen-two
+    │       ├── __tests__
+    │       │   └── index.spec.jsx
+    │       ├── functions
+    │       │   └── index.js
+    │       ├── index.jsx
+    │       └── styles.js
+    ├── navigation.jsx
+    ├── screen-four
+    │   ├── __tests__
+    │   │   └── index.spec.jsx
+    │   ├── functions
+    │   │   └── index.js
+    │   ├── index.jsx
+    │   └── styles.js
+    └── screen-three
+        ├── __tests__
+        │   └── index.spec.jsx
+        ├── functions
+        │   └── index.js
+        ├── index.jsx
+        └── styles.js
 ```
 
 When you try to create a navigation like this:
@@ -320,7 +315,14 @@ When you try to create a navigation like this:
 rnhc create -n stack
 ```
 
-It will contain only `screen-three` and `screen-four` because the `src/screens/folder` does not contain a navigation file.
+It will output the following:
+
+```sh
+./src/screens/folder/navigation.jsx does not exist
+./src/screens/navigation.jsx created
+```
+
+And the `./src/screens/navigation.jsx` file will only contain `screen-three` and `screen-four` because the `src/screens/folder` does not contain a navigation file.
 
 So if you want to create a navigation file for all existed screens in the `src/screens/` folder, you must take in consideration that all subfolders must contain a navigation file first and then you can either update the navigation file or create a new one.
 

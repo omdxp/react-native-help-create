@@ -4,7 +4,7 @@ sidebar_position: 3
 
 # Combine Screens
 
-- To combine screens that resides in `src/screens/` folder to a specific path that resides under that same folder you can run:
+To combine screens that resides in `src/screens/` folder to a specific path that resides under that same folder you can run:
 
 ```sh
 rnhc combine -s <screen-name-1> <screen-name-2> ... -f <folder-path>

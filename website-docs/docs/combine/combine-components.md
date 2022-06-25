@@ -4,7 +4,7 @@ sidebar_position: 2
 
 # Combine Components
 
-- To combine components that resides in `src/components/` folder to a specific path that resides under that same folder you can run:
+To combine components that resides in `src/components/` folder to a specific path that resides under that same folder you can run:
 
 ```sh
 rnhc combine -c <component-name-1> <component-name-2> ... -f <folder-path>

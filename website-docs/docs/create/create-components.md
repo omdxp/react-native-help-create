@@ -17,33 +17,35 @@ rnhc create -c <component-name>
 ### Example
 
 ```sh
-rnhc create -c test-component
+rnhc create -c TestComponent
 ```
 
 - This command will create the following directory `src/components/test-component/`:
 
 ```sh
-src
-└───components
-    └───test-component
-            index.jsx
-            styles.js
+src/
+└── components
+    └── test-component
+        ├── __tests__
+        │   └── index.spec.jsx
+        ├── index.jsx
+        └── styles.js
 ```
 
 - Where `index.jsx` represents the React FC component that contains the following:
 
 ```jsx
-import React from "react";
 import { Text, View } from "react-native";
 import { TestComponentStyles } from "./styles";
 
-export const TestComponent = () => {
+const TestComponent = () => {
   return (
     <View>
       <Text>TestComponent component created!</Text>
     </View>
   );
 };
+export default TestComponent;
 ```
 
 - And for the `styles.js` you will see:
@@ -73,15 +75,18 @@ rnhc create -c comp-1 comp-2
 - This command will create under the `src/components/` folder the following:
 
 ```sh
-src
-└───components
-    ├───comp-1
-    │       index.jsx
-    │       styles.js
-    │
-    └───comp-2
-            index.jsx
-            styles.js
+src/
+└── components
+    ├── comp-1
+    │   ├── __tests__
+    │   │   └── index.spec.jsx
+    │   ├── index.jsx
+    │   └── styles.js
+    └── comp-2
+        ├── __tests__
+        │   └── index.spec.jsx
+        ├── index.jsx
+        └── styles.js
 ```
 
 ## Create a Components in a Specific Folder
@@ -103,15 +108,18 @@ rnhc create -c comp-1 comp-2 -f foo/bar
 - This command will create under the `src/components/` folder the following:
 
 ```sh
-src
-└───components
-    └───foo
-        └───bar
-            ├───comp-1
-            │       index.jsx
-            │       styles.js
-            │
-            └───comp-2
-                    index.jsx
-                    styles.js
+src/
+└── components
+    └── foo
+        └── bar
+            ├── comp-1
+            │   ├── __tests__
+            │   │   └── index.spec.jsx
+            │   ├── index.jsx
+            │   └── styles.js
+            └── comp-2
+                ├── __tests__
+                │   └── index.spec.jsx
+                ├── index.jsx
+                └── styles.js
 ```

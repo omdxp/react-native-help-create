@@ -24,16 +24,37 @@ You don't seem to be at the root of a react native project
 
 - In `create` command, `rnhc` will create files with the project's used language, so if the project is written with TypeScript, it will write files with TypeScript, the same apply for JavaScript.
 
-- If you want to create files with a specific language you can add `--js` or `--ts` options at the end of your `create` command, like this for example:
+- If you are in a JavaScript project and somehow you want to create your component or screen in TypeScript, you can use the `--typescript` or `--ts` option:
 
 ```sh
 rnhc create -s test-screen --ts
 ```
 
-- It is advisable to give the components, screens, reducers and actions with this case `some-name`, for example:
+- It doesn't matter what case you name your component or screen, `rnhc` will always create a component or screen with the same name, but with the first letter in uppercase, and the folder will be in kebab case. So if you name your component with `test-comp`, it will create a component or screen with the name `TestComp` in the `index.jsx` file under the `./src/components/test-comp/` folder. Check the example below:
 
 ```sh
-rnhc create -s world-to-react
+rnhc create -c test-comp
+```
+
+```sh
+rnhc create -c testComp
+```
+
+```sh
+rnhc create -c TestComp
+```
+
+The above commands produce the same outcome:
+
+```sh
+src/
+└── components
+    └── test-comp
+        ├── __tests__
+        │   └── index.spec.jsx
+        ├── index.jsx
+        └── styles.js
+
 ```
 
 - You can always overwrite your implementation using the `--overwrite` or `-o` option, for example:
@@ -43,7 +64,7 @@ rnhc create -c test-component -o
 ```
 
 ```sh
-rnhc create -s test-screen -o
+rnhc create -s TestScreen -o
 ```
 
 ```sh
@@ -51,11 +72,11 @@ rnhc create -r -o
 ```
 
 ```sh
-rnhc create --reducer test-reducer -o
+rnhc create --reducer testReducer -o
 ```
 
 ```sh
-rnhc create --action test-reducer test-action -o
+rnhc create --action testReducer test-action -o
 ```
 
 - This is helpful when you want to update your navigation files, for example you already have a navigation file in `src/screens/` folder and you want to update it with the new screens you created:

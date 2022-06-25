@@ -4,7 +4,7 @@ sidebar_position: 6
 
 # Create Redux
 
-- To create a redux implementation run:
+To create a redux implementation run:
 
 ```sh
 rnhc create -r

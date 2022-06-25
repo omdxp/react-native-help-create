@@ -17,38 +17,38 @@ rnhc create -s <screen-name>
 ### Example
 
 ```sh
-rnhc create -s test-screen
+rnhc create -s testScreen
 ```
 
 - This will create the following:
 
 ```sh
-src
-└───screens
-    └───test-screen
-        │   index.jsx
-        │   styles.js
-        │
-        └───functions
-                index.js
+src/
+└── screens
+    └── test-screen
+        ├── __tests__
+        │   └── index.spec.jsx
+        ├── functions
+        │   └── index.js
+        ├── index.jsx
+        └── styles.js
 ```
 
 - Where `index.jsx` represent the screen which is nothing but a React FC component that contains the following:
 
 ```jsx
-import React from "react";
 import { Text, View } from "react-native";
-
 import {} from "./functions";
 import { TestScreenStyles } from "./styles";
 
-export const TestScreenScreen = () => {
+const TestScreenScreen = () => {
   return (
     <View>
       <Text>TestScreen screen created!</Text>
     </View>
   );
 };
+export default TestScreenScreen;
 ```
 
 - As for `styles.js` you will find:
@@ -84,21 +84,22 @@ rnhc create -s screen-1 screen-2
 - This will create the following:
 
 ```sh
-src
-└───screens
-    ├───screen-1
-    │   │   index.jsx
-    │   │   styles.js
-    │   │
-    │   └───functions
-    │           index.js
-    │
-    └───screen-2
-        │   index.jsx
-        │   styles.js
-        │
-        └───functions
-                index.js
+src/
+└── screens
+    ├── screen-1
+    │   ├── __tests__
+    │   │   └── index.spec.jsx
+    │   ├── functions
+    │   │   └── index.js
+    │   ├── index.jsx
+    │   └── styles.js
+    └── screen-2
+        ├── __tests__
+        │   └── index.spec.jsx
+        ├── functions
+        │   └── index.js
+        ├── index.jsx
+        └── styles.js
 ```
 
 ## Create Screens in a Specific Folder
@@ -120,21 +121,22 @@ rnhc create -s screen-1 screen-2 -f foo/bar
 - This will create the following:
 
 ```sh
-src
-└───screens
-    └───foo
-        └───bar
-            ├───screen-1
-            │   │   index.jsx
-            │   │   styles.js
-            │   │
-            │   └───functions
-            │           index.js
-            │
-            └───screen-2
-                │   index.jsx
-                │   styles.js
-                │
-                └───functions
-                        index.js
+src/
+└── screens
+    └── foo
+        └── bar
+            ├── screen-1
+            │   ├── __tests__
+            │   │   └── index.spec.jsx
+            │   ├── functions
+            │   │   └── index.js
+            │   ├── index.jsx
+            │   └── styles.js
+            └── screen-2
+                ├── __tests__
+                │   └── index.spec.jsx
+                ├── functions
+                │   └── index.js
+                ├── index.jsx
+                └── styles.js
 ```
