@@ -271,7 +271,7 @@ Navigations are the relations between chosen screens, those relations can be sta
 rnhc create -n <navigation-type> <screen-name-1> <screen-name-2> ...
 ```
 
-- The `<navigation-type>` can be either of these types: `stack`, `native-stack`, `drawer`, `bottom-tab`, `material-bottom-tabs` or `material-top-tabs`.
+- The `<navigation-type>` can be either of these types: `stack`, `native-stack`, `drawer`, `bottom-tabs`, `material-bottom-tabs` or `material-top-tabs`.
 
 - The number of given screens should be 2 or more.
 
