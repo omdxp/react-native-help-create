@@ -7,7 +7,7 @@
  * @author [Omar Belghaouti](https://github.com/Omar-Belghaouti)
  */
 exports.navigationTemplateTs = (type, screens, defaultExports) => {
-  let template = "";
+  let template = `import { FC } from "react";\n`;
   switch (type) {
     case "stack":
       template +=

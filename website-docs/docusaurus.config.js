@@ -53,6 +53,11 @@ const config = {
   themeConfig:
     /** @type {import('@docusaurus/preset-classic').ThemeConfig} */
     ({
+      algolia: {
+        appId: "D518QIHZHG",
+        apiKey: "d922529db8391e9752b576c8a47e8deb",
+        indexName: "react-native-help-create",
+      },
       navbar: {
         title: "react-native-help-create",
         logo: {
