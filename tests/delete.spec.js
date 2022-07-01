@@ -30,7 +30,7 @@ describe("delete component tests", () => {
     try {
       deleteComponents(["del-test"], "");
       await sleep(100);
-      createComponent("del-test", false, true, "", "", false);
+      createComponent("del-test", true, "", "", false);
       await sleep(100);
       expect(fs.existsSync("./src/components/del-test/index.tsx")).toBe(true);
       expect(fs.existsSync("./src/components/del-test/styles.ts")).toBe(true);
@@ -82,7 +82,7 @@ describe("delete screen tests", () => {
     try {
       deleteScreens(["del-test"], "");
       await sleep(100);
-      createScreen("del-test", false, true, "", "", false);
+      createScreen("del-test", true, "", "", false);
       await sleep(100);
       expect(fs.existsSync("./src/screens/del-test/index.tsx")).toBe(true);
       expect(fs.existsSync("./src/screens/del-test/styles.ts")).toBe(true);
@@ -179,12 +179,12 @@ describe("delete action tests", () => {
 
   test("should delete action for existed reducer", async () => {
     try {
-      createReduxStore(false, true, false);
+      createReduxStore(true, false);
       await sleep(100);
-      createReducer("test", false, true, false);
+      createReducer("test", true, false);
       await sleep(100);
       expect(fs.existsSync("./src/redux/reducers/test/index.ts")).toBe(true);
-      createAction(["test", "del-test"], false, true, false);
+      createAction(["test", "del-test"], true, false);
       await sleep(100);
       expect(fs.existsSync("./src/redux/actions/test/del-test.ts")).toBe(true);
       deleteActions(["test", "del-test"], true);
@@ -197,10 +197,10 @@ describe("delete action tests", () => {
 
   test("should delete action for not existed reducer", async () => {
     try {
-      createReduxStore(false, true, false);
+      createReduxStore(true, false);
       await sleep(100);
       expect(fs.existsSync("./src/redux/reducers/test/index.ts")).toBe(false);
-      createAction(["test", "del-test"], false, true, false);
+      createAction(["test", "del-test"], true, false);
       await sleep(100);
       expect(fs.existsSync("./src/redux/actions/test/del-test.ts")).toBe(false);
       deleteActions(["test", "del-test"], true);
@@ -213,12 +213,12 @@ describe("delete action tests", () => {
 
   test("should delete multiple actions for existed reducer", async () => {
     try {
-      createReduxStore(false, true, false);
+      createReduxStore(true, false);
       await sleep(100);
-      createReducer("test", false, true, false);
+      createReducer("test", true, false);
       await sleep(100);
       expect(fs.existsSync("./src/redux/reducers/test/index.ts")).toBe(true);
-      createAction(["test", "del-test", "del-test-2"], false, true, false);
+      createAction(["test", "del-test", "del-test-2"], true, false);
       await sleep(100);
       expect(fs.existsSync("./src/redux/actions/test/del-test.ts")).toBe(true);
       expect(fs.existsSync("./src/redux/actions/test/del-test-2.ts")).toBe(
@@ -246,9 +246,9 @@ describe("delete reducer tests", () => {
 
   test("should delete reducer for existed reducer", async () => {
     try {
-      createReduxStore(false, true, false);
+      createReduxStore(true, false);
       await sleep(100);
-      createReducer("test", false, true, false);
+      createReducer("test", true, false);
       await sleep(100);
       expect(fs.existsSync("./src/redux/reducers/test/index.ts")).toBe(true);
       deleteReducers(["test"], true);
@@ -261,7 +261,7 @@ describe("delete reducer tests", () => {
 
   test("should not delete reducer for not existed reducer", async () => {
     try {
-      createReduxStore(false, true, false);
+      createReduxStore(true, false);
       await sleep(100);
       expect(fs.existsSync("./src/redux/reducers/test/index.ts")).toBe(false);
       deleteReducers(["test"], true);
@@ -274,12 +274,12 @@ describe("delete reducer tests", () => {
 
   test("should delete multiple existed reducers", async () => {
     try {
-      createReduxStore(false, true, false);
+      createReduxStore(true, false);
       await sleep(100);
-      createReducer("test", false, true, false);
+      createReducer("test", true, false);
       await sleep(100);
       expect(fs.existsSync("./src/redux/reducers/test/index.ts")).toBe(true);
-      createReducer("test-2", false, true, false);
+      createReducer("test-2", true, false);
       await sleep(100);
       expect(fs.existsSync("./src/redux/reducers/test-2/index.ts")).toBe(true);
       deleteReducers(["test", "test-2"], true);

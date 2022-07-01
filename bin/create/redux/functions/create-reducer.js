@@ -8,12 +8,11 @@ const {
  * @function createReducer
  * @description this function is used to create reducer file.
  * @param {string} reducerName - name of reducer.
- * @param {boolean} js - write file in javascript.
  * @param {boolean} ts - write file in typescript.
  * @param {boolean} overwrite - overwrite existed files.
  * @author [Omar Belghaouti](https://github.com/Omar-Belghaouti)
  */
-exports.createReducer = (reducerName, js, ts, overwrite) => {
+exports.createReducer = (reducerName, ts, overwrite) => {
   const { reduxRoot } = config;
   if (!fs.existsSync(reduxRoot)) {
     console.log("Redux implementation does not exist");

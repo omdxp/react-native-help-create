@@ -6,13 +6,12 @@ const { config, getKebabCase } = require("../../../utils");
  * @function createNavigation
  * @description this function is used to create navigation file.
  * @param {Array} navigation - array of screens starting with the navigation type.
- * @param {boolean} js - write file in javascript.
  * @param {boolean} ts - write file in typescript.
  * @param {string} folder - folder path to create navigation with.
  * @param {boolean} overwrite - overwrite existed files.
  * @author [Omar Belghaouti](https://github.com/Omar-Belghaouti)
  */
-exports.createNavigation = (navigation, js, ts, folder, overwrite) => {
+exports.createNavigation = (navigation, ts, folder, overwrite) => {
   const { defaultExports, screensRoot } = config;
   folder = folder.includes("/")
     ? folder

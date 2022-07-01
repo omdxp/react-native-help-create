@@ -67,14 +67,9 @@ yargs
           type: "boolean",
           describe: "to create config file",
         })
-        .option("js", {
-          alias: "javascript",
-          default: true,
-          describe: "To write files in javascript",
-        })
         .option("ts", {
           alias: "typescript",
-          describe: "To write files in typescript",
+          describe: "To force writing files in typescript",
         })
         .option("f", {
           alias: "folder",
@@ -104,7 +99,6 @@ yargs
         action,
         navigation,
         config,
-        js,
         ts,
         folder,
         template,
@@ -114,22 +108,20 @@ yargs
       ts = languageChecker() === "ts" ? true : ts;
       if (component) {
         component.forEach((c) =>
-          createComponent(c, js, ts, folder, template, overwrite)
+          createComponent(c, ts, folder, template, overwrite)
         );
       } else if (screen) {
-        screen.forEach((s) =>
-          createScreen(s, js, ts, folder, template, overwrite)
-        );
+        screen.forEach((s) => createScreen(s, ts, folder, template, overwrite));
       } else if (redux) {
-        createReduxStore(js, ts, overwrite);
+        createReduxStore(ts, overwrite);
       } else if (reducer) {
         reducer.forEach((r) => {
-          createReducer(r, js, ts, overwrite);
+          createReducer(r, ts, overwrite);
         });
       } else if (action) {
-        createAction(action, js, ts, overwrite);
+        createAction(action, ts, overwrite);
       } else if (navigation) {
-        createNavigation(navigation, js, ts, folder, overwrite);
+        createNavigation(navigation, ts, folder, overwrite);
       } else if (config) {
         createConfig(overwrite);
       } else {

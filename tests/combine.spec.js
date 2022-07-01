@@ -15,9 +15,9 @@ describe("combine components tests", () => {
   console.log = jest.fn();
   test("should combine components", async () => {
     try {
-      createComponent("test1", false, true, "", "", false);
+      createComponent("test1", true, "", "", false);
       await sleep(100);
-      createComponent("test2", false, true, "", "", false);
+      createComponent("test2", true, "", "", false);
       await sleep(100);
       combineComponents(["test1", "test2"], "folder");
       await sleep(100);
@@ -48,7 +48,7 @@ describe("combine components tests", () => {
 
   test("should not combine not existed components", async () => {
     try {
-      createComponent("test3", false, true, "", "", false);
+      createComponent("test3", true, "", "", false);
       await sleep(100);
       combineComponents(["test1", "test2"], "folder");
       await sleep(100);
@@ -73,9 +73,9 @@ describe("combine screens tests", () => {
   console.log = jest.fn();
   test("should combine screens", async () => {
     try {
-      createScreen("test1", false, true, "", "", false);
+      createScreen("test1", true, "", "", false);
       await sleep(100);
-      createScreen("test2", false, true, "", "", false);
+      createScreen("test2", true, "", "", false);
       await sleep(100);
       combineScreens(["test1", "test2"], "folder");
       await sleep(100);
@@ -104,7 +104,7 @@ describe("combine screens tests", () => {
 
   test("should not combine not existed screens", async () => {
     try {
-      createScreen("test3", false, true, "", "", false);
+      createScreen("test3", true, "", "", false);
       await sleep(100);
       combineScreens(["test1", "test2"], "folder");
       await sleep(100);

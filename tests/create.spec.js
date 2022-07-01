@@ -30,7 +30,7 @@ describe("create component tests", () => {
   });
   test("should create ts component", async () => {
     try {
-      createComponent("test1", false, true, "", "", false);
+      createComponent("test1", true, "", "", false);
       await sleep(100);
       expect(fs.existsSync("./src/components/test1/index.tsx")).toBe(true);
       expect(fs.existsSync("./src/components/test1/styles.ts")).toBe(true);
@@ -46,7 +46,7 @@ describe("create component tests", () => {
 
   test("should create js component", async () => {
     try {
-      createComponent("test2", true, false, "", "", false);
+      createComponent("test2", false, "", "", false);
       await sleep(100);
       expect(fs.existsSync("./src/components/test2/index.jsx")).toBe(true);
       expect(fs.existsSync("./src/components/test2/styles.js")).toBe(true);
@@ -62,7 +62,7 @@ describe("create component tests", () => {
 
   test("should create ts component in a folder", async () => {
     try {
-      createComponent("test3", false, true, "folder", "", false);
+      createComponent("test3", true, "folder", "", false);
       await sleep(100);
       expect(fs.existsSync("./src/components/folder/test3/index.tsx")).toBe(
         true
@@ -82,7 +82,7 @@ describe("create component tests", () => {
 
   test("should create js component in a folder", async () => {
     try {
-      createComponent("test4", true, false, "folder", "", false);
+      createComponent("test4", false, "folder", "", false);
       await sleep(100);
       expect(fs.existsSync("./src/components/folder/test4/index.jsx")).toBe(
         true
@@ -102,7 +102,7 @@ describe("create component tests", () => {
 
   test("should not create already existed component", async () => {
     try {
-      createComponent("test5", false, true, "", "", false);
+      createComponent("test5", true, "", "", false);
       await sleep(100);
       expect(fs.existsSync("./src/components/test5/index.tsx")).toBe(true);
       expect(fs.existsSync("./src/components/test5/styles.ts")).toBe(true);
@@ -118,7 +118,7 @@ describe("create component tests", () => {
 
   test("should not create already existed component in a folder", async () => {
     try {
-      createComponent("test6", false, true, "folder", "", false);
+      createComponent("test6", true, "folder", "", false);
       await sleep(100);
       expect(fs.existsSync("./src/components/folder/test6/index.tsx")).toBe(
         true
@@ -146,7 +146,7 @@ describe("create screen tests", () => {
   });
   test("should create ts screen", async () => {
     try {
-      createScreen("test", false, true, "", "", false);
+      createScreen("test", true, "", "", false);
       await sleep(100);
       expect(fs.existsSync("./src/screens/test/index.tsx")).toBe(true);
       expect(fs.existsSync("./src/screens/test/styles.ts")).toBe(true);
@@ -163,7 +163,7 @@ describe("create screen tests", () => {
 
   test("should create js screen", async () => {
     try {
-      createScreen("test", true, false, "", "", false);
+      createScreen("test", false, "", "", false);
       await sleep(100);
       expect(fs.existsSync("./src/screens/test/index.jsx")).toBe(true);
       expect(fs.existsSync("./src/screens/test/styles.js")).toBe(true);
@@ -180,7 +180,7 @@ describe("create screen tests", () => {
 
   test("should create ts screen in a folder", async () => {
     try {
-      createScreen("test", false, true, "folder", "", false);
+      createScreen("test", true, "folder", "", false);
       await sleep(100);
       expect(fs.existsSync("./src/screens/folder/test/index.tsx")).toBe(true);
       expect(fs.existsSync("./src/screens/folder/test/styles.ts")).toBe(true);
@@ -199,7 +199,7 @@ describe("create screen tests", () => {
 
   test("should create js screen in a folder", async () => {
     try {
-      createScreen("test", true, false, "folder", "", false);
+      createScreen("test", false, "folder", "", false);
       await sleep(100);
       expect(fs.existsSync("./src/screens/folder/test/index.jsx")).toBe(true);
       expect(fs.existsSync("./src/screens/folder/test/styles.js")).toBe(true);
@@ -218,7 +218,7 @@ describe("create screen tests", () => {
 
   test("should not create already existed screen", async () => {
     try {
-      createScreen("test", false, true, "", "", false);
+      createScreen("test", true, "", "", false);
       await sleep(100);
       expect(fs.existsSync("./src/screens/test/index.tsx")).toBe(true);
       expect(fs.existsSync("./src/screens/test/styles.ts")).toBe(true);
@@ -235,7 +235,7 @@ describe("create screen tests", () => {
 
   test("should not create already existed screen in a folder", async () => {
     try {
-      createScreen("test", false, true, "folder", "", false);
+      createScreen("test", true, "folder", "", false);
       await sleep(100);
       expect(fs.existsSync("./src/screens/folder/test/index.tsx")).toBe(true);
       expect(fs.existsSync("./src/screens/folder/test/styles.ts")).toBe(true);
@@ -262,7 +262,7 @@ describe("create redux tests", () => {
   });
   test("should create redux in ts", async () => {
     try {
-      createReduxStore(false, true);
+      createReduxStore(true, true);
       await sleep(100);
       expect(fs.existsSync("./src/redux/index.ts")).toBe(true);
       expect(fs.existsSync("./src/redux/actions/general/index.ts")).toBe(true);
@@ -277,7 +277,7 @@ describe("create redux tests", () => {
 
   test("should create redux in js", async () => {
     try {
-      createReduxStore(true, false);
+      createReduxStore(false, true);
       await sleep(100);
       expect(fs.existsSync("./src/redux/index.js")).toBe(true);
       expect(fs.existsSync("./src/redux/actions/general/index.js")).toBe(true);
@@ -300,11 +300,11 @@ describe("create navigation tests", () => {
   });
   test("should create navigation", async () => {
     try {
-      createScreen("s1", false, true, "", "", false);
+      createScreen("s1", true, "", "", false);
       await sleep(100);
-      createScreen("s2", false, true, "", "", false);
+      createScreen("s2", true, "", "", false);
       await sleep(100);
-      createNavigation(["stack", "s1", "s2"], false, true, "", false);
+      createNavigation(["stack", "s1", "s2"], true, "", false);
       await sleep(100);
       expect(fs.existsSync("./src/screens/navigation.tsx")).toBe(true);
       deleteNavigation("");
@@ -356,7 +356,7 @@ describe("create action tests", () => {
   });
   test("should not create action if redux implementation does not exist", async () => {
     try {
-      createAction(["test", "test-action"], false, true, false);
+      createAction(["test", "test-action"], true, false);
       await sleep(100);
       expect(fs.existsSync("./src/redux/actions/test/test-action.ts")).toBe(
         false
@@ -368,9 +368,9 @@ describe("create action tests", () => {
 
   test("should not create action if reducer does not exist", async () => {
     try {
-      createReduxStore(false, true, false);
+      createReduxStore(true, false);
       await sleep(100);
-      createAction(["test", "test-action"], false, true, false);
+      createAction(["test", "test-action"], true, false);
       await sleep(100);
       expect(fs.existsSync("./src/redux/actions/test/test-action.ts")).toBe(
         false
@@ -384,10 +384,10 @@ describe("create action tests", () => {
 
   test("should creact action for existed reducer", async () => {
     try {
-      createReduxStore(false, true, false);
+      createReduxStore(true, false);
       await sleep(100);
-      createReducer("test", false, true, false);
-      createAction(["test", "test-action"], false, true, false);
+      createReducer("test", true, false);
+      createAction(["test", "test-action"], true, false);
       await sleep(100);
       expect(fs.existsSync("./src/redux/actions/test/test-action.ts")).toBe(
         true
@@ -401,15 +401,10 @@ describe("create action tests", () => {
 
   test("should create multiple actions for existed reducer", async () => {
     try {
-      createReduxStore(false, true, false);
+      createReduxStore(true, false);
       await sleep(100);
-      createReducer("test", false, true, false);
-      createAction(
-        ["test", "test-action", "test-action-2"],
-        false,
-        true,
-        false
-      );
+      createReducer("test", true, false);
+      createAction(["test", "test-action", "test-action-2"], true, false);
       await sleep(100);
       expect(fs.existsSync("./src/redux/actions/test/test-action.ts")).toBe(
         true
@@ -435,7 +430,7 @@ describe("create reducer tests", () => {
 
   test("should not create reducer if redux implementation does not exist", async () => {
     try {
-      createReducer("test", false, true, false);
+      createReducer("test", true, false);
       await sleep(100);
       expect(fs.existsSync("./src/redux/reducers/test/index.ts")).toBe(false);
     } catch (err) {
@@ -445,9 +440,9 @@ describe("create reducer tests", () => {
 
   test("should create reducer for existed redux implementation", async () => {
     try {
-      createReduxStore(false, true, false);
+      createReduxStore(true, false);
       await sleep(100);
-      createReducer("test", false, true, false);
+      createReducer("test", true, false);
       await sleep(100);
       expect(fs.existsSync("./src/redux/reducers/test/index.ts")).toBe(true);
       deleteReduxStore();

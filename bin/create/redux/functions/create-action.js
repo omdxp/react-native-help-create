@@ -8,12 +8,11 @@ const {
  * @function createAction
  * @description this function is used to create action file.
  * @param {Array<String>} actions - array of actions starting with the name of the reducer.
- * @param {boolean} js - write file in javascript.
  * @param {boolean} ts - write file in typescript.
  * @param {boolean} overwrite - overwrite existed files.
  * @author [Omar Belghaouti](https://github.com/Omar-Belghaouti)
  */
-exports.createAction = (actionName, js, ts, overwrite) => {
+exports.createAction = (actionName, ts, overwrite) => {
   if (actionName.length <= 1) {
     console.log("At least provide one action for a reducer");
     console.log("Usage: rnhc create --action <reducer-name> <action-name>");
