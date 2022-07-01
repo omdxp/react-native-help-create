@@ -96,53 +96,44 @@ yargs
         });
     },
     (argv) => {
-      if (rootChecker()) {
-        let {
-          component,
-          screen,
-          redux,
-          reducer,
-          action,
-          navigation,
-          config,
-          js,
-          ts,
-          folder,
-          template,
-          overwrite,
-        } = argv;
-        try {
-          loadConfig();
-        } catch {}
-        // check if project is written in typescript
-        ts = languageChecker() === "ts" ? true : ts;
-        if (component) {
-          component.forEach((c) =>
-            createComponent(c, js, ts, folder, template, overwrite)
-          );
-        } else if (screen) {
-          screen.forEach((s) =>
-            createScreen(s, js, ts, folder, template, overwrite)
-          );
-        } else if (redux) {
-          createReduxStore(js, ts, overwrite);
-        } else if (reducer) {
-          reducer.forEach((r) => {
-            createReducer(r, js, ts, overwrite);
-          });
-        } else if (action) {
-          createAction(action, js, ts, overwrite);
-        } else if (navigation) {
-          createNavigation(navigation, js, ts, folder, overwrite);
-        } else if (config) {
-          createConfig(overwrite);
-        } else {
-          console.log("Check usage: rnhc create --help");
-        }
-      } else {
-        console.log(
-          "You don't seem to be at the root of a react native project"
+      let {
+        component,
+        screen,
+        redux,
+        reducer,
+        action,
+        navigation,
+        config,
+        js,
+        ts,
+        folder,
+        template,
+        overwrite,
+      } = argv;
+      // check if project is written in typescript
+      ts = languageChecker() === "ts" ? true : ts;
+      if (component) {
+        component.forEach((c) =>
+          createComponent(c, js, ts, folder, template, overwrite)
         );
+      } else if (screen) {
+        screen.forEach((s) =>
+          createScreen(s, js, ts, folder, template, overwrite)
+        );
+      } else if (redux) {
+        createReduxStore(js, ts, overwrite);
+      } else if (reducer) {
+        reducer.forEach((r) => {
+          createReducer(r, js, ts, overwrite);
+        });
+      } else if (action) {
+        createAction(action, js, ts, overwrite);
+      } else if (navigation) {
+        createNavigation(navigation, js, ts, folder, overwrite);
+      } else if (config) {
+        createConfig(overwrite);
+      } else {
+        console.log("Check usage: rnhc create --help");
       }
     }
   )
@@ -195,41 +186,32 @@ yargs
         });
     },
     (argv) => {
-      if (rootChecker()) {
-        const {
-          component,
-          screen,
-          redux,
-          reducer,
-          action,
-          navigation,
-          config,
-          folder,
-        } = argv;
-        try {
-          loadConfig();
-        } catch {}
-        if (component) {
-          deleteComponents(component, folder);
-        } else if (screen) {
-          deleteScreens(screen, folder);
-        } else if (redux) {
-          deleteReduxStore();
-        } else if (reducer) {
-          deleteReducers(reducer, languageChecker() === "ts");
-        } else if (action) {
-          deleteActions(action, languageChecker() === "ts");
-        } else if (navigation) {
-          deleteNavigation(folder);
-        } else if (config) {
-          deleteConfig();
-        } else {
-          console.log("Check usage: rnhc delete --help");
-        }
+      const {
+        component,
+        screen,
+        redux,
+        reducer,
+        action,
+        navigation,
+        config,
+        folder,
+      } = argv;
+      if (component) {
+        deleteComponents(component, folder);
+      } else if (screen) {
+        deleteScreens(screen, folder);
+      } else if (redux) {
+        deleteReduxStore();
+      } else if (reducer) {
+        deleteReducers(reducer, languageChecker() === "ts");
+      } else if (action) {
+        deleteActions(action, languageChecker() === "ts");
+      } else if (navigation) {
+        deleteNavigation(folder);
+      } else if (config) {
+        deleteConfig();
       } else {
-        console.log(
-          "You don't seem to be at the root of a react native project"
-        );
+        console.log("Check usage: rnhc delete --help");
       }
     }
   )
@@ -260,27 +242,30 @@ yargs
         });
     },
     (argv) => {
-      if (rootChecker()) {
-        const { component, screen, folder } = argv;
-        try {
-          loadConfig();
-        } catch {}
-        if (component) {
-          if (component.length > 1) {
-            combineComponents(component, folder);
-          } else {
-            console.log("At least give 2 components");
-          }
-        } else if (screen) {
-          combineScreens(screen, folder);
+      const { component, screen, folder } = argv;
+      if (component) {
+        if (component.length > 1) {
+          combineComponents(component, folder);
         } else {
-          console.log("Check usage: rnhc combine --help");
+          console.log("At least give 2 components");
         }
+      } else if (screen) {
+        combineScreens(screen, folder);
       } else {
-        console.log(
-          "You don't seem to be at the root of a react native project"
-        );
+        console.log("Check usage: rnhc combine --help");
       }
     }
   )
-  .help().argv;
+  .middleware((argv) => {
+    if (rootChecker()) {
+      try {
+        loadConfig();
+      } catch {}
+    } else {
+      console.log("You don't seem to be at the root of a react native project");
+      process.exit(1);
+    }
+  })
+  .help()
+  .strict()
+  .recommendCommands().argv;
