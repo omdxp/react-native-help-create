@@ -39,7 +39,8 @@ const config = {
           versions: {
             current: {
               badge: true,
-              label: "Current",
+              // @ts-ignore
+              label: `${require("../package.json").version} (current)`,
             },
           },
         },
