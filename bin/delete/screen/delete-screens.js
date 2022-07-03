@@ -6,9 +6,10 @@ const { config, getKebabCase } = require("../../utils");
  * @description this function is used to delete screens that exists.
  * @param {Array} screens - array of screens to be deleted.
  * @param {string} folder - folder path that contains the screens.
+ * @param {boolean} silent - do not show log messages.
  * @author [Omar Belghaouti](https://github.com/Omar-Belghaouti)
  */
-exports.deleteScreens = (screens, folder) => {
+exports.deleteScreens = (screens, folder, silent) => {
   const { screensRoot } = config;
   screens = screens.map((screen) => getKebabCase(screen));
   folder = folder.includes("/")
@@ -21,9 +22,9 @@ exports.deleteScreens = (screens, folder) => {
   if (screens.length === 0 && folder !== "") {
     try {
       fs.rmdirSync(path);
-      console.log(`${path} deleted`);
+      !silent && console.log(`${path} deleted`);
     } catch (err) {
-      console.log(`${path} does not exist`);
+      !silent && console.log(`${path} does not exist`);
     }
     return;
   }
@@ -31,9 +32,9 @@ exports.deleteScreens = (screens, folder) => {
     const _path = `${path}${screen}`;
     try {
       fs.rmdirSync(_path);
-      console.log(`${_path} deleted`);
+      !silent && console.log(`${_path} deleted`);
     } catch (err) {
-      console.log(`${_path} does not exist`);
+      !silent && console.log(`${_path} does not exist`);
     }
   });
 };

@@ -6,9 +6,10 @@ const { config, getCamelCase, getKebabCase } = require("../../utils");
  * @description this function is used to delete reducers that exists.
  * @param {Array<string>} reducers - array of reducers to be deleted.
  * @param {boolean} ts - if project is written in typescript.
+ * @param {boolean} silent - do not show log messages.
  * @author [Omar Belghaouti](https://github.com/Omar-Belghaouti)
  */
-exports.deleteReducers = (reducers, ts) => {
+exports.deleteReducers = (reducers, ts, silent) => {
   const { reduxRoot } = config;
   reducers = reducers.map((reducer) => getKebabCase(reducer));
   const path = `${reduxRoot}/reducers/`;
@@ -23,7 +24,7 @@ exports.deleteReducers = (reducers, ts) => {
       .readdirSync(path)
       .filter((el) => !el.endsWith(`.${fileExtension}`));
     if (existedReducers.length === 0) {
-      console.log("no reducer found");
+      !silent && console.log("no reducer found");
       return;
     }
     reducers = existedReducers;
@@ -54,9 +55,9 @@ exports.deleteReducers = (reducers, ts) => {
           ""
         );
       }
-      console.log(`${_path} deleted`);
+      !silent && console.log(`${_path} deleted`);
     } catch (err) {
-      console.log(`${_path} does not exist`);
+      !silent && console.log(`${_path} does not exist`);
     }
   });
   fs.fs.writeFileSync(

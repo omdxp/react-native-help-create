@@ -15,9 +15,17 @@ const { config, getComponentName, getKebabCase } = require("../../../utils");
  * @param {string} folder - folder path to create files within.
  * @param {string} template - template file to create component with.
  * @param {boolean} overwrite - overwrite existed files.
+ * @param {boolean} silent - do not show log messages.
  * @author [Omar Belghaouti](https://github.com/Omar-Belghaouti)
  */
-exports.createComponent = (componentName, ts, folder, template, overwrite) => {
+exports.createComponent = (
+  componentName,
+  ts,
+  folder,
+  template,
+  overwrite,
+  silent
+) => {
   const { withStyles, withProps, withTests, defaultExports, componentsRoot } =
     config;
   componentName = getKebabCase(componentName);
@@ -43,7 +51,7 @@ exports.createComponent = (componentName, ts, folder, template, overwrite) => {
         : `${componentsRoot}/${folder}/${componentName}/__tests__/index.spec.tsx`;
 
     if (fs.existsSync(path) && !overwrite) {
-      console.log(`${path} already exist`);
+      !silent && console.log(`${path} already exist`);
     } else {
       // check if template file exist
       if (template !== "") {
@@ -87,7 +95,7 @@ exports.createComponent = (componentName, ts, folder, template, overwrite) => {
               }
             );
         } else {
-          console.log(`.template/${template} file does not exist`);
+          !silent && console.log(`.template/${template} file does not exist`);
         }
       } else {
         fs.writeFile(
@@ -95,18 +103,19 @@ exports.createComponent = (componentName, ts, folder, template, overwrite) => {
           componentTemplateTs(component, withStyles, defaultExports, withProps),
           (err) => {
             if (err) {
-              console.log(`Unable to create ${component} component`);
+              !silent && console.log(`Unable to create ${component} component`);
             } else {
-              console.log(`${path} created`);
+              !silent && console.log(`${path} created`);
             }
           }
         );
         withStyles &&
           fs.writeFile(stylesPath, stylesTemplate(component), (err) => {
             if (err) {
-              console.log(`Unable to create ${component} component styles`);
+              !silent &&
+                console.log(`Unable to create ${component} component styles`);
             } else {
-              console.log(`${stylesPath} created`);
+              !silent && console.log(`${stylesPath} created`);
             }
           });
         withTests &&
@@ -115,9 +124,10 @@ exports.createComponent = (componentName, ts, folder, template, overwrite) => {
             testTemplate(component, defaultExports),
             (err) => {
               if (err) {
-                console.log(`Unable to create ${component} component tests`);
+                !silent &&
+                  console.log(`Unable to create ${component} component tests`);
               } else {
-                console.log(`${testsPath} created`);
+                !silent && console.log(`${testsPath} created`);
               }
             }
           );
@@ -137,7 +147,7 @@ exports.createComponent = (componentName, ts, folder, template, overwrite) => {
         ? `${componentsRoot}/${componentName}/__tests__/index.spec.jsx`
         : `${componentsRoot}/${folder}/${componentName}/__tests__/index.spec.jsx`;
     if (fs.existsSync(path) && !overwrite) {
-      console.log(`${path} already exist`);
+      !silent && console.log(`${path} already exist`);
     } else {
       // check if template file exist
       if (template !== "") {
@@ -154,18 +164,20 @@ exports.createComponent = (componentName, ts, folder, template, overwrite) => {
             file.replace(/__COMPONENT__/g, component),
             (err) => {
               if (err) {
-                console.log(`Unable to create ${component} component`);
+                !silent &&
+                  console.log(`Unable to create ${component} component`);
               } else {
-                console.log(`${path} created`);
+                !silent && console.log(`${path} created`);
               }
             }
           );
           withStyles &&
             fs.writeFile(stylesPath, stylesTemplate(component), (err) => {
               if (err) {
-                console.log(`Unable to create ${component} component styles`);
+                !silent &&
+                  console.log(`Unable to create ${component} component styles`);
               } else {
-                console.log(`${stylesPath} created`);
+                !silent && console.log(`${stylesPath} created`);
               }
             });
           withTests &&
@@ -174,14 +186,17 @@ exports.createComponent = (componentName, ts, folder, template, overwrite) => {
               testTemplate(component, defaultExports),
               (err) => {
                 if (err) {
-                  console.log(`Unable to create ${component} component tests`);
+                  !silent &&
+                    console.log(
+                      `Unable to create ${component} component tests`
+                    );
                 } else {
-                  console.log(`${testsPath} created`);
+                  !silent && console.log(`${testsPath} created`);
                 }
               }
             );
         } else {
-          console.log(`.template/${template} file does not exist`);
+          !silent && console.log(`.template/${template} file does not exist`);
         }
       } else {
         fs.writeFile(
@@ -189,18 +204,19 @@ exports.createComponent = (componentName, ts, folder, template, overwrite) => {
           componentTemplateJs(component, withStyles, defaultExports),
           (err) => {
             if (err) {
-              console.log(`Unable to create ${component} component`);
+              !silent && console.log(`Unable to create ${component} component`);
             } else {
-              console.log(`${path} created`);
+              !silent && console.log(`${path} created`);
             }
           }
         );
         withStyles &&
           fs.writeFile(stylesPath, stylesTemplate(component), (err) => {
             if (err) {
-              console.log(`Unable to create ${component} component styles`);
+              !silent &&
+                console.log(`Unable to create ${component} component styles`);
             } else {
-              console.log(`${stylesPath} created`);
+              !silent && console.log(`${stylesPath} created`);
             }
           });
         withTests &&
@@ -209,9 +225,10 @@ exports.createComponent = (componentName, ts, folder, template, overwrite) => {
             testTemplate(component, defaultExports),
             (err) => {
               if (err) {
-                console.log(`Unable to create ${component} component tests`);
+                !silent &&
+                  console.log(`Unable to create ${component} component tests`);
               } else {
-                console.log(`${testsPath} created`);
+                !silent && console.log(`${testsPath} created`);
               }
             }
           );

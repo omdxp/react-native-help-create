@@ -6,9 +6,10 @@ const { config, getKebabCase } = require("../../utils");
  * @description this function is used to combine existed screens to a folder.
  * @param {Array} screens - array of screens to be combined.
  * @param {string} folder - folder path to contain the combined screens.
+ * @param {boolean} silent - do not show log messages.
  * @author [Omar Belghaouti](https://github.com/Omar-Belghaouti)
  */
-exports.combineScreens = (screens, folder) => {
+exports.combineScreens = (screens, folder, silent) => {
   const { screensRoot } = config;
   screens = screens.map((screen) => getKebabCase(screen));
   folder = folder.includes("/")
@@ -26,24 +27,27 @@ exports.combineScreens = (screens, folder) => {
       .forEach((f) => folders.push(f));
   });
   if (folders.length < screens.length) {
-    console.log("Check if all of these screens exist");
+    !silent && console.log("Check if all of these screens exist");
     return;
   }
   if (!fs.existsSync(_path)) {
     fs.mkdirSync(_path);
   } else {
-    console.log(`${_path} already exist`);
-    console.log("Writing new files...");
+    !silent &&
+      (() => {
+        console.log(`${_path} already exist`);
+        console.log("Writing new files...");
+      })();
   }
   folders.forEach((f) => {
     if (fs.existsSync(`${_path}${f}`)) {
-      console.log(`${_path}${f}/ already exist`);
+      !silent && console.log(`${_path}${f}/ already exist`);
     } else {
       fs.rename(`${path}${f}/`, `${_path}${f}`, (err) => {
         if (err) {
-          console.log(`Cannot move ${f} screen`);
+          !silent && console.log(`Cannot move ${f} screen`);
         } else {
-          console.log(`${f} screen moved to ${_path}`);
+          !silent && console.log(`${f} screen moved to ${_path}`);
         }
       });
     }
