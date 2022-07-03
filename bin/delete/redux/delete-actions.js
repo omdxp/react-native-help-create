@@ -6,16 +6,17 @@ const { config, getCamelCase, getKebabCase } = require("../../utils");
  * @description this function is used to delete actions that exists.
  * @param {Array<string>} actions - array of actions to be deleted.
  * @param {boolean} ts - if project is written in typescript.
+ * @param {boolean} silent - do not show log messages.
  * @author [Omar Belghaouti](https://github.com/Omar-Belghaouti)
  */
-exports.deleteActions = (actions, ts) => {
+exports.deleteActions = (actions, ts, silent) => {
   if (actions.length === 0) {
-    console.log("You have to provide a reducer name");
+    !silent && console.log("You have to provide a reducer name");
     return;
   }
   const { reduxRoot } = config;
   if (!fs.existsSync(reduxRoot)) {
-    console.log(`${reduxRoot} does not exist`);
+    !silent && console.log(`${reduxRoot} does not exist`);
     return;
   }
   const fileExtension = ts ? "ts" : "js";
@@ -27,12 +28,12 @@ exports.deleteActions = (actions, ts) => {
   let reducer = getKebabCase(actions[0]);
   const path = `${reduxRoot}/actions/${reducer}/`;
   if (!fs.existsSync(path)) {
-    console.log(`${path} does not exist`);
+    !silent && console.log(`${path} does not exist`);
     return;
   }
   actions.shift();
   if (!fs.existsSync(`${path}index.${fileExtension}`)) {
-    console.log(`${path}index.${fileExtension} does not exist`);
+    !silent && console.log(`${path}index.${fileExtension} does not exist`);
     return;
   }
   const data = fs.readFileSync(`${path}index.${fileExtension}`, {
@@ -45,7 +46,7 @@ exports.deleteActions = (actions, ts) => {
       .readdirSync(path)
       .filter((el) => !el.endsWith(`index.${fileExtension}`));
     if (existedActions.length === 0) {
-      console.log("no action found");
+      !silent && console.log("no action found");
       return;
     }
     actions = existedActions;
@@ -98,9 +99,9 @@ exports.deleteActions = (actions, ts) => {
           });
         }
       }
-      console.log(`${_path} deleted`);
+      !silent && console.log(`${_path} deleted`);
     } catch (err) {
-      console.log(`${_path} does not exist`);
+      !silent && console.log(`${_path} does not exist`);
     }
   });
   fs.fs.writeFileSync(

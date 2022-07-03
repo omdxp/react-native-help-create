@@ -10,19 +10,20 @@ const {
  * @param {string} reducerName - name of reducer.
  * @param {boolean} ts - write file in typescript.
  * @param {boolean} overwrite - overwrite existed files.
+ * @param {boolean} silent - do not show log messages.
  * @author [Omar Belghaouti](https://github.com/Omar-Belghaouti)
  */
-exports.createReducer = (reducerName, ts, overwrite) => {
+exports.createReducer = (reducerName, ts, overwrite, silent) => {
   const { reduxRoot } = config;
   if (!fs.existsSync(reduxRoot)) {
-    console.log("Redux implementation does not exist");
+    !silent && console.log("Redux implementation does not exist");
     return;
   }
   reducerName = getKebabCase(reducerName);
   const path = `${reduxRoot}/reducers/${reducerName}/`;
   let reducer = getCamelCase(reducerName);
   if (fs.existsSync(path) && !overwrite) {
-    console.log(`${reducer} reducer already exists`);
+    !silent && console.log(`${reducer} reducer already exists`);
   } else {
     if (ts) {
       if (!fs.fs.existsSync(path)) {
@@ -56,7 +57,7 @@ exports.createReducer = (reducerName, ts, overwrite) => {
           flag: "w",
         });
       }
-      console.log(`${reducer} reducer created`);
+      !silent && console.log(`${reducer} reducer created`);
     } else {
       if (!fs.fs.existsSync(path)) {
         fs.fs.mkdirSync(path);
@@ -89,7 +90,7 @@ exports.createReducer = (reducerName, ts, overwrite) => {
           flag: "w",
         });
       }
-      console.log(`${reducer} reducer created`);
+      !silent && console.log(`${reducer} reducer created`);
     }
   }
 };

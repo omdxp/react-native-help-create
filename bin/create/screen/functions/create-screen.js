@@ -17,9 +17,17 @@ const { config, getComponentName, getKebabCase } = require("../../../utils");
  * @param {string} folder - folder path to create files within.
  * @param {string} template - template file to create screen with.
  * @param {boolean} overwrite - overwrite existed files.
+ * @param {boolean} silent - do not show log messages.
  * @author [Omar Belghaouti](https://github.com/Omar-Belghaouti)
  */
-exports.createScreen = (screenName, ts, folder, template, overwrite) => {
+exports.createScreen = (
+  screenName,
+  ts,
+  folder,
+  template,
+  overwrite,
+  silent
+) => {
   const {
     withStyles,
     withFunctions,
@@ -41,7 +49,7 @@ exports.createScreen = (screenName, ts, folder, template, overwrite) => {
       ? `${screensRoot}/${screenName}/`
       : `${screensRoot}/${folder}/${screenName}/`;
   if (fs.existsSync(path) && !overwrite) {
-    console.log(`${path} already exist`);
+    !silent && console.log(`${path} already exist`);
   } else {
     if (ts) {
       // check if template file exist
@@ -59,9 +67,9 @@ exports.createScreen = (screenName, ts, folder, template, overwrite) => {
             file.replace(/__COMPONENT__/g, screen),
             (err) => {
               if (err) {
-                console.log(`Unable to create ${screen} screen`);
+                !silent && console.log(`Unable to create ${screen} screen`);
               } else {
-                console.log(`${path}index.tsx created`);
+                !silent && console.log(`${path}index.tsx created`);
               }
             }
           );
@@ -77,9 +85,9 @@ exports.createScreen = (screenName, ts, folder, template, overwrite) => {
             ),
             (err) => {
               if (err) {
-                console.log(`Unable to create ${screen} screen`);
+                !silent && console.log(`Unable to create ${screen} screen`);
               } else {
-                console.log(`${path}index.tsx created`);
+                !silent && console.log(`${path}index.tsx created`);
               }
             }
           );
@@ -96,9 +104,9 @@ exports.createScreen = (screenName, ts, folder, template, overwrite) => {
           ),
           (err) => {
             if (err) {
-              console.log(`Unable to create ${screen} screen`);
+              !silent && console.log(`Unable to create ${screen} screen`);
             } else {
-              console.log(`${path}index.tsx created`);
+              !silent && console.log(`${path}index.tsx created`);
             }
           }
         );
@@ -109,18 +117,19 @@ exports.createScreen = (screenName, ts, folder, template, overwrite) => {
           screenFunctionTemplateTs(screen),
           (err) => {
             if (err) {
-              console.log(`Unable to create ${screen} screen functions`);
+              !silent &&
+                console.log(`Unable to create ${screen} screen functions`);
             } else {
-              console.log(`${path}functions/index.ts created`);
+              !silent && console.log(`${path}functions/index.ts created`);
             }
           }
         );
       withStyles &&
         fs.writeFile(`${path}styles.ts`, stylesTemplate(screen), (err) => {
           if (err) {
-            console.log(`Unable to create ${screen} screen styles`);
+            !silent && console.log(`Unable to create ${screen} screen styles`);
           } else {
-            console.log(`${path}styles.ts created`);
+            !silent && console.log(`${path}styles.ts created`);
           }
         });
       withTests &&
@@ -129,9 +138,9 @@ exports.createScreen = (screenName, ts, folder, template, overwrite) => {
           testTemplate(screen, defaultExports),
           (err) => {
             if (err) {
-              console.log(`Unable to create ${screen} screen tests`);
+              !silent && console.log(`Unable to create ${screen} screen tests`);
             }
-            console.log(`${path}__tests__/index.spec.tsx created`);
+            !silent && console.log(`${path}__tests__/index.spec.tsx created`);
           }
         );
     } else {
@@ -150,9 +159,9 @@ exports.createScreen = (screenName, ts, folder, template, overwrite) => {
             file.replace(/__COMPONENT__/g, screen),
             (err) => {
               if (err) {
-                console.log(`Unable to create ${screen} screen`);
+                !silent && console.log(`Unable to create ${screen} screen`);
               } else {
-                console.log(`${path}index.jsx created`);
+                !silent && console.log(`${path}index.jsx created`);
               }
             }
           );
@@ -162,9 +171,9 @@ exports.createScreen = (screenName, ts, folder, template, overwrite) => {
             screenTemplateJs(screen, withFunctions, withStyles, defaultExports),
             (err) => {
               if (err) {
-                console.log(`Unable to create ${screen} screen`);
+                !silent && console.log(`Unable to create ${screen} screen`);
               } else {
-                console.log(`${path}index.jsx created`);
+                !silent && console.log(`${path}index.jsx created`);
               }
             }
           );
@@ -175,9 +184,9 @@ exports.createScreen = (screenName, ts, folder, template, overwrite) => {
           screenTemplateJs(screen, withFunctions, withStyles, defaultExports),
           (err) => {
             if (err) {
-              console.log(`Unable to create ${screen} screen`);
+              !silent && console.log(`Unable to create ${screen} screen`);
             } else {
-              console.log(`${path}index.jsx created`);
+              !silent && console.log(`${path}index.jsx created`);
             }
           }
         );
@@ -188,18 +197,19 @@ exports.createScreen = (screenName, ts, folder, template, overwrite) => {
           screenFunctionTemplateJs(screen),
           (err) => {
             if (err) {
-              console.log(`Unable to create ${screen} screen functions`);
+              !silent &&
+                console.log(`Unable to create ${screen} screen functions`);
             } else {
-              console.log(`${path}functions/index.js created`);
+              !silent && console.log(`${path}functions/index.js created`);
             }
           }
         );
       withStyles &&
         fs.writeFile(`${path}styles.js`, stylesTemplate(screen), (err) => {
           if (err) {
-            console.log(`Unable to create ${screen} screen styles`);
+            !silent && console.log(`Unable to create ${screen} screen styles`);
           } else {
-            console.log(`${path}styles.js created`);
+            !silent && console.log(`${path}styles.js created`);
           }
         });
       withTests &&
@@ -208,9 +218,9 @@ exports.createScreen = (screenName, ts, folder, template, overwrite) => {
           testTemplate(screen, defaultExports),
           (err) => {
             if (err) {
-              console.log(`Unable to create ${screen} screen tests`);
+              !silent && console.log(`Unable to create ${screen} screen tests`);
             }
-            console.log(`${path}__tests__/index.spec.jsx created`);
+            !silent && console.log(`${path}__tests__/index.spec.jsx created`);
           }
         );
     }

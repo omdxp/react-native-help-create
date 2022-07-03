@@ -103,29 +103,32 @@ yargs
         folder,
         template,
         overwrite,
+        silent,
       } = argv;
       // check if project is written in typescript
       ts = languageChecker() === "ts" ? true : ts;
       if (component) {
         component.forEach((c) =>
-          createComponent(c, ts, folder, template, overwrite)
+          createComponent(c, ts, folder, template, overwrite, silent)
         );
       } else if (screen) {
-        screen.forEach((s) => createScreen(s, ts, folder, template, overwrite));
+        screen.forEach((s) =>
+          createScreen(s, ts, folder, template, overwrite, silent)
+        );
       } else if (redux) {
-        createReduxStore(ts, overwrite);
+        createReduxStore(ts, overwrite, silent);
       } else if (reducer) {
         reducer.forEach((r) => {
-          createReducer(r, ts, overwrite);
+          createReducer(r, ts, overwrite, silent);
         });
       } else if (action) {
-        createAction(action, ts, overwrite);
+        createAction(action, ts, overwrite, silent);
       } else if (navigation) {
-        createNavigation(navigation, ts, folder, overwrite);
+        createNavigation(navigation, ts, folder, overwrite, silent);
       } else if (config) {
-        createConfig(overwrite);
+        createConfig(overwrite, silent);
       } else {
-        console.log("Check usage: rnhc create --help");
+        !silent && console.log("Check usage: rnhc create --help");
       }
     }
   )
@@ -187,23 +190,24 @@ yargs
         navigation,
         config,
         folder,
+        silent,
       } = argv;
       if (component) {
-        deleteComponents(component, folder);
+        deleteComponents(component, folder, silent);
       } else if (screen) {
-        deleteScreens(screen, folder);
+        deleteScreens(screen, folder, silent);
       } else if (redux) {
-        deleteReduxStore();
+        deleteReduxStore(silent);
       } else if (reducer) {
-        deleteReducers(reducer, languageChecker() === "ts");
+        deleteReducers(reducer, languageChecker() === "ts", silent);
       } else if (action) {
-        deleteActions(action, languageChecker() === "ts");
+        deleteActions(action, languageChecker() === "ts", silent);
       } else if (navigation) {
-        deleteNavigation(folder);
+        deleteNavigation(folder, silent);
       } else if (config) {
-        deleteConfig();
+        deleteConfig(silent);
       } else {
-        console.log("Check usage: rnhc delete --help");
+        !silent && console.log("Check usage: rnhc delete --help");
       }
     }
   )
@@ -234,29 +238,37 @@ yargs
         });
     },
     (argv) => {
-      const { component, screen, folder } = argv;
+      const { component, screen, folder, silent } = argv;
       if (component) {
         if (component.length > 1) {
-          combineComponents(component, folder);
+          combineComponents(component, folder, silent);
         } else {
-          console.log("At least give 2 components");
+          !silent && console.log("At least give 2 components");
         }
       } else if (screen) {
-        combineScreens(screen, folder);
+        combineScreens(screen, folder, silent);
       } else {
-        console.log("Check usage: rnhc combine --help");
+        !silent && console.log("Check usage: rnhc combine --help");
       }
     }
   )
   .middleware((argv) => {
+    const { silent } = argv;
     if (rootChecker()) {
       try {
         loadConfig();
       } catch {}
     } else {
-      console.log("You don't seem to be at the root of a react native project");
+      !silent &&
+        console.log(
+          "You don't seem to be at the root of a react native project"
+        );
       process.exit(1);
     }
+  })
+  .option("silent", {
+    type: "boolean",
+    describe: "Do not show log messages",
   })
   .help()
   .strict()

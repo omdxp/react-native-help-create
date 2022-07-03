@@ -9,9 +9,10 @@ const { config, getKebabCase } = require("../../../utils");
  * @param {boolean} ts - write file in typescript.
  * @param {string} folder - folder path to create navigation with.
  * @param {boolean} overwrite - overwrite existed files.
+ * @param {boolean} silent - do not show log messages.
  * @author [Omar Belghaouti](https://github.com/Omar-Belghaouti)
  */
-exports.createNavigation = (navigation, ts, folder, overwrite) => {
+exports.createNavigation = (navigation, ts, folder, overwrite, silent) => {
   const { defaultExports, screensRoot } = config;
   folder = folder.includes("/")
     ? folder
@@ -21,14 +22,17 @@ exports.createNavigation = (navigation, ts, folder, overwrite) => {
     : getKebabCase(folder);
   const path = folder === "" ? `${screensRoot}/` : `${screensRoot}/${folder}/`;
   if (!fs.existsSync(path)) {
-    console.log(`${path} does not exist`);
+    !silent && console.log(`${path} does not exist`);
     return;
   }
   if (!navigation.length) {
-    console.log("Please provide at least a navigation type");
-    console.log(
-      "Only the following navigations are supported: stack, drawer or tab"
-    );
+    !silent &&
+      (() => {
+        console.log("Please provide at least a navigation type");
+        console.log(
+          "Only the following navigations are supported: stack, drawer or tab"
+        );
+      })();
     return;
   }
   const navigationType = navigation[0].toLowerCase();
@@ -41,7 +45,7 @@ exports.createNavigation = (navigation, ts, folder, overwrite) => {
     case "material-top-tabs": {
       if (ts) {
         if (fs.existsSync(`${path}navigation.tsx`) && !overwrite) {
-          console.log(`${path}navigation.tsx already exist`);
+          !silent && console.log(`${path}navigation.tsx already exist`);
           break;
         }
         // get existed screens
@@ -110,17 +114,18 @@ exports.createNavigation = (navigation, ts, folder, overwrite) => {
                     importAs: importableAs,
                   });
                 } else {
-                  console.log(`${_path}navigation.tsx does not exist`);
+                  !silent &&
+                    console.log(`${_path}navigation.tsx does not exist`);
                 }
               }
             }
           } else {
-            console.log(`${_path} does not exist`);
+            !silent && console.log(`${_path} does not exist`);
           }
         }
         // for all existed screens
         if (existedScreens.length === 0) {
-          console.log("None of these screens exist");
+          !silent && console.log("None of these screens exist");
           break;
         } else {
           fs.writeFile(
@@ -132,16 +137,17 @@ exports.createNavigation = (navigation, ts, folder, overwrite) => {
             ),
             (err) => {
               if (err) {
-                console.log(`Unable to create ${path}navigation.tsx`);
+                !silent &&
+                  console.log(`Unable to create ${path}navigation.tsx`);
               } else {
-                console.log(`${path}navigation.tsx created`);
+                !silent && console.log(`${path}navigation.tsx created`);
               }
             }
           );
         }
       } else {
         if (fs.existsSync(`${path}navigation.jsx`) && !overwrite) {
-          console.log(`${path}navigation.jsx already exist`);
+          !silent && console.log(`${path}navigation.jsx already exist`);
           break;
         }
         // get existed screens
@@ -209,17 +215,18 @@ exports.createNavigation = (navigation, ts, folder, overwrite) => {
                     importAs: importableAs,
                   });
                 } else {
-                  console.log(`${_path}navigation.jsx does not exist`);
+                  !silent &&
+                    console.log(`${_path}navigation.jsx does not exist`);
                 }
               }
             }
           } else {
-            console.log(`${_path} does not exist`);
+            !silent && console.log(`${_path} does not exist`);
           }
         }
         // for all existed screens
         if (existedScreens.length === 0) {
-          console.log("None of these screens exist");
+          !silent && console.log("None of these screens exist");
           break;
         } else {
           fs.writeFile(
@@ -231,9 +238,10 @@ exports.createNavigation = (navigation, ts, folder, overwrite) => {
             ),
             (err) => {
               if (err) {
-                console.log(`Unable to create ${path}navigation.jsx`);
+                !silent &&
+                  console.log(`Unable to create ${path}navigation.jsx`);
               } else {
-                console.log(`${path}navigation.jsx created`);
+                !silent && console.log(`${path}navigation.jsx created`);
               }
             }
           );
@@ -243,9 +251,10 @@ exports.createNavigation = (navigation, ts, folder, overwrite) => {
     }
 
     default:
-      console.log(
-        "Only the following navigations are supported: stack, native-stack, drawer, bottom-tabs, material-bottom-tabs or material-top-tabs"
-      );
+      !silent &&
+        console.log(
+          "Only the following navigations are supported: stack, native-stack, drawer, bottom-tabs, material-bottom-tabs or material-top-tabs"
+        );
       break;
   }
 };

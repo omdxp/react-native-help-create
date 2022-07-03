@@ -15,13 +15,14 @@ const { config } = require("../../../utils");
  * @description this function is used to create redux store file.
  * @param {boolean} ts - write file in typescript.
  * @param {boolean} overwrite - overwrite existed files.
+ * @param {boolean} silent - do not show log messages.
  * @author [Omar Belghaouti](https://github.com/Omar-Belghaouti)
  */
-exports.createReduxStore = (ts, overwrite) => {
+exports.createReduxStore = (ts, overwrite, silent) => {
   const { reduxRoot, applyReduxThunk } = config;
   const path = `${reduxRoot}/`;
   if (fs.existsSync(path) && !overwrite) {
-    console.log("Redux implementation already exists");
+    !silent && console.log("Redux implementation already exists");
   } else {
     if (ts) {
       fs.writeFile(
@@ -29,9 +30,9 @@ exports.createReduxStore = (ts, overwrite) => {
         storeTemplateTs(applyReduxThunk),
         (err) => {
           if (err) {
-            console.log("Unable to create redux store");
+            !silent && console.log("Unable to create redux store");
           } else {
-            console.log(`${path}index.ts created`);
+            !silent && console.log(`${path}index.ts created`);
           }
         }
       );
@@ -40,17 +41,17 @@ exports.createReduxStore = (ts, overwrite) => {
         reducerTemplateTs(),
         (err) => {
           if (err) {
-            console.log("Unable to create redux general reducer");
+            !silent && console.log("Unable to create redux general reducer");
           } else {
-            console.log(`${path}reducers/general/index.ts created`);
+            !silent && console.log(`${path}reducers/general/index.ts created`);
           }
         }
       );
       fs.writeFile(`${path}reducers/index.ts`, mainReducerTemplate(), (err) => {
         if (err) {
-          console.log("Unable to create redux main reducer");
+          !silent && console.log("Unable to create redux main reducer");
         } else {
-          console.log(`${path}reducers/index.ts created`);
+          !silent && console.log(`${path}reducers/index.ts created`);
         }
       });
       fs.writeFile(
@@ -58,9 +59,9 @@ exports.createReduxStore = (ts, overwrite) => {
         actionTemplateTs(applyReduxThunk),
         (err) => {
           if (err) {
-            console.log("Unable to create redux general actions");
+            !silent && console.log("Unable to create redux general actions");
           } else {
-            console.log(`${path}actions/general/index.ts created`);
+            !silent && console.log(`${path}actions/general/index.ts created`);
           }
         }
       );
@@ -70,9 +71,9 @@ exports.createReduxStore = (ts, overwrite) => {
         storeTemplateJs(applyReduxThunk),
         (err) => {
           if (err) {
-            console.log("Unable to create redux store");
+            !silent && console.log("Unable to create redux store");
           } else {
-            console.log(`${path}index.js created`);
+            !silent && console.log(`${path}index.js created`);
           }
         }
       );
@@ -81,17 +82,17 @@ exports.createReduxStore = (ts, overwrite) => {
         reducerTemplateJs(),
         (err) => {
           if (err) {
-            console.log("Unable to create redux general reducer");
+            !silent && console.log("Unable to create redux general reducer");
           } else {
-            console.log(`${path}reducers/general/index.js created`);
+            !silent && console.log(`${path}reducers/general/index.js created`);
           }
         }
       );
       fs.writeFile(`${path}reducers/index.js`, mainReducerTemplate(), (err) => {
         if (err) {
-          console.log("Unable to create redux main reducer");
+          !silent && console.log("Unable to create redux main reducer");
         } else {
-          console.log(`${path}reducers/index.js created`);
+          !silent && console.log(`${path}reducers/index.js created`);
         }
       });
       fs.writeFile(
@@ -99,9 +100,9 @@ exports.createReduxStore = (ts, overwrite) => {
         actionTemplateJs(applyReduxThunk),
         (err) => {
           if (err) {
-            console.log("Unable to create redux general actions");
+            !silent && console.log("Unable to create redux general actions");
           } else {
-            console.log(`${path}actions/general/index.js created`);
+            !silent && console.log(`${path}actions/general/index.js created`);
           }
         }
       );

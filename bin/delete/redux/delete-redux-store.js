@@ -4,15 +4,16 @@ const { config } = require("../../utils");
 /**
  * @function deleteReduxStore
  * @description this function is used to delete redux store implementation that exists.
+ * @param {boolean} silent - do not show log messages.
  * @author [Omar Belghaouti](https://github.com/Omar-Belghaouti)
  */
-exports.deleteReduxStore = () => {
+exports.deleteReduxStore = (silent) => {
   const { reduxRoot } = config;
   const path = `${reduxRoot}/`;
   try {
     fs.rmdirSync(path);
-    console.log(`${path} deleted`);
+    !silent && console.log(`${path} deleted`);
   } catch (err) {
-    console.log(`${path} does not exist`);
+    !silent && console.log(`${path} does not exist`);
   }
 };

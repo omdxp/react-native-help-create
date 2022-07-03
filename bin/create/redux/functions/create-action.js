@@ -10,23 +10,27 @@ const {
  * @param {Array<String>} actions - array of actions starting with the name of the reducer.
  * @param {boolean} ts - write file in typescript.
  * @param {boolean} overwrite - overwrite existed files.
+ * @param {boolean} silent - do not show log messages.
  * @author [Omar Belghaouti](https://github.com/Omar-Belghaouti)
  */
-exports.createAction = (actionName, ts, overwrite) => {
+exports.createAction = (actionName, ts, overwrite, silent) => {
   if (actionName.length <= 1) {
-    console.log("At least provide one action for a reducer");
-    console.log("Usage: rnhc create --action <reducer-name> <action-name>");
+    !silent &&
+      (() => {
+        console.log("At least provide one action for a reducer");
+        console.log("Usage: rnhc create --action <reducer-name> <action-name>");
+      })();
     return;
   }
   const { reduxRoot, applyReduxThunk } = config;
   if (!fs.existsSync(reduxRoot)) {
-    console.log(`${reduxRoot} does not exist`);
+    !silent && console.log(`${reduxRoot} does not exist`);
     return;
   }
   const reducer = getKebabCase(actionName[0]);
   const reducerPath = `${reduxRoot}/reducers/${reducer}`;
   if (!fs.existsSync(reducerPath)) {
-    console.log(`${reducerPath} does not exist`);
+    !silent && console.log(`${reducerPath} does not exist`);
     return;
   }
   const actionsPath = `${reduxRoot}/actions/${reducer}`;
@@ -44,7 +48,7 @@ exports.createAction = (actionName, ts, overwrite) => {
     const actionFilePath = `${actionsPath}/${action}.${fileExtension}`;
     // create action
     if (fs.existsSync(actionFilePath) && !overwrite) {
-      console.log(`${action} action already exists`);
+      !silent && console.log(`${action} action already exists`);
     } else {
       fs.fs.writeFileSync(
         actionFilePath,
@@ -132,7 +136,7 @@ exports.createAction = (actionName, ts, overwrite) => {
           });
         }
       }
-      console.log(`${action} action created`);
+      !silent && console.log(`${action} action created`);
     }
   }
 };

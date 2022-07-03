@@ -5,18 +5,19 @@ const { defaultConfigTemplate } = require("../templates");
  * @function createConfig
  * @description this function is used to create the config file.
  * @param {boolean} overwrite - to overwrite the existing config file.
+ * @param {boolean} silent - do not show log messages.
  * @author [Omar Belghaouti](https://github.com/Omar-Belghaouti)
  */
-exports.createConfig = (overwrite) => {
+exports.createConfig = (overwrite, silent) => {
   if (fs.existsSync("./rnhc.config.json") && !overwrite) {
-    console.log("rnhc.config.json already exist");
+    !silent && console.log("rnhc.config.json already exist");
     return;
   }
   fs.writeFile("./rnhc.config.json", defaultConfigTemplate(), (err) => {
     if (err) {
-      console.log("Unable to create rnhc.config.json");
+      !silent && console.log("Unable to create rnhc.config.json");
     } else {
-      console.log("rnhc.config.json created");
+      !silent && console.log("rnhc.config.json created");
     }
   });
 };
