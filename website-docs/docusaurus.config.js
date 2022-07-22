@@ -101,7 +101,7 @@ const config = {
             items: [
               {
                 label: "Twitter",
-                href: "https://twitter.com/omar_belghaouti",
+                href: "https://twitter.com/omar_belg",
               },
             ],
           },
