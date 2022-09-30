@@ -86,3 +86,5 @@ rnhc create -n stack --overwrite
 - When creating actions, you should have already a redux implementation created with `rnhc create -r` as well as an existed reducer with `rnhc create --reducer <reducer-name>` so it can create actions for that specific reducer.
 
 - Creating and deleting reducers and actions will not just delete files, but also update other files that depends on them under the `src/redux/` folder (Or your specified path for the root of redux folder in `rnhc.config.json`).
+
+- When creating, deleting or combining components in atom design pattern, if you provide more than one type (e.g `rnhc create -c test --atom --molecule`), `rnhc` will prompt you to choose one of them.
