@@ -12,7 +12,6 @@ describe("combine components tests", () => {
   afterEach(() => {
     clear();
   });
-  console.log = jest.fn();
   test("should combine components", async () => {
     try {
       createComponent("test1", true, "", "", false);
@@ -61,6 +60,117 @@ describe("combine components tests", () => {
       fail(err);
     }
   });
+
+  test("should combine atom components", async () => {
+    try {
+      createComponent("test1", true, "", "", false, true, true);
+      await sleep(100);
+      createComponent("test2", true, "", "", false, true, true);
+      await sleep(100);
+      combineComponents(["test1", "test2"], "folder", true, true);
+      await sleep(100);
+      expect(
+        fs.existsSync("./src/components/atoms/folder/test1/index.tsx")
+      ).toBe(true);
+      expect(
+        fs.existsSync("./src/components/atoms/folder/test1/styles.ts")
+      ).toBe(true);
+      expect(
+        fs.existsSync(
+          "./src/components/atoms/folder/test1/__tests__/index.spec.tsx"
+        )
+      ).toBe(true);
+      expect(
+        fs.existsSync("./src/components/atoms/folder/test2/index.tsx")
+      ).toBe(true);
+      expect(
+        fs.existsSync("./src/components/atoms/folder/test2/styles.ts")
+      ).toBe(true);
+      expect(
+        fs.existsSync(
+          "./src/components/atoms/folder/test2/__tests__/index.spec.tsx"
+        )
+      ).toBe(true);
+      deleteComponents(["test1", "test2"], "folder", true, true);
+      await sleep(100);
+    } catch (err) {
+      fail(err);
+    }
+  });
+
+  test("should combine molecule components", async () => {
+    try {
+      createComponent("test1", true, "", "", false, true, false, true);
+      await sleep(100);
+      createComponent("test2", true, "", "", false, true, false, true);
+      await sleep(100);
+      combineComponents(["test1", "test2"], "folder", true, false, true);
+      await sleep(100);
+      expect(
+        fs.existsSync("./src/components/molecules/folder/test1/index.tsx")
+      ).toBe(true);
+      expect(
+        fs.existsSync("./src/components/molecules/folder/test1/styles.ts")
+      ).toBe(true);
+      expect(
+        fs.existsSync(
+          "./src/components/molecules/folder/test1/__tests__/index.spec.tsx"
+        )
+      ).toBe(true);
+      expect(
+        fs.existsSync("./src/components/molecules/folder/test2/index.tsx")
+      ).toBe(true);
+      expect(
+        fs.existsSync("./src/components/molecules/folder/test2/styles.ts")
+      ).toBe(true);
+      expect(
+        fs.existsSync(
+          "./src/components/molecules/folder/test2/__tests__/index.spec.tsx"
+        )
+      ).toBe(true);
+      deleteComponents(["test1", "test2"], "folder", true, false, true);
+      await sleep(100);
+    } catch (err) {
+      fail(err);
+    }
+  });
+
+  test("should combine organism components", async () => {
+    try {
+      createComponent("test1", true, "", "", false, true, false, false, true);
+      await sleep(100);
+      createComponent("test2", true, "", "", false, true, false, false, true);
+      await sleep(100);
+      combineComponents(["test1", "test2"], "folder", true, false, false, true);
+      await sleep(100);
+      expect(
+        fs.existsSync("./src/components/organisms/folder/test1/index.tsx")
+      ).toBe(true);
+      expect(
+        fs.existsSync("./src/components/organisms/folder/test1/styles.ts")
+      ).toBe(true);
+      expect(
+        fs.existsSync(
+          "./src/components/organisms/folder/test1/__tests__/index.spec.tsx"
+        )
+      ).toBe(true);
+      expect(
+        fs.existsSync("./src/components/organisms/folder/test2/index.tsx")
+      ).toBe(true);
+      expect(
+        fs.existsSync("./src/components/organisms/folder/test2/styles.ts")
+      ).toBe(true);
+      expect(
+        fs.existsSync(
+          "./src/components/organisms/folder/test2/__tests__/index.spec.tsx"
+        )
+      ).toBe(true);
+      deleteComponents(["test1", "test2"], "folder", true, false, false, true);
+      await sleep(100);
+    } catch (err) {
+      fail(err);
+    }
+  });
 });
 
 describe("combine screens tests", () => {
@@ -70,7 +180,6 @@ describe("combine screens tests", () => {
   afterEach(() => {
     clear();
   });
-  console.log = jest.fn();
   test("should combine screens", async () => {
     try {
       createScreen("test1", true, "", "", false);
