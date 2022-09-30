@@ -7,9 +7,28 @@ const { config, getKebabCase } = require("../../utils");
  * @param {Array} components - array of components to be deleted.
  * @param {string} folder - folder path that contains the components.
  * @param {boolean} silent - do not show log messages.
+ * @param {boolean} atom - delete atom components.
+ * @param {boolean} molecule - delete molecule components.
+ * @param {boolean} organism - delete organism components.
  * @author [omdxp](https://github.com/omdxp)
  */
-exports.deleteComponents = (components, folder, silent) => {
+exports.deleteComponents = (
+  components,
+  folder,
+  silent,
+  atom,
+  molecule,
+  organism
+) => {
+  if (
+    (atom && molecule && organism) ||
+    (atom && molecule) ||
+    (atom && organism) ||
+    (molecule && organism)
+  ) {
+    console.log("You can only choose one type of component");
+    process.exit(1);
+  }
   const { componentsRoot } = config;
   components = components.map((component) => getKebabCase(component));
   folder = folder.includes("/")

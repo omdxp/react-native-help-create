@@ -206,6 +206,21 @@ yargs
           type: "string",
           default: "",
           describe: "Folder path to delete files or folders within",
+        })
+        .option("atom", {
+          type: "boolean",
+          default: false,
+          describe: "Used to delete atom components",
+        })
+        .option("molecule", {
+          type: "boolean",
+          default: false,
+          describe: "Used to delete molecule components",
+        })
+        .option("organism", {
+          type: "boolean",
+          default: false,
+          describe: "Used to delete organism components",
         });
     },
     (argv) => {
@@ -219,6 +234,9 @@ yargs
         config,
         folder,
         silent,
+        atom,
+        molecule,
+        organism,
       } = argv;
       if (component) {
         deleteComponents(component, folder, silent);
