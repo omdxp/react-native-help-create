@@ -143,7 +143,7 @@ describe("create component tests", () => {
       expect(
         fs.existsSync("./src/components/atoms/test/__tests__/index.spec.tsx")
       ).toBe(true);
-      deleteComponents(["test"], "");
+      deleteComponents(["test"], "", false, true, false, false);
       await sleep(100);
     } catch (err) {
       fail(err);
@@ -159,7 +159,7 @@ describe("create component tests", () => {
       expect(
         fs.existsSync("./src/components/atoms/test/__tests__/index.spec.jsx")
       ).toBe(true);
-      deleteComponents(["test"], "");
+      deleteComponents(["test"], "", false, true, false, false);
       await sleep(100);
     } catch (err) {
       fail(err);
@@ -181,7 +181,7 @@ describe("create component tests", () => {
           "./src/components/molecules/test/__tests__/index.spec.tsx"
         )
       ).toBe(true);
-      deleteComponents(["test"], "");
+      deleteComponents(["test"], "", false, false, true, false);
       await sleep(100);
     } catch (err) {
       fail(err);
@@ -203,7 +203,7 @@ describe("create component tests", () => {
           "./src/components/molecules/test/__tests__/index.spec.jsx"
         )
       ).toBe(true);
-      deleteComponents(["test"], "");
+      deleteComponents(["test"], "", false, false, true, false);
       await sleep(100);
     } catch (err) {
       fail(err);
@@ -225,7 +225,7 @@ describe("create component tests", () => {
           "./src/components/organisms/test/__tests__/index.spec.tsx"
         )
       ).toBe(true);
-      deleteComponents(["test"], "");
+      deleteComponents(["test"], "", true, false, false, true);
       await sleep(100);
     } catch (err) {
       fail(err);
@@ -247,7 +247,7 @@ describe("create component tests", () => {
           "./src/components/organisms/test/__tests__/index.spec.jsx"
         )
       ).toBe(true);
-      deleteComponents(["test"], "");
+      deleteComponents(["test"], "", true, false, false, true);
       await sleep(100);
     } catch (err) {
       fail(err);

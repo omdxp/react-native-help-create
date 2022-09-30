@@ -25,7 +25,6 @@ describe("delete component tests", () => {
   afterEach(() => {
     clear();
   });
-  console.log = jest.fn();
   test("should delete component", async () => {
     try {
       deleteComponents(["del-test"], "");
@@ -62,6 +61,121 @@ describe("delete component tests", () => {
       expect(fs.existsSync("./src/components/del-test/styles.ts")).toBe(false);
       expect(
         fs.existsSync("./src/components/del-test/__tests__/index.spec.tsx")
+      ).toBe(false);
+    } catch (err) {
+      fail(err);
+    }
+  });
+
+  test("should delete atom component", async () => {
+    try {
+      deleteComponents(["del-test"], "");
+      await sleep(100);
+      createComponent("del-test", true, "", "", false, false, true);
+      await sleep(100);
+      expect(fs.existsSync("./src/components/atoms/del-test/index.tsx")).toBe(
+        true
+      );
+      expect(fs.existsSync("./src/components/atoms/del-test/styles.ts")).toBe(
+        true
+      );
+      expect(
+        fs.existsSync(
+          "./src/components/atoms/del-test/__tests__/index.spec.tsx"
+        )
+      ).toBe(true);
+      deleteComponents(["del-test"], "", false, true);
+      await sleep(100);
+      expect(fs.existsSync("./src/components/atoms/del-test/index.tsx")).toBe(
+        false
+      );
+      expect(fs.existsSync("./src/components/atoms/del-test/styles.ts")).toBe(
+        false
+      );
+      expect(
+        fs.existsSync(
+          "./src/components/atoms/del-test/__tests__/index.spec.tsx"
+        )
+      ).toBe(false);
+    } catch (err) {
+      fail(err);
+    }
+  });
+
+  test("should delete molecule component", async () => {
+    try {
+      deleteComponents(["del-test"], "");
+      await sleep(100);
+      createComponent("del-test", true, "", "", false, false, false, true);
+      await sleep(100);
+      expect(
+        fs.existsSync("./src/components/molecules/del-test/index.tsx")
+      ).toBe(true);
+      expect(
+        fs.existsSync("./src/components/molecules/del-test/styles.ts")
+      ).toBe(true);
+      expect(
+        fs.existsSync(
+          "./src/components/molecules/del-test/__tests__/index.spec.tsx"
+        )
+      ).toBe(true);
+      deleteComponents(["del-test"], "", false, false, true);
+      await sleep(100);
+      expect(
+        fs.existsSync("./src/components/molecules/del-test/index.tsx")
+      ).toBe(false);
+      expect(
+        fs.existsSync("./src/components/molecules/del-test/styles.ts")
+      ).toBe(false);
+      expect(
+        fs.existsSync(
+          "./src/components/molecules/del-test/__tests__/index.spec.tsx"
+        )
+      ).toBe(false);
+    } catch (err) {
+      fail(err);
+    }
+  });
+
+  test("should delete organism component", async () => {
+    try {
+      deleteComponents(["del-test"], "");
+      await sleep(100);
+      createComponent(
+        "del-test",
+        true,
+        "",
+        "",
+        false,
+        false,
+        false,
+        false,
+        true
+      );
+      await sleep(100);
+      expect(
+        fs.existsSync("./src/components/organisms/del-test/index.tsx")
+      ).toBe(true);
+      expect(
+        fs.existsSync("./src/components/organisms/del-test/styles.ts")
+      ).toBe(true);
+      expect(
+        fs.existsSync(
+          "./src/components/organisms/del-test/__tests__/index.spec.tsx"
+        )
+      ).toBe(true);
+      deleteComponents(["del-test"], "", false, false, false, true);
+      await sleep(100);
+      expect(
+        fs.existsSync("./src/components/organisms/del-test/index.tsx")
+      ).toBe(false);
+      expect(
+        fs.existsSync("./src/components/organisms/del-test/styles.ts")
+      ).toBe(false);
+      expect(
+        fs.existsSync(
+          "./src/components/organisms/del-test/__tests__/index.spec.tsx"
+        )
       ).toBe(false);
     } catch (err) {
       fail(err);
