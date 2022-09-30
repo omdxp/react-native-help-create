@@ -5,7 +5,7 @@ const { config } = require("../../utils");
  * @function deleteReduxStore
  * @description this function is used to delete redux store implementation that exists.
  * @param {boolean} silent - do not show log messages.
- * @author [Omar Belghaouti](https://github.com/Omar-Belghaouti)
+ * @author [omdxp](https://github.com/omdxp)
  */
 exports.deleteReduxStore = (silent) => {
   const { reduxRoot } = config;

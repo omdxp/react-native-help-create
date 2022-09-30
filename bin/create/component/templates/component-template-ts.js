@@ -6,7 +6,7 @@
  * @param {boolean} defaultExports - if the component is a default export.
  * @param {boolean} withProps - if the component has props.
  * @returns {string} the template ts file.
- * @author [Omar Belghaouti](https://github.com/Omar-Belghaouti)
+ * @author [omdxp](https://github.com/omdxp)
  */
 exports.componentTemplateTs = (
   componentName,

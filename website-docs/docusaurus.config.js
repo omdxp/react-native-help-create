@@ -8,14 +8,14 @@ const darkCodeTheme = require("prism-react-renderer/themes/dracula");
 const config = {
   title: "react-native-help-create",
   tagline: "Focus on your code, not your project structure!",
-  url: "https://omar-belghaouti.github.io/",
+  url: "https://omdxp.github.io/",
   baseUrl: "/react-native-help-create/",
   onBrokenLinks: "throw",
   onBrokenMarkdownLinks: "warn",
   favicon: "img/favicon.ico",
 
   // GitHub pages deployment config.
-  organizationName: "Omar-Belghaouti", // Usually your GitHub org/user name.
+  organizationName: "omdxp", // Usually your GitHub org/user name.
   projectName: "react-native-help-create", // Usually your repo name.
   deploymentBranch: "gh-pages",
   trailingSlash: false,
@@ -78,7 +78,7 @@ const config = {
             dropdownActiveClassDisabled: true,
           },
           {
-            href: "https://github.com/Omar-Belghaouti/react-native-help-create",
+            href: "https://github.com/omdxp/react-native-help-create",
             label: "GitHub",
             position: "right",
           },
@@ -110,7 +110,7 @@ const config = {
             items: [
               {
                 label: "GitHub",
-                href: "https://github.com/Omar-Belghaouti/react-native-help-create",
+                href: "https://github.com/omdxp/react-native-help-create",
               },
             ],
           },

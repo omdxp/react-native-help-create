@@ -16,7 +16,7 @@ const { config } = require("../../../utils");
  * @param {boolean} ts - write file in typescript.
  * @param {boolean} overwrite - overwrite existed files.
  * @param {boolean} silent - do not show log messages.
- * @author [Omar Belghaouti](https://github.com/Omar-Belghaouti)
+ * @author [omdxp](https://github.com/omdxp)
  */
 exports.createReduxStore = (ts, overwrite, silent) => {
   const { reduxRoot, applyReduxThunk } = config;

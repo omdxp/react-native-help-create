@@ -2,7 +2,7 @@
  * @function customReducerTemplateTs
  * @description this function returns the custom reducer template in typescript.
  * @param {string} reducerName - name of reducer.
- * @author [Omar Belghaouti](https://github.com/Omar-Belghaouti)
+ * @author [omdxp](https://github.com/omdxp)
  */
 exports.customReducerTemplateTs = (reducerName) => {
   const interfaceStateName =

@@ -4,7 +4,7 @@
  * @param {string} string - string to convert.
  * @example getKebabCase("CompOne");
  * @returns {string} "comp-one"
- * @author [Omar Belghaouti](https://github.com/Omar-Belghaouti)
+ * @author [omdxp](https://github.com/omdxp)
  */
 exports.getKebabCase = (string) => {
   if (

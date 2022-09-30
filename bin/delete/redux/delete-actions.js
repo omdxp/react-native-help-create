@@ -7,7 +7,7 @@ const { config, getCamelCase, getKebabCase } = require("../../utils");
  * @param {Array<string>} actions - array of actions to be deleted.
  * @param {boolean} ts - if project is written in typescript.
  * @param {boolean} silent - do not show log messages.
- * @author [Omar Belghaouti](https://github.com/Omar-Belghaouti)
+ * @author [omdxp](https://github.com/omdxp)
  */
 exports.deleteActions = (actions, ts, silent) => {
   if (actions.length === 0) {

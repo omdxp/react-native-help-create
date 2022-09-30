@@ -4,7 +4,7 @@
  * @param {string} name - name of component.
  * @example getComponentName("component-name");
  * @returns {string} "ComponentName"
- * @author [Omar Belghaouti](https://github.com/Omar-Belghaouti)
+ * @author [omdxp](https://github.com/omdxp)
  */
 exports.getComponentName = (name) => {
   let component = name.charAt(0).toUpperCase() + name.slice(1);

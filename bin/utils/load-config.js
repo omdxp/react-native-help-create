@@ -6,7 +6,7 @@ const { config } = require("./configs");
  * @description Loads the configuration json file for rhc.
  * @returns {Object} The configuration object.
  * @throws {Error} If the configuration file cannot be loaded.
- * @author [Omar Belghaouti](https://github.com/Omar-Belghaouti)
+ * @author [omdxp](https://github.com/omdxp)
  */
 exports.loadConfig = () => {
   try {

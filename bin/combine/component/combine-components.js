@@ -7,7 +7,7 @@ const { config, getKebabCase } = require("../../utils");
  * @param {Array} components - array of components to be combined.
  * @param {string} folder - folder path to contain the combined components.
  * @param {boolean} silent - do not show log messages.
- * @author [Omar Belghaouti](https://github.com/Omar-Belghaouti)
+ * @author [omdxp](https://github.com/omdxp)
  */
 exports.combineComponents = (components, folder, silent) => {
   const { componentsRoot } = config;

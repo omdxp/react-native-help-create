@@ -2,7 +2,7 @@
  * @function storeTemplateJs
  * @description this function returns redux default store template in javascript.
  * @param {boolean} applyReduxThunk - if true, apply redux thunk middleware to action.
- * @author [Omar Belghaouti](https://github.com/Omar-Belghaouti)
+ * @author [omdxp](https://github.com/omdxp)
  */
 exports.storeTemplateJs = (applyReduxThunk) => {
   let str = `import { ${

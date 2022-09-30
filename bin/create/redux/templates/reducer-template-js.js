@@ -1,7 +1,7 @@
 /**
  * @function reducerTemplateJs
  * @description this function returns the default reducer template in javascript.
- * @author [Omar Belghaouti](https://github.com/Omar-Belghaouti)
+ * @author [omdxp](https://github.com/omdxp)
  */
 exports.reducerTemplateJs = () => `const initialState = { message: "" };
 

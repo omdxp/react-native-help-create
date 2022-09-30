@@ -5,7 +5,7 @@
  * @param {boolean} withStyles - if the component has styles.
  * @param {boolean} defaultExports - if the component is a default export.
  * @returns {string} the template js file.
- * @author [Omar Belghaouti](https://github.com/Omar-Belghaouti)
+ * @author [omdxp](https://github.com/omdxp)
  */
 exports.componentTemplateJs = (componentName, withStyles, defaultExports) => {
   let str = `import { Text, View } from "react-native";

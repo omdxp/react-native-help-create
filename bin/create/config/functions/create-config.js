@@ -6,7 +6,7 @@ const { defaultConfigTemplate } = require("../templates");
  * @description this function is used to create the config file.
  * @param {boolean} overwrite - to overwrite the existing config file.
  * @param {boolean} silent - do not show log messages.
- * @author [Omar Belghaouti](https://github.com/Omar-Belghaouti)
+ * @author [omdxp](https://github.com/omdxp)
  */
 exports.createConfig = (overwrite, silent) => {
   if (fs.existsSync("./rnhc.config.json") && !overwrite) {

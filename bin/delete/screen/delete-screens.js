@@ -7,7 +7,7 @@ const { config, getKebabCase } = require("../../utils");
  * @param {Array} screens - array of screens to be deleted.
  * @param {string} folder - folder path that contains the screens.
  * @param {boolean} silent - do not show log messages.
- * @author [Omar Belghaouti](https://github.com/Omar-Belghaouti)
+ * @author [omdxp](https://github.com/omdxp)
  */
 exports.deleteScreens = (screens, folder, silent) => {
   const { screensRoot } = config;

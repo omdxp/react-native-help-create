@@ -14,7 +14,7 @@
   },
   "repository": {
     "type": "git",
-    "url": "git+https://github.com/Omar-Belghaouti/react-native-help-create.git"
+    "url": "git+https://github.com/omdxp/react-native-help-create.git"
   },
   "keywords": [
     "react-native",
@@ -28,9 +28,9 @@
   },
   "license": "MIT",
   "bugs": {
-    "url": "https://github.com/Omar-Belghaouti/react-native-help-create/issues"
+    "url": "https://github.com/omdxp/react-native-help-create/issues"
   },
-  "homepage": "https://omar-belghaouti.github.io/react-native-help-create/",
+  "homepage": "https://omdxp.github.io/react-native-help-create/",
   "dependencies": {
     "file-system": "^2.2.2",
     "yargs": "^16.2.0"

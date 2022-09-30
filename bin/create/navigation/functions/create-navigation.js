@@ -10,7 +10,7 @@ const { config, getKebabCase } = require("../../../utils");
  * @param {string} folder - folder path to create navigation with.
  * @param {boolean} overwrite - overwrite existed files.
  * @param {boolean} silent - do not show log messages.
- * @author [Omar Belghaouti](https://github.com/Omar-Belghaouti)
+ * @author [omdxp](https://github.com/omdxp)
  */
 exports.createNavigation = (navigation, ts, folder, overwrite, silent) => {
   const { defaultExports, screensRoot } = config;

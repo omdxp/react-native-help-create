@@ -4,7 +4,7 @@
  * @param {string} type - navigation type.
  * @param {Array} screens - array of screens.
  * @param {boolean} defaultExports - if the navigation and screens are default exported.
- * @author [Omar Belghaouti](https://github.com/Omar-Belghaouti)
+ * @author [omdxp](https://github.com/omdxp)
  */
 exports.navigationTemplateJs = (type, screens, defaultExports) => {
   let template = "";

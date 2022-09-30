@@ -4,7 +4,7 @@
  * @param {string} name - name of the string.
  * @example getReducerName("gates-of-galoo");
  * @returns {string} "gatesOfGaloo"
- * @author [Omar Belghaouti](https://github.com/Omar-Belghaouti)
+ * @author [omdxp](https://github.com/omdxp)
  */
 exports.getCamelCase = (name) => {
   return name

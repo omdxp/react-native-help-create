@@ -3,7 +3,7 @@
  * @description this function returns the default test template for a screen.
  * @param {string} screenName - name of screen.
  * @param {boolean} defaultExports - if the screen is a default export.
- * @author [Omar Belghaouti](https://github.com/Omar-Belghaouti)
+ * @author [omdxp](https://github.com/omdxp)
  */
 exports.testTemplate = (screenName, defaultExports) => {
   return `import "react-native";

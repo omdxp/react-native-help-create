@@ -6,7 +6,7 @@ const { config, getKebabCase } = require("../../utils");
  * @description this function is used to delete navigation file that exists.
  * @param {string} folder - folder path that contains the navigation file.
  * @param {boolean} silent - do not show log messages.
- * @author [Omar Belghaouti](https://github.com/Omar-Belghaouti)
+ * @author [omdxp](https://github.com/omdxp)
  */
 exports.deleteNavigation = (folder, silent) => {
   const { screensRoot } = config;

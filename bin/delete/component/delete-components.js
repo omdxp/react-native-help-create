@@ -7,7 +7,7 @@ const { config, getKebabCase } = require("../../utils");
  * @param {Array} components - array of components to be deleted.
  * @param {string} folder - folder path that contains the components.
  * @param {boolean} silent - do not show log messages.
- * @author [Omar Belghaouti](https://github.com/Omar-Belghaouti)
+ * @author [omdxp](https://github.com/omdxp)
  */
 exports.deleteComponents = (components, folder, silent) => {
   const { componentsRoot } = config;

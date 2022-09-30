@@ -1,7 +1,7 @@
 /**
  * @function reducerTemplateTs
  * @description this function returns the default reducer template in typescript.
- * @author [Omar Belghaouti](https://github.com/Omar-Belghaouti)
+ * @author [omdxp](https://github.com/omdxp)
  */
 exports.reducerTemplateTs = () => `import { Action } from "../..";
 

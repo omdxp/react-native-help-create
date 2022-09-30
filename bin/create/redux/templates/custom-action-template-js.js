@@ -6,7 +6,7 @@ const { getCamelCase } = require("../../../utils");
  * @param {string} reducer - name of reducer folder.
  * @param {string} action - name of action folder.$
  * @param {boolean} applyReduxThunk - if true, apply redux thunk middleware to action.
- * @author [Omar Belghaouti](https://github.com/Omar-Belghaouti)
+ * @author [omdxp](https://github.com/omdxp)
  */
 exports.customActionTemplateJs = (reducer, action, applyReduxThunk) => {
   let str = "";

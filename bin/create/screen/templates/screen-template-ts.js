@@ -7,7 +7,7 @@
  * @param {boolean} defaultExports - if the screen is a default export.
  * @param {boolean} withProps - if the page has props.
  * @returns {string} the screen template in typescript.
- * @author [Omar Belghaouti](https://github.com/Omar-Belghaouti)
+ * @author [omdxp](https://github.com/omdxp)
  */
 exports.screenTemplateTs = (
   screenName,

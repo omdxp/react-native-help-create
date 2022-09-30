@@ -2,7 +2,7 @@
  * @function actionTemplateJs
  * @description this function returns the default action template in javascript.
  * @param {boolean} applyReduxThunk - if true, apply redux thunk middleware to action.
- * @author [Omar Belghaouti](https://github.com/Omar-Belghaouti)
+ * @author [omdxp](https://github.com/omdxp)
  */
 exports.actionTemplateJs = (applyReduxThunk) => {
   let str = `// write your general actions here

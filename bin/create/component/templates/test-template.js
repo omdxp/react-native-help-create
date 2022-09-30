@@ -3,7 +3,7 @@
  * @description this function returns the default test template for a component.
  * @param {string} componentName - name of component.
  * @param {boolean} defaultExports - if the component is a default export.
- * @author [Omar Belghaouti](https://github.com/Omar-Belghaouti)
+ * @author [omdxp](https://github.com/omdxp)
  */
 exports.testTemplate = (componentName, defaultExports) => {
   return `import "react-native";

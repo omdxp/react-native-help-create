@@ -1,7 +1,7 @@
 /**
  * @function defaultConfigTemplate
  * @description this function returns the default config template.
- * @author [Omar Belghaouti](https://github.com/Omar-Belghaouti)
+ * @author [omdxp](https://github.com/omdxp)
  */
 exports.defaultConfigTemplate = () => {
   return `{

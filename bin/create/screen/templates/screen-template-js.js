@@ -6,7 +6,7 @@
  * @param {boolean} withStyles - if the screen has styles.
  * @param {boolean} defaultExports - if the screen is a default export.
  * @returns {string} the screen template in javascript.
- * @author [Omar Belghaouti](https://github.com/Omar-Belghaouti)
+ * @author [omdxp](https://github.com/omdxp)
  */
 exports.screenTemplateJs = (
   screenName,
