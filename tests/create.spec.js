@@ -13,8 +13,6 @@ const {
   deleteReduxStore,
   deleteNavigation,
   deleteConfig,
-  deleteActions,
-  deleteReducers,
 } = require("../bin/delete");
 
 const fs = require("file-system");
@@ -130,6 +128,126 @@ describe("create component tests", () => {
         fs.existsSync("./src/components/folder/test6/__tests__/index.spec.tsx")
       ).toBe(true);
       deleteComponents(["test6"], "folder");
+      await sleep(100);
+    } catch (err) {
+      fail(err);
+    }
+  });
+
+  test("should create ts atom component", async () => {
+    try {
+      createComponent("test", true, "", "", false, true, true);
+      await sleep(100);
+      expect(fs.existsSync("./src/components/atoms/test/index.tsx")).toBe(true);
+      expect(fs.existsSync("./src/components/atoms/test/styles.ts")).toBe(true);
+      expect(
+        fs.existsSync("./src/components/atoms/test/__tests__/index.spec.tsx")
+      ).toBe(true);
+      deleteComponents(["test"], "");
+      await sleep(100);
+    } catch (err) {
+      fail(err);
+    }
+  });
+
+  test("should create js atom component", async () => {
+    try {
+      createComponent("test", false, "", "", false, true, true);
+      await sleep(100);
+      expect(fs.existsSync("./src/components/atoms/test/index.jsx")).toBe(true);
+      expect(fs.existsSync("./src/components/atoms/test/styles.js")).toBe(true);
+      expect(
+        fs.existsSync("./src/components/atoms/test/__tests__/index.spec.jsx")
+      ).toBe(true);
+      deleteComponents(["test"], "");
+      await sleep(100);
+    } catch (err) {
+      fail(err);
+    }
+  });
+
+  test("should create ts molecule component", async () => {
+    try {
+      createComponent("test", true, "", "", false, true, false, true);
+      await sleep(100);
+      expect(fs.existsSync("./src/components/molecules/test/index.tsx")).toBe(
+        true
+      );
+      expect(fs.existsSync("./src/components/molecules/test/styles.ts")).toBe(
+        true
+      );
+      expect(
+        fs.existsSync(
+          "./src/components/molecules/test/__tests__/index.spec.tsx"
+        )
+      ).toBe(true);
+      deleteComponents(["test"], "");
+      await sleep(100);
+    } catch (err) {
+      fail(err);
+    }
+  });
+
+  test("should create js molecule component", async () => {
+    try {
+      createComponent("test", false, "", "", false, true, false, true);
+      await sleep(100);
+      expect(fs.existsSync("./src/components/molecules/test/index.jsx")).toBe(
+        true
+      );
+      expect(fs.existsSync("./src/components/molecules/test/styles.js")).toBe(
+        true
+      );
+      expect(
+        fs.existsSync(
+          "./src/components/molecules/test/__tests__/index.spec.jsx"
+        )
+      ).toBe(true);
+      deleteComponents(["test"], "");
+      await sleep(100);
+    } catch (err) {
+      fail(err);
+    }
+  });
+
+  test("should create ts organism component", async () => {
+    try {
+      createComponent("test", true, "", "", false, true, false, false, true);
+      await sleep(100);
+      expect(fs.existsSync("./src/components/organisms/test/index.tsx")).toBe(
+        true
+      );
+      expect(fs.existsSync("./src/components/organisms/test/styles.ts")).toBe(
+        true
+      );
+      expect(
+        fs.existsSync(
+          "./src/components/organisms/test/__tests__/index.spec.tsx"
+        )
+      ).toBe(true);
+      deleteComponents(["test"], "");
+      await sleep(100);
+    } catch (err) {
+      fail(err);
+    }
+  });
+
+  test("should create js organism component", async () => {
+    try {
+      createComponent("test", false, "", "", false, true, false, false, true);
+      await sleep(100);
+      expect(fs.existsSync("./src/components/organisms/test/index.jsx")).toBe(
+        true
+      );
+      expect(fs.existsSync("./src/components/organisms/test/styles.js")).toBe(
+        true
+      );
+      expect(
+        fs.existsSync(
+          "./src/components/organisms/test/__tests__/index.spec.jsx"
+        )
+      ).toBe(true);
+      deleteComponents(["test"], "");
       await sleep(100);
     } catch (err) {
       fail(err);
