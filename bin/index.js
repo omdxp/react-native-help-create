@@ -281,10 +281,21 @@ yargs
           type: "string",
           describe: "Folder path to combine components or screens",
           demandOption: "This option is mandatory" | true,
+        })
+        .option("atom", {
+          type: "boolean",
+          default: false,
+          describe: "Used to combine atom components",
+        })
+        .option("molecule", {
+          type: "boolean",
+          default: false,
+          describe: "Used to combine molecule components",
         });
     },
     (argv) => {
-      const { component, screen, folder, silent } = argv;
+      const { component, screen, folder, silent, atom, molecule, organism } =
+        argv;
       if (component) {
         if (component.length > 1) {
           combineComponents(component, folder, silent);
