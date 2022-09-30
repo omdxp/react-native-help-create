@@ -1,3 +1,7 @@
+---
+sidebar_position: 6
+---
+
 # Notes
 
 - To see the available commands for `rnhc` you can run:
@@ -87,4 +91,28 @@ rnhc create -n stack --overwrite
 
 - Creating and deleting reducers and actions will not just delete files, but also update other files that depends on them under the `src/redux/` folder (Or your specified path for the root of redux folder in `rnhc.config.json`).
 
-- When creating, deleting or combining components in atom design pattern, if you provide more than one type (e.g `rnhc create -c test --atom --molecule`), `rnhc` will prompt you to choose one of them.
+- You can use the `--silent` option to avoid the prompts for all commands:
+
+```sh
+rnhc create -c foo --silent
+```
+
+- `rnhc` will recommend you similar commands if you type a command that doesn't exist. For example, if you type `rnhc crete -c`, it will prompt you with the following:
+
+```sh
+rnhc <command> [option]
+
+Commands:
+  rnhc create [name]   Create components, screens, navigations and redux
+                       implementation
+  rnhc delete [name]   Delete components, screens, navigations and redux
+                       implementation
+  rnhc combine [name]  Combine components or screens in a folder
+
+Options:
+  --version  Show version number                                       [boolean]
+  --silent   Do not show log messages                                  [boolean]
+  --help     Show help                                                 [boolean]
+
+Did you mean create?
+```

@@ -116,3 +116,5 @@ Options:
 
 Did you mean create?
 ```
+
+- When creating, deleting or combining components in atom design pattern, if you provide more than one type (e.g `rnhc create -c test --atom --molecule`), `rnhc` will prompt you to choose one of them.
