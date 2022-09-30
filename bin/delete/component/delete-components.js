@@ -29,6 +29,15 @@ exports.deleteComponents = (
     console.log("You can only choose one type of component");
     process.exit(1);
   }
+  if (atom) {
+    folder = `${folder}/atoms`;
+  }
+  if (molecule) {
+    folder = `${folder}/molecules`;
+  }
+  if (organism) {
+    folder = `${folder}/organisms`;
+  }
   const { componentsRoot } = config;
   components = components.map((component) => getKebabCase(component));
   folder = folder.includes("/")
@@ -38,7 +47,9 @@ exports.deleteComponents = (
         .join("/")
     : getKebabCase(folder);
   const path =
-    folder === "" ? `${componentsRoot}/` : `${componentsRoot}/${folder}/`;
+    folder === ""
+      ? `${componentsRoot}/`.replace("//", "/")
+      : `${componentsRoot}/${folder}/`.replace("//", "/");
   if (components.length === 0 && folder !== "") {
     try {
       fs.rmdirSync(path);

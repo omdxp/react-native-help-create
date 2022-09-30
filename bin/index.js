@@ -239,7 +239,7 @@ yargs
         organism,
       } = argv;
       if (component) {
-        deleteComponents(component, folder, silent);
+        deleteComponents(component, folder, silent, atom, molecule, organism);
       } else if (screen) {
         deleteScreens(screen, folder, silent);
       } else if (redux) {
