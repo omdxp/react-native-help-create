@@ -88,6 +88,21 @@ yargs
           type: "boolean",
           default: false,
           describe: "Used to overwrite created files",
+        })
+        .option("atom", {
+          type: "boolean",
+          default: false,
+          describe: "Used to create atom components",
+        })
+        .option("molecule", {
+          type: "boolean",
+          default: false,
+          describe: "Used to create molecule components",
+        })
+        .option("organism", {
+          type: "boolean",
+          default: false,
+          describe: "Used to create organism components",
         });
     },
     (argv) => {
@@ -104,12 +119,25 @@ yargs
         template,
         overwrite,
         silent,
+        atom,
+        molecule,
+        organism,
       } = argv;
       // check if project is written in typescript
       ts = languageChecker() === "ts" ? true : ts;
       if (component) {
         component.forEach((c) =>
-          createComponent(c, ts, folder, template, overwrite, silent)
+          createComponent(
+            c,
+            ts,
+            folder,
+            template,
+            overwrite,
+            silent,
+            atom,
+            molecule,
+            organism
+          )
         );
       } else if (screen) {
         screen.forEach((s) =>

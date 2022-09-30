@@ -16,6 +16,9 @@ const { config, getComponentName, getKebabCase } = require("../../../utils");
  * @param {string} template - template file to create component with.
  * @param {boolean} overwrite - overwrite existed files.
  * @param {boolean} silent - do not show log messages.
+ * @param {boolean} atom - create atom component.
+ * @param {boolean} molecule - create molecule component.
+ * @param {boolean} organism - create organism component.
  * @author [omdxp](https://github.com/omdxp)
  */
 exports.createComponent = (
@@ -24,8 +27,29 @@ exports.createComponent = (
   folder,
   template,
   overwrite,
-  silent
+  silent,
+  atom,
+  molecule,
+  organism
 ) => {
+  if (
+    (atom && molecule && organism) ||
+    (atom && molecule) ||
+    (atom && organism) ||
+    (molecule && organism)
+  ) {
+    console.log("You can only choose one type of component");
+    process.exit(1);
+  }
+  if (atom) {
+    folder = `${folder}/atoms`;
+  }
+  if (molecule) {
+    folder = `${folder}/molecules`;
+  }
+  if (organism) {
+    folder = `${folder}/organisms`;
+  }
   const { withStyles, withProps, withTests, defaultExports, componentsRoot } =
     config;
   componentName = getKebabCase(componentName);
@@ -39,16 +63,28 @@ exports.createComponent = (
   if (ts) {
     const path =
       folder === ""
-        ? `${componentsRoot}/${componentName}/index.tsx`
-        : `${componentsRoot}/${folder}/${componentName}/index.tsx`;
+        ? `${componentsRoot}/${componentName}/index.tsx`.replace("//", "/")
+        : `${componentsRoot}/${folder}/${componentName}/index.tsx`.replace(
+            "//",
+            "/"
+          );
     const stylesPath =
       folder === ""
-        ? `${componentsRoot}/${componentName}/styles.ts`
-        : `${componentsRoot}/${folder}/${componentName}/styles.ts`;
+        ? `${componentsRoot}/${componentName}/styles.ts`.replace("//", "/")
+        : `${componentsRoot}/${folder}/${componentName}/styles.ts`.replace(
+            "//",
+            "/"
+          );
     const testsPath =
       folder === ""
-        ? `${componentsRoot}/${componentName}/__tests__/index.spec.tsx`
-        : `${componentsRoot}/${folder}/${componentName}/__tests__/index.spec.tsx`;
+        ? `${componentsRoot}/${componentName}/__tests__/index.spec.tsx`.replace(
+            "//",
+            "/"
+          )
+        : `${componentsRoot}/${folder}/${componentName}/__tests__/index.spec.tsx`.replace(
+            "//",
+            "/"
+          );
 
     if (fs.existsSync(path) && !overwrite) {
       !silent && console.log(`${path} already exist`);
@@ -136,16 +172,28 @@ exports.createComponent = (
   } else {
     const path =
       folder === ""
-        ? `${componentsRoot}/${componentName}/index.jsx`
-        : `${componentsRoot}/${folder}/${componentName}/index.jsx`;
+        ? `${componentsRoot}/${componentName}/index.jsx`.replace("//", "/")
+        : `${componentsRoot}/${folder}/${componentName}/index.jsx`.replace(
+            "//",
+            "/"
+          );
     const stylesPath =
       folder === ""
-        ? `${componentsRoot}/${componentName}/styles.js`
-        : `${componentsRoot}/${folder}/${componentName}/styles.js`;
+        ? `${componentsRoot}/${componentName}/styles.js`.replace("//", "/")
+        : `${componentsRoot}/${folder}/${componentName}/styles.js`.replace(
+            "//",
+            "/"
+          );
     const testsPath =
       folder === ""
-        ? `${componentsRoot}/${componentName}/__tests__/index.spec.jsx`
-        : `${componentsRoot}/${folder}/${componentName}/__tests__/index.spec.jsx`;
+        ? `${componentsRoot}/${componentName}/__tests__/index.spec.jsx`.replace(
+            "//",
+            "/"
+          )
+        : `${componentsRoot}/${folder}/${componentName}/__tests__/index.spec.jsx`.replace(
+            "//",
+            "/"
+          );
     if (fs.existsSync(path) && !overwrite) {
       !silent && console.log(`${path} already exist`);
     } else {
