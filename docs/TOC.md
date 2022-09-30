@@ -26,5 +26,8 @@
    - [Configuration](./DELETING_FILES.md#configuration)
 4. [Combining Files](./COMBINING_FILES.md)
    - [Components](./COMBINING_FILES.md#components)
+   - - [Atoms](./COMBINING_FILES.md#atoms)
+   - - [Molecules](./COMBINING_FILES.md#molecules)
+   - - [Organisms](./COMBINING_FILES.md#organisms)
    - [Screens](./COMBINING_FILES.md#screens)
 5. [Notes](./NOTES.md)
