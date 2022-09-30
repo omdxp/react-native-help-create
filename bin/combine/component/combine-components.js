@@ -7,9 +7,29 @@ const { config, getKebabCase } = require("../../utils");
  * @param {Array} components - array of components to be combined.
  * @param {string} folder - folder path to contain the combined components.
  * @param {boolean} silent - do not show log messages.
+ * @param {boolean} atom - combine atom components.
+ * @param {boolean} molecule - combine molecule components.
+ * @param {boolean} organism - combine organism components.
  * @author [omdxp](https://github.com/omdxp)
  */
-exports.combineComponents = (components, folder, silent) => {
+exports.combineComponents = (
+  components,
+  folder,
+  silent,
+  atom,
+  molecule,
+  organism
+) => {
+  if (
+    (atom && molecule && organism) ||
+    (atom && molecule) ||
+    (atom && organism) ||
+    (molecule && organism)
+  ) {
+    console.log("You can only choose one type of component");
+    process.exit(1);
+  }
+
   const { componentsRoot } = config;
   components = components.map((component) => getKebabCase(component));
   folder = folder.includes("/")
@@ -18,8 +38,18 @@ exports.combineComponents = (components, folder, silent) => {
         .map((folder) => getKebabCase(folder))
         .join("/")
     : getKebabCase(folder);
-  const path = `${componentsRoot}/`;
-  const _path = `${path}${folder}/`;
+  let path = `${componentsRoot}/`;
+  if (atom) {
+    path = `${path}/atoms/`;
+  }
+  if (molecule) {
+    path = `${path}/molecules/`;
+  }
+  if (organism) {
+    path = `${path}/organisms/`;
+  }
+  path = path.replace("//", "/");
+  const _path = `${path}${folder}/`.replace("//", "/");
   let folders = [];
   components.forEach((component) => {
     fs.readdirSync(path)

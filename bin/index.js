@@ -291,6 +291,11 @@ yargs
           type: "boolean",
           default: false,
           describe: "Used to combine molecule components",
+        })
+        .option("organism", {
+          type: "boolean",
+          default: false,
+          describe: "Used to combine organism components",
         });
     },
     (argv) => {
@@ -298,7 +303,14 @@ yargs
         argv;
       if (component) {
         if (component.length > 1) {
-          combineComponents(component, folder, silent);
+          combineComponents(
+            component,
+            folder,
+            silent,
+            atom,
+            molecule,
+            organism
+          );
         } else {
           !silent && console.log("At least give 2 components");
         }
