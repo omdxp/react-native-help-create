@@ -1,0 +1,222 @@
+---
+sidebar_position: 3
+---
+
+import Tabs from "@theme/Tabs";
+import TabItem from "@theme/TabItem";
+import CodeBlock from "@theme/CodeBlock";
+import TestScreenJSSource from "!!raw-loader!./screens/js/test-screen";
+import TestScreenStylesJSSource from "!!raw-loader!./screens/js/test-screen/styles";
+import TestScreenTestJSSource from "!!raw-loader!./screens/js/test-screen/__tests__/index.spec";
+import TestScreenFunctionsJSSource from "!!raw-loader!./screens/js/test-screen/functions";
+import TestScreenTSSource from "!!raw-loader!./screens/ts/test-screen";
+import TestScreenStylesTSSource from "!!raw-loader!./screens/ts/test-screen/styles";
+import TestScreenTestTSSource from "!!raw-loader!./screens/ts/test-screen/__tests__/index.spec";
+import TestScreenFunctionsTSSource from "!!raw-loader!./screens/ts/test-screen/functions";
+
+# Create Screens
+
+## Create a Screen
+
+- To create your screen simply run:
+
+```sh
+rnhc create -s <screen-name>
+```
+
+- This will create a screen after the given name `screen-name` under the `src/screens/` folder.
+
+### Example
+
+```sh
+rnhc create -s testScreen
+```
+
+- This will create the following:
+
+<Tabs groupId="language">
+  <TabItem value="js" label="JavaScript" default>
+    <CodeBlock>{`src/
+└── screens
+    └── test-screen
+        ├── __tests__
+        │   └── index.spec.jsx
+        ├── functions
+        │   └── index.js
+        ├── index.jsx
+        └── styles.js`}</CodeBlock>
+  </TabItem>
+  <TabItem value="ts" label="TypeScript">
+    <CodeBlock>{`src/
+└── screens
+    └── test-screen
+        ├── __tests__
+        │   └── index.spec.tsx
+        ├── functions
+        │   └── index.ts
+        ├── index.tsx
+        └── styles.ts`}</CodeBlock>
+  </TabItem>
+</Tabs>
+
+- Where `index.*` represent the screen which is nothing but a React FC component that contains the following:
+
+<Tabs groupId="language">
+  <TabItem value="js" label="JavaScript" default>
+    <CodeBlock language="jsx">{TestScreenJSSource}</CodeBlock>
+  </TabItem>
+  <TabItem value="ts" label="TypeScript">
+    <CodeBlock language="tsx">{TestScreenTSSource}</CodeBlock>
+  </TabItem>
+</Tabs>
+
+- As for `styles.*` you will find:
+
+<Tabs groupId="language">
+  <TabItem value="js" label="JavaScript" default>
+    <CodeBlock language="jsx">{TestScreenStylesJSSource}</CodeBlock>
+  </TabItem>
+  <TabItem value="ts" label="TypeScript">
+    <CodeBlock language="tsx">{TestScreenStylesTSSource}</CodeBlock>
+  </TabItem>
+</Tabs>
+
+- And `index.spec.*` will contain:
+
+<Tabs groupId="language">
+  <TabItem value="js" label="JavaScript" default>
+    <CodeBlock language="jsx">{TestScreenTestJSSource}</CodeBlock>
+  </TabItem>
+  <TabItem value="ts" label="TypeScript">
+    <CodeBlock language="tsx">{TestScreenTestTSSource}</CodeBlock>
+  </TabItem>
+</Tabs>
+
+- And under the `functions` folder you should write your screen's functions and export them in `function/index.*` file, which by default it will contain the following:
+
+<Tabs groupId="language">
+  <TabItem value="js" label="JavaScript" default>
+    <CodeBlock language="jsx">{TestScreenFunctionsJSSource}</CodeBlock>
+  </TabItem>
+  <TabItem value="ts" label="TypeScript">
+    <CodeBlock language="tsx">{TestScreenFunctionsTSSource}</CodeBlock>
+  </TabItem>
+</Tabs>
+
+## Create multiple Screens
+
+- To create multiple screens simply run:
+
+```sh
+rnhc create -s <screen-name-1> <screen-name-2> ...
+```
+
+- This will create multiple screens under the `src/screens/` folder.
+
+### Example
+
+```sh
+rnhc create -s screen-1 screen-2
+```
+
+- This will create the following:
+
+<Tabs groupId="language">
+  <TabItem value="js" label="JavaScript" default>
+    <CodeBlock>{`src/
+└── screens
+    ├── screen-1
+    │   ├── __tests__
+    │   │   └── index.spec.jsx
+    │   ├── functions
+    │   │   └── index.js
+    │   ├── index.jsx
+    │   └── styles.js
+    └── screen-2
+        ├── __tests__
+        │   └── index.spec.jsx
+        ├── functions
+        │   └── index.js
+        ├── index.jsx
+        └── styles.js`}</CodeBlock>
+  </TabItem>
+  <TabItem value="ts" label="TypeScript">
+    <CodeBlock>{`src/
+└── screens
+    ├── screen-1
+    │   ├── __tests__
+    │   │   └── index.spec.tsx
+    │   ├── functions
+    │   │   └── index.ts
+    │   ├── index.tsx
+    │   └── styles.ts
+    └── screen-2
+        ├── __tests__
+        │   └── index.spec.tsx
+        ├── functions
+        │   └── index.ts
+        ├── index.tsx
+        └── styles.ts`}</CodeBlock>
+  </TabItem>
+</Tabs>
+
+## Create Screens in a Specific Folder
+
+- To create one or multiple screens in a specific path that resides under `src/screens/` folder, simply run:
+
+```sh
+rnhc create -s <screen-name-1> <screen-name-2> ... -f <folder-path>
+```
+
+- This will create your screens under the `src/screens/<folder-path>` folder.
+
+### Example
+
+```sh
+rnhc create -s screen-1 screen-2 -f foo/bar
+```
+
+- This will create the following:
+
+<Tabs groupId="language">
+  <TabItem value="js" label="JavaScript" default>
+    <CodeBlock>{`src/
+└── screens
+    └── foo
+        └── bar
+            ├── screen-1
+            │   ├── __tests__
+            │   │   └── index.spec.jsx
+            │   ├── functions
+            │   │   └── index.js
+            │   ├── index.jsx
+            │   └── styles.js
+            └── screen-2
+                ├── __tests__
+                │   └── index.spec.jsx
+                ├── functions
+                │   └── index.js
+                ├── index.jsx
+                └── styles.js`}</CodeBlock>
+  </TabItem>
+  <TabItem value="ts" label="TypeScript">
+    <CodeBlock>{`src/
+└── screens
+    └── foo
+        └── bar
+            ├── screen-1
+            │   ├── __tests__
+            │   │   └── index.spec.tsx
+            │   ├── functions
+            │   │   └── index.ts
+            │   ├── index.tsx
+            │   └── styles.ts
+            └── screen-2
+                ├── __tests__
+                │   └── index.spec.tsx
+                ├── functions
+                │   └── index.ts
+                ├── index.tsx
+                └── styles.ts`}</CodeBlock>
+  </TabItem>
+</Tabs>

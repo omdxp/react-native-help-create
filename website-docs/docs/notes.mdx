@@ -2,6 +2,10 @@
 sidebar_position: 6
 ---
 
+import Tabs from "@theme/Tabs";
+import TabItem from "@theme/TabItem";
+import CodeBlock from "@theme/CodeBlock";
+
 # Notes
 
 - To see the available commands for `rnhc` you can run:
@@ -46,16 +50,26 @@ rnhc create -c TestComp
 
 The above commands produce the same outcome:
 
-```sh
-src/
+<Tabs groupId="language">
+  <TabItem value="js" label="JavaScript" default>
+    <CodeBlock language="jsx">{`src/
 └── components
     └── test-comp
         ├── __tests__
         │   └── index.spec.jsx
         ├── index.jsx
-        └── styles.js
-
-```
+        └── styles.js`}</CodeBlock>
+  </TabItem>
+  <TabItem value="ts" label="TypeScript">
+    <CodeBlock language="tsx">{`src/
+└── components
+    └── test-comp
+        ├── __tests__
+        │   └── index.spec.tsx
+        ├── index.tsx
+        └── styles.ts`}</CodeBlock>
+  </TabItem>
+</Tabs>
 
 - You can always overwrite your implementation using the `--overwrite` or `-o` option, for example:
 

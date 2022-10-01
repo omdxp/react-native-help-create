@@ -1,0 +1,406 @@
+---
+sidebar_position: 4
+---
+
+import Tabs from "@theme/Tabs";
+import TabItem from "@theme/TabItem";
+import CodeBlock from "@theme/CodeBlock";
+import Navigation1JSSource from "!!raw-loader!./navigations/js/navigation-1.jsx";
+import Navigation2JSSource from "!!raw-loader!./navigations/js/navigation-2.jsx";
+import Navigation1TSSource from "!!raw-loader!./navigations/ts/navigation-1.tsx";
+import Navigation2TSSource from "!!raw-loader!./navigations/ts/navigation-2.tsx";
+
+# Create Navigations
+
+Navigations are the relations between chosen screens.
+
+## Create Navigation for specific screens
+
+- To create a navigation between two or more screens, simply run:
+
+```sh
+rnhc create -n <navigation-type> <screen-name-1> <screen-name-2> ...
+```
+
+- The `<navigation-type>` can be either of these types: `stack`, `native-stack`, `drawer`, `bottom-tabs`, `material-bottom-tabs` or `material-top-tabs`.
+
+- The number of given screens should be 2 or more.
+
+- If one of the screens does not exist, `rnhc` will try to create the `navigation.*` file that resides next to the existed screens.
+
+- If all screens does not exist, `rhnc` will prompt you the following:
+
+```sh
+None of these screens exist
+```
+
+### Example
+
+```sh
+rnhc create -n stack screen-1 screen-2
+```
+
+- This will create a `navigation.*` file next to `screen-1` and `screen-2` screens as the following:
+
+<Tabs groupId="language">
+  <TabItem value="js" label="JavaScript" default>
+    <CodeBlock>{`src/
+└── screens
+    ├── navigation.jsx
+    ├── screen-1
+    │   ├── __tests__
+    │   │   └── index.spec.jsx
+    │   ├── functions
+    │   │   └── index.js
+    │   ├── index.jsx
+    │   └── styles.js
+    └── screen-2
+        ├── __tests__
+        │   └── index.spec.jsx
+        ├── functions
+        │   └── index.js
+        ├── index.jsx
+        └── styles.js`}</CodeBlock>
+  </TabItem>
+  <TabItem value="ts" label="TypeScript">
+    <CodeBlock>{`src/
+└── screens
+    ├── navigation.tsx
+    ├── screen-1
+    │   ├── __tests__
+    │   │   └── index.spec.tsx
+    │   ├── functions
+    │   │   └── index.js
+    │   ├── index.tsx
+    │   └── styles.ts
+    └── screen-2
+        ├── __tests__
+        │   └── index.spec.tsx
+        ├── functions
+        │   └── index.ts
+        ├── index.tsx
+        └── styles.ts`}</CodeBlock>
+  </TabItem>
+</Tabs>
+
+- The content for the `navigation.*` file is as the following:
+
+<Tabs groupId="language">
+  <TabItem value="js" label="JavaScript" default>
+    <CodeBlock language="jsx">{Navigation1JSSource}</CodeBlock>
+  </TabItem>
+  <TabItem value="ts" label="TypeScript">
+    <CodeBlock language="tsx">{Navigation1TSSource}</CodeBlock>
+  </TabItem>
+</Tabs>
+
+## Create Navigation for specific screens in a specific folder
+
+- To create a navigation file for screens that resides in a specific path under the `src/screens/` folder, you can run this:
+
+```sh
+rnhc create -n <navigation-type> <screen-name-1> <screen-name-2> ... -f <folder-path>
+```
+
+- This will create the `navigation.*` file under the `src/screens/<folder-path>/` folder for the screens that resides in the same location.
+
+### Example
+
+```sh
+rhnc create -n drawer screen-1 screen-2 -f foo/bar
+```
+
+- This will create `navigation.*` file under `src/screens/foo/bar/` folder which contains the following:
+
+<Tabs groupId="language">
+  <TabItem value="js" label="JavaScript" default>
+    <CodeBlock language="jsx">{Navigation1JSSource}</CodeBlock>
+  </TabItem>
+  <TabItem value="ts" label="TypeScript">
+    <CodeBlock language="tsx">{Navigation1TSSource}</CodeBlock>
+  </TabItem>
+</Tabs>
+
+## Create Navigation that depends on other navigations
+
+- To create a navigation that depends on another navigation you can run the same command as this:
+
+```sh
+rnhc create -n <navigation-type> <screen-name-1> <screen-name-2> ... <another-navigation-folder>
+```
+
+- This will create `navigation.*` file that resides in the same location for the given inputs.
+
+### Example
+
+In this example, we have the following structure:
+
+<Tabs groupId="language">
+  <TabItem value="js" label="JavaScript" default>
+    <CodeBlock>{`src/
+└── screens
+    ├── folder
+    │   ├── navigation.jsx
+    │   ├── screen-one
+    │   │   ├── __tests__
+    │   │   │   └── index.spec.jsx
+    │   │   ├── functions
+    │   │   │   └── index.js
+    │   │   ├── index.jsx
+    │   │   └── styles.js
+    │   └── screen-two
+    │       ├── __tests__
+    │       │   └── index.spec.jsx
+    │       ├── functions
+    │       │   └── index.js
+    │       ├── index.jsx
+    │       └── styles.js
+    └── screen-three
+        ├── __tests__
+        │   └── index.spec.jsx
+        ├── functions
+        │   └── index.js
+        ├── index.jsx
+        └── styles.js`}</CodeBlock>
+  </TabItem>
+  <TabItem value="ts" label="TypeScript">
+    <CodeBlock>{`src/
+└── screens
+    ├── folder
+    │   ├── navigation.tsx
+    │   ├── screen-one
+    │   │   ├── __tests__
+    │   │   │   └── index.spec.tsx
+    │   │   ├── functions
+    │   │   │   └── index.ts
+    │   │   ├── index.tsx
+    │   │   └── styles.ts
+    │   └── screen-two
+    │       ├── __tests__
+    │       │   └── index.spec.tsx
+    │       ├── functions
+    │       │   └── index.ts
+    │       ├── index.tsx
+    │       └── styles.ts
+    └── screen-three
+        ├── __tests__
+        │   └── index.spec.tsx
+        ├── functions
+        │   └── index.ts
+        ├── index.tsx
+        └── styles.ts`}</CodeBlock>
+  </TabItem>
+</Tabs>
+
+Where we have a drawer navigation between `screen-one` and `screen-two` under the `folder` folder. And we want to create a stack navigation between `folder` and `screen-three`. And to show that `rnhc` will continue to run for the existed screens we added in the command line `screen-four` which does not exist as the following:
+
+```sh
+rnhc create -n stack folder screen-three screen-four
+```
+
+- The command will output the following:
+
+<Tabs groupId="language">
+  <TabItem value="js" label="JavaScript" default>
+    <CodeBlock language="jsx">{`src/screens/screen-four/ does not exist
+src/screens/navigation.jsx created`}</CodeBlock>
+  </TabItem>
+  <TabItem value="ts" label="TypeScript">
+    <CodeBlock language="tsx">{`src/screens/screen-four/ does not exist
+src/screens/navigation.tsx created`}</CodeBlock>
+  </TabItem>
+</Tabs>
+
+- And it will add a new `navigation.*` that resides between `folder` and `screen-three` as the following:
+
+<Tabs groupId="language">
+  <TabItem value="js" label="JavaScript" default>
+    <CodeBlock>{`src/
+└── screens
+    ├── folder
+    │   ├── navigation.jsx
+    │   ├── screen-one
+    │   │   ├── __tests__
+    │   │   │   └── index.spec.jsx
+    │   │   ├── functions
+    │   │   │   └── index.js
+    │   │   ├── index.jsx
+    │   │   └── styles.js
+    │   └── screen-two
+    │       ├── __tests__
+    │       │   └── index.spec.jsx
+    │       ├── functions
+    │       │   └── index.js
+    │       ├── index.jsx
+    │       └── styles.js
+    ├── navigation.jsx
+    └── screen-three
+        ├── __tests__
+        │   └── index.spec.jsx
+        ├── functions
+        │   └── index.js
+        ├── index.jsx
+        └── styles.js`}</CodeBlock>
+  </TabItem>
+  <TabItem value="ts" label="TypeScript">
+    <CodeBlock>{`src/
+└── screens
+    ├── folder
+    │   ├── navigation.tsx
+    │   ├── screen-one
+    │   │   ├── __tests__
+    │   │   │   └── index.spec.tsx
+    │   │   ├── functions
+    │   │   │   └── index.ts
+    │   │   ├── index.tsx
+    │   │   └── styles.ts
+    │   └── screen-two
+    │       ├── __tests__
+    │       │   └── index.spec.tsx
+    │       ├── functions
+    │       │   └── index.ts
+    │       ├── index.tsx
+    │       └── styles.ts
+    ├── navigation.tsx
+    └── screen-three
+        ├── __tests__
+        │   └── index.spec.tsx
+        ├── functions
+        │   └── index.ts
+        ├── index.tsx
+        └── styles.ts`}</CodeBlock>
+  </TabItem>
+</Tabs>
+
+- And the content of the new `navigation.*` file will be like this:
+
+<Tabs groupId="language">
+  <TabItem value="js" label="JavaScript" default>
+    <CodeBlock language="jsx">{Navigation2JSSource}</CodeBlock>
+  </TabItem>
+  <TabItem value="ts" label="TypeScript">
+    <CodeBlock language="tsx">{Navigation2TSSource}</CodeBlock>
+  </TabItem>
+</Tabs>
+
+## Create Navigation for all screens
+
+- To create a navigation file for multiple screens that resides at the root of the `src/screens/` folder, you can run this:
+
+```sh
+rnhc create -n <navigation-type>
+```
+
+- This will create the navigation file for all existed screens in the `src/screens/` folder.
+
+You can also run this command to create a navigation file for multiple screens that resides in a specific path under the `src/screens/` folder:
+
+```sh
+rnhc create -n <navigation-type> -f <folder-path>
+```
+
+- This will create the navigation file for all existed screens in the `src/screens/<folder-path>/` folder.
+
+- This also work for the nested navigations.
+
+- All the sub folders should contain the navigation files so it can be added to the navigation file you want to create, for example take this structure:
+
+<Tabs groupId="language">
+  <TabItem value="js" label="JavaScript" default>
+    <CodeBlock>{`src/
+└── screens
+    ├── folder
+    │   ├── screen-one
+    │   │   ├── __tests__
+    │   │   │   └── index.spec.jsx
+    │   │   ├── functions
+    │   │   │   └── index.js
+    │   │   ├── index.jsx
+    │   │   └── styles.js
+    │   └── screen-two
+    │       ├── __tests__
+    │       │   └── index.spec.jsx
+    │       ├── functions
+    │       │   └── index.js
+    │       ├── index.jsx
+    │       └── styles.js
+    ├── navigation.jsx
+    ├── screen-four
+    │   ├── __tests__
+    │   │   └── index.spec.jsx
+    │   ├── functions
+    │   │   └── index.js
+    │   ├── index.jsx
+    │   └── styles.js
+    └── screen-three
+        ├── __tests__
+        │   └── index.spec.jsx
+        ├── functions
+        │   └── index.js
+        ├── index.jsx
+        └── styles.js`}</CodeBlock>
+  </TabItem>
+  <TabItem value="ts" label="TypeScript">
+    <CodeBlock>{`src/
+└── screens
+    ├── folder
+    │   ├── screen-one
+    │   │   ├── __tests__
+    │   │   │   └── index.spec.tsx
+    │   │   ├── functions
+    │   │   │   └── index.ts
+    │   │   ├── index.tsx
+    │   │   └── styles.ts
+    │   └── screen-two
+    │       ├── __tests__
+    │       │   └── index.spec.tsx
+    │       ├── functions
+    │       │   └── index.ts
+    │       ├── index.tsx
+    │       └── styles.ts
+    ├── navigation.tsx
+    ├── screen-four
+    │   ├── __tests__
+    │   │   └── index.spec.tsx
+    │   ├── functions
+    │   │   └── index.ts
+    │   ├── index.tsx
+    │   └── styles.ts
+    └── screen-three
+        ├── __tests__
+        │   └── index.spec.tsx
+        ├── functions
+        │   └── index.ts
+        ├── index.tsx
+        └── styles.ts`}</CodeBlock>
+  </TabItem>
+</Tabs>
+
+When you try to create a navigation like this:
+
+```sh
+rnhc create -n stack
+```
+
+It will output the following:
+
+<Tabs groupId="language">
+  <TabItem value="js" label="JavaScript" default>
+    <CodeBlock language="jsx">{`./src/screens/folder/navigation.jsx does not exist
+./src/screens/navigation.jsx created`}</CodeBlock>
+  </TabItem>
+  <TabItem value="ts" label="TypeScript">
+    <CodeBlock language="tsx">{`./src/screens/folder/navigation.tsx does not exist
+./src/screens/navigation.tsx created`}</CodeBlock>
+  </TabItem>
+</Tabs>
+
+And the `./src/screens/navigation.*` file will only contain `screen-three` and `screen-four` because the `src/screens/folder` does not contain a navigation file.
+
+So if you want to create a navigation file for all existed screens in the `src/screens/` folder, you must take in consideration that all subfolders must contain a navigation file first and then you can either update the navigation file or create a new one.
+
+By updating it means overwriting in other words, so you can just do this:
+
+```sh
+rnhc create -n stack -o
+```

@@ -2,14 +2,72 @@
 sidebar_position: 1
 ---
 
+import Tabs from "@theme/Tabs";
+import TabItem from "@theme/TabItem";
+import CodeBlock from "@theme/CodeBlock";
+
 # Summary
 
 This command line help you create your React Native project in a easy and useful structure by creating components and screens in separate folders in order to distinguish between them. It also make it easier to create navigations for your screens without writing a single line of code.
 
 The following project structure is used by this command:
 
-```
-src/
+<Tabs groupId="language">
+  <TabItem value="js" label="JavaScript" default>
+    <CodeBlock>{`src/
+├── components
+│   ├── comp-one
+│   │   ├── __tests__
+│   │   │   └── index.spec.jsx
+│   │   ├── index.jsx
+│   │   └── styles.js
+│   ├── comp-two
+│   │   ├── __tests__
+│   │   │   └── index.spec.jsx
+│   │   ├── index.jsx
+│   │   └── styles.js
+│   └── folder
+│       └── comp-three
+│           ├── __tests__
+│           │   └── index.spec.jsx
+│           ├── index.jsx
+│           └── styles.js
+├── redux
+│   ├── actions
+│   │   └── general
+│   │       └── index.js
+│   ├── index.js
+│   └── reducers
+│       ├── general
+│       │   └── index.js
+│       └── index.js
+└── screens
+    ├── folder
+    │   ├── navigation.jsx
+    │   ├── screen-four
+    │   │   ├── __tests__
+    │   │   │   └── index.spec.jsx
+    │   │   ├── index.jsx
+    │   │   └── styles.js
+    │   └── screen-three
+    │       ├── __tests__
+    │       │   └── index.spec.jsx
+    │       ├── index.jsx
+    │       └── styles.js
+    ├── navigation.jsx
+    ├── screen-one
+    │   ├── __tests__
+    │   │   └── index.spec.jsx
+    │   ├── index.jsx
+    │   └── styles.js
+    └── screen-two
+        ├── __tests__
+        │   └── index.spec.jsx
+        ├── index.jsx
+        └── styles.js`}</CodeBlock>
+  </TabItem>
+  <TabItem value="ts" label="TypeScript">
+    <CodeBlock>{`src/
 ├── components
 │   ├── comp-one
 │   │   ├── __tests__
@@ -59,8 +117,9 @@ src/
         ├── __tests__
         │   └── index.spec.tsx
         ├── index.tsx
-        └── styles.ts
-```
+        └── styles.ts`}</CodeBlock>
+  </TabItem>
+</Tabs>
 
 - As you can see above, the `src` folder is the folder that resides at the root of your React Native project and under this folder, you will find the `components` folder which contains all the shared components that are used through out the screen. The `screens` folder contains the app's screens that can uses some of the shared components above it.
 

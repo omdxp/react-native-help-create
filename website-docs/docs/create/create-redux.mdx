@@ -1,0 +1,280 @@
+---
+sidebar_position: 6
+---
+
+import Tabs from "@theme/Tabs";
+import TabItem from "@theme/TabItem";
+import CodeBlock from "@theme/CodeBlock";
+import ReduxIndex1JSSource from "!!raw-loader!./redux/js/r1";
+import GeneralAction1JSSource from "!!raw-loader!./redux/js/r1/actions/general";
+import GeneralReducer1JSSource from "!!raw-loader!./redux/js/r1/reducers/general";
+import ReducersIndex1JSSource from "!!raw-loader!./redux/js/r1/reducers";
+import ReduxIndex1TSSource from "!!raw-loader!./redux/ts/r1";
+import GeneralAction1TSSource from "!!raw-loader!./redux/ts/r1/actions/general";
+import GeneralReducer1TSSource from "!!raw-loader!./redux/ts/r1/reducers/general";
+import ReducersIndex1TSSource from "!!raw-loader!./redux/ts/r1/reducers";
+import AuthReducer2JSSource from "!!raw-loader!./redux/js/r2/reducers/auth";
+import ReducersIndex2JSSource from "!!raw-loader!./redux/js/r2/reducers";
+import LoginAction2JSSource from "!!raw-loader!./redux/js/r2/actions/auth/login";
+import AuthActionsIndex2JSSource from "!!raw-loader!./redux/js/r2/actions/auth";
+import AuthReducer2TSSource from "!!raw-loader!./redux/ts/r2/reducers/auth";
+import ReducersIndex2TSSource from "!!raw-loader!./redux/ts/r2/reducers";
+import LoginAction2TSSource from "!!raw-loader!./redux/ts/r2/actions/auth/login";
+import AuthActionsIndex2TSSource from "!!raw-loader!./redux/ts/r2/actions/auth";
+
+# Create Redux
+
+To create a redux implementation run:
+
+```sh
+rnhc create -r
+```
+
+- This will create a `redux` folder under the `src/` folder containing the following:
+
+<Tabs groupId="language">
+  <TabItem value="js" label="JavaScript" default>
+    <CodeBlock>{`src/
+└── redux
+    ├── actions
+    │   └── general
+    │       └── index.js
+    ├── index.js
+    └── reducers
+        ├── general
+        │   └── index.js
+        └── index.js`}</CodeBlock>
+  </TabItem>
+  <TabItem value="ts" label="TypeScript">
+    <CodeBlock>{`src/
+└── redux
+    ├── actions
+    │   └── general
+    │       └── index.ts
+    ├── index.ts
+    └── reducers
+        ├── general
+        │   └── index.ts
+        └── index.ts`}</CodeBlock>
+  </TabItem>
+</Tabs>
+
+- Where `index.*` under the `redux` folder contains the redux store definition:
+
+<Tabs groupId="language">
+  <TabItem value="js" label="JavaScript" default>
+    <CodeBlock language="js">{ReduxIndex1JSSource}</CodeBlock>
+  </TabItem>
+  <TabItem value="ts" label="TypeScript">
+    <CodeBlock language="ts">{ReduxIndex1TSSource}</CodeBlock>
+  </TabItem>
+</Tabs>
+
+- And `actions` folder contains the action for each reducer, as for a example, at first `rnhc` will create a sample reducer and action which is called `general`.
+
+- The `general` action's `index.*` contains:
+
+<Tabs groupId="language">
+  <TabItem value="js" label="JavaScript" default>
+    <CodeBlock language="js">{GeneralAction1JSSource}</CodeBlock>
+  </TabItem>
+  <TabItem value="ts" label="TypeScript">
+    <CodeBlock language="ts">{GeneralAction1TSSource}</CodeBlock>
+  </TabItem>
+</Tabs>
+
+- And the `general` reducer's `index.*` contains:
+
+<Tabs groupId="language">
+  <TabItem value="js" label="JavaScript" default>
+    <CodeBlock language="js">{GeneralReducer1JSSource}</CodeBlock>
+  </TabItem>
+  <TabItem value="ts" label="TypeScript">
+    <CodeBlock language="ts">{GeneralReducer1TSSource}</CodeBlock>
+  </TabItem>
+</Tabs>
+
+- And the `index.*` file under the `reducers` folder contains the following:
+
+<Tabs groupId="language">
+  <TabItem value="js" label="JavaScript" default>
+    <CodeBlock language="js">{ReducersIndex1JSSource}</CodeBlock>
+  </TabItem>
+  <TabItem value="ts" label="TypeScript">
+    <CodeBlock language="ts">{ReducersIndex1TSSource}</CodeBlock>
+  </TabItem>
+</Tabs>
+
+# Reducers
+
+## Create a reducer
+
+- To create a reducer, you must have a redux implementation then run:
+
+```sh
+rnhc create --reducer <reducer-name>
+```
+
+### Example
+
+```sh
+rnhc create --reducer auth
+```
+
+- This will create a `auth` reducer under the `src/redux/reducers/` folder and the `index.*` for this reducer will contain the same code written in the template.
+
+`src/redux/reducers/auth/index.*`
+
+<Tabs groupId="language">
+  <TabItem value="js" label="JavaScript" default>
+    <CodeBlock language="js">{AuthReducer2JSSource}</CodeBlock>
+  </TabItem>
+  <TabItem value="ts" label="TypeScript">
+    <CodeBlock language="ts">{AuthReducer2TSSource}</CodeBlock>
+  </TabItem>
+</Tabs>
+
+- It will also add the reducer to the `index.*` file under the `reducers` folder to use it in the `combineReducers` function.
+
+`src/redux/reducers/index.*`
+
+<Tabs groupId="language">
+  <TabItem value="js" label="JavaScript" default>
+    <CodeBlock language="js">{ReducersIndex2JSSource}</CodeBlock>
+  </TabItem>
+  <TabItem value="ts" label="TypeScript">
+    <CodeBlock language="ts">{ReducersIndex2TSSource}</CodeBlock>
+  </TabItem>
+</Tabs>
+
+- If you don't have a redux implementation create using `rnhc create -r`, this command will prompt:
+
+```sh
+Redux implementation does not exist
+```
+
+- You can also overwrite the reducer by running:
+
+```sh
+rnhc create --reducer <reducer-name> -o
+```
+
+## Create multiple reducers
+
+- To create multiple reducers, you must have a redux implementation then run:
+
+```sh
+rnhc create --reducer <reducer-name-1> <reducer-name-2> ...
+```
+
+- This will also update your `index.*` file under the `reducers` folder to use the reducers you created.
+
+# Actions
+
+## Create an action
+
+- To create an action, you must have a redux implementation as wee as the reducer you want to add an action for it, then run:
+
+```sh
+rnhc create --action <reducer-name> <action-name>
+```
+
+### Example
+
+- In this example we are going to create an action for the `auth` reducer, so we will run:
+
+```sh
+rnhc create --action auth login
+```
+
+- This will create a `login` action under the `src/redux/actions/auth/` folder and the `login.*` for this action will contain the same code written in the template.
+
+`src/redux/actions/auth/login.*`
+
+<Tabs groupId="language">
+  <TabItem value="js" label="JavaScript" default>
+    <CodeBlock language="js">{LoginAction2JSSource}</CodeBlock>
+  </TabItem>
+  <TabItem value="ts" label="TypeScript">
+    <CodeBlock language="ts">{LoginAction2TSSource}</CodeBlock>
+  </TabItem>
+</Tabs>
+
+- And it will update the `index.*` file under `src/redux/actions/auth/` to export the action.
+
+`src/redux/actions/auth/index.*`
+
+<Tabs groupId="language">
+  <TabItem value="js" label="JavaScript" default>
+    <CodeBlock language="js">{AuthActionsIndex2JSSource}</CodeBlock>
+  </TabItem>
+  <TabItem value="ts" label="TypeScript">
+    <CodeBlock language="ts">{AuthActionsIndex2TSSource}</CodeBlock>
+  </TabItem>
+</Tabs>
+
+## Create multiple actions
+
+- To create multiple actions, you must have a redux implementation and existed reducer, then run:
+
+```sh
+rnhc create --action <reducer-name> <action-name-1> <action-name-2> ...
+```
+
+- If the reducer doesn't exist, you will get an error like this:
+
+```sh
+./src/redux/reducers/x does not exist
+```
+
+- Keep in mind that this also works for TypeScript projects. Even better when creating an action for a reducer in TypeScript, you will get TypeScript support as well as updating the `ActionType` in the `src/redux/index.ts` file. For example if you create an action for the `auth` reducer, you will get the following:
+
+`src/redux/index.ts`
+
+```ts
+import { applyMiddleware, compose, createStore } from "redux";
+import thunk, { ThunkAction, ThunkDispatch } from "redux-thunk";
+
+import { mainReducer } from "./reducers";
+
+/**
+ * the main redux state, with all the reducers
+ */
+export const mainStore = createStore(
+  mainReducer,
+  compose(applyMiddleware(thunk))
+);
+
+/**
+ * Creates a new redux state each time this function is called, this is used only for unit tests, to ensure that we have fresh state on each individual test
+ */
+export const createMainStore = () => {
+  return createStore(mainReducer, compose(applyMiddleware(thunk)));
+};
+
+export type StateInterface = ReturnType<typeof mainStore.getState>;
+
+/**
+ * list of action types
+ */
+export type ActionType = "AUTH_LOGIN" | "UPDATE_GENERAL";
+
+export interface Action<T> {
+  type: ActionType;
+  payload: Partial<T>;
+}
+export type ThunkResult<
+  A = Record<string, unknown>,
+  E = Record<string, unknown>
+> = ThunkAction<void, StateInterface, E, Action<A>>;
+
+export type Dispatch<A> = ThunkDispatch<
+  StateInterface,
+  Record<string, unknown>,
+  Action<A>
+>;
+```
+
+- It will also update the necessary files that imports and exports modules in order to use the action in the reducer.
+
+- Also another note, if you prefer not using `redux-thunk` you can set that in `rnhc.config.json` file, this will let you create your store and actions without applying the `redux-thunk` middleware (For more details check [configuration section](./using-configuration)).
