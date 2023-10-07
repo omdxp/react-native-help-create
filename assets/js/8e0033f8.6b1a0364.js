@@ -1,0 +1,1 @@
+"use strict";(self.webpackChunkrnhc_docs=self.webpackChunkrnhc_docs||[]).push([[7428],{223:e=>{e.exports=JSON.parse('{"permalink":"/react-native-help-create/blog/tags/docusaurus","page":1,"postsPerPage":10,"totalPages":1,"totalCount":4,"blogDescription":"Blog","blogTitle":"Blog"}')}}]);
