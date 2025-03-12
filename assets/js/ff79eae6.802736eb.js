@@ -1,0 +1,1 @@
+"use strict";(self.webpackChunkrnhc_docs=self.webpackChunkrnhc_docs||[]).push([[8084],{2814:e=>{e.exports=JSON.parse('{"label":"hello","permalink":"/react-native-help-create/blog/tags/hello","allTagsPath":"/react-native-help-create/blog/tags","count":2}')}}]);
