@@ -22,7 +22,7 @@ This command line helps you create components, screens, navigations and even red
   </a>
 </p>
 
-[![Rate this package](https://badges.openbase.com/js/rating/react-native-help-create.svg?token=jaha1TEOwxBzmHNH3/CKrz3l1UzPeeSD4rfe2cSGD+I=)](https://openbase.com/js/react-native-help-create?utm_source=embedded&utm_medium=badge&utm_campaign=rate-badge)
+[![Rate this package](https://badges.openbase.com/js/rating/react-native-help-create.svg?token=jaha1TEOwxBzmHNH3/CKrz3l1UzPeeSD4rfe2cSGD+I=)](https://openbase.com/js/react-native-help-create?utm_source=embedded&utm_medium=badge&utm_campaign=rate-badge) [![kandi X-Ray](https://kandi.openweaver.com/badges/xray.svg)](https://kandi.openweaver.com/javascript/Omar-Belghaouti/react-native-help-create)
 
 ## How to install it?
 
