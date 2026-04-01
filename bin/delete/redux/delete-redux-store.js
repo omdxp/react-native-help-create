@@ -14,6 +14,13 @@ exports.deleteReduxStore = (silent) => {
     fs.rmdirSync(path);
     !silent && console.log(`${path} deleted`);
   } catch (err) {
-    !silent && console.log(`${path} does not exist`);
+    if (err.code === 'ENOENT') {
+      !silent && console.log(`${path} does not exist`);
+    } else if (err.code === 'ENOTEMPTY' || err.code === 'EEXIST') {
+      fs.rmSync(path, { recursive: true, force: true });
+      !silent && console.log(`${path} deleted`);
+    } else {
+      !silent && console.error(`Error deleting ${path}: ${err.message}`);
+    }
   }
 };
